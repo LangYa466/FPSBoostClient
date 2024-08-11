@@ -33,8 +33,8 @@ import net.minecraft.src.Config;
 import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.render.Render2DEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.render.Render2DEvent;
 
 import java.util.Collection;
 import java.util.List;

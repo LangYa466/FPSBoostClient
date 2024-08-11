@@ -30,8 +30,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.misc.GuiClickEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.misc.GuiClickEvent;
 import tv.twitch.chat.ChatUserInfo;
 
 import java.awt.*;

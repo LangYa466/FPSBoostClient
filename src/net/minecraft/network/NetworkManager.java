@@ -25,9 +25,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.network.PacketReceiveEvent;
-import org.union4dev.base.events.network.PacketSendEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.network.PacketReceiveEvent;
+import com.fpsboost.events.network.PacketSendEvent;
 
 import javax.crypto.SecretKey;
 import java.net.InetAddress;

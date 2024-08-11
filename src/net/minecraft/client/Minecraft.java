@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import com.fpsboost.util.CPSCounter;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -93,11 +94,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
-import org.union4dev.base.Access;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.misc.KeyInputEvent;
-import org.union4dev.base.events.misc.MiddleClickEvent;
-import org.union4dev.base.events.update.TickEvent;
+import com.fpsboost.Access;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.misc.KeyInputEvent;
+import com.fpsboost.events.misc.MiddleClickEvent;
+import com.fpsboost.events.update.TickEvent;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -175,7 +176,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     public EntityRenderer entityRenderer;
 
     /** Mouse left click counter */
-    private int leftClickCounter;
+    public int leftClickCounter;
 
     /** Display width */
     private final int tempDisplayWidth;
@@ -544,7 +545,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.9");
+        Display.setTitle(String.format("FPSBoost %s | Minecraft 1.8.9",Access.CLIENT_VERSION));
 
         try
         {
@@ -1423,6 +1424,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     private void clickMouse()
     {
+        CPSCounter.registerClick(CPSCounter.MouseButton.LEFT);
+
         if (this.leftClickCounter <= 0)
         {
             this.thePlayer.swingItem();
@@ -1470,6 +1473,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     @SuppressWarnings("incomplete-switch")
     private void rightClickMouse()
     {
+        CPSCounter.registerClick(CPSCounter.MouseButton.RIGHT);
+
         if (!this.playerController.getIsHittingBlock())
         {
             this.rightClickDelayTimer = 4;

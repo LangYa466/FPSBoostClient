@@ -24,11 +24,11 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.movement.MotionUpdateEvent;
-import org.union4dev.base.events.movement.MoveEvent;
-import org.union4dev.base.events.movement.SlowdownEvent;
-import org.union4dev.base.events.update.UpdateEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.movement.MotionUpdateEvent;
+import com.fpsboost.events.movement.MoveEvent;
+import com.fpsboost.events.movement.SlowdownEvent;
+import com.fpsboost.events.update.UpdateEvent;
 
 public class EntityPlayerSP extends AbstractClientPlayer
 {

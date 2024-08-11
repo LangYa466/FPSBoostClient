@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 import net.optifine.entity.model.IEntityRenderer;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.render.RenderNameTagEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.render.RenderNameTagEvent;
 
 public abstract class Render<T extends Entity> implements IEntityRenderer
 {

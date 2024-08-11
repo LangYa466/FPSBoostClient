@@ -636,7 +636,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         GlStateManager.scale(f, f, f);
         this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
         GlStateManager.popMatrix();
-        String s = "Minecraft 1.8.9";
+        String s = "FPSBoost | Minecraft 1.8.9";
 
         if (this.mc.isDemo())
         {
@@ -668,7 +668,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
         }
 
-        String s2 = "Copyright Mojang AB. Do not distribute!";
+        String s2 = "FPSBoost by LangYa466 | Copyright Mojang AB. Do not distribute!";
         this.drawString(this.fontRendererObj, s2, this.width - this.fontRendererObj.getStringWidth(s2) - 2, this.height - 10, -1);
 
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0)

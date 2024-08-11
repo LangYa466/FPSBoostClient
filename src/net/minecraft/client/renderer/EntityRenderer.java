@@ -72,9 +72,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.render.HurtCamEvent;
-import org.union4dev.base.events.render.Render3DEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.render.HurtCamEvent;
+import com.fpsboost.events.render.Render3DEvent;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;

@@ -54,26 +54,26 @@ public enum FunctionType {
     VEC4(ExpressionType.FLOAT_ARRAY, "vec4", ExpressionType.FLOAT, ExpressionType.FLOAT, ExpressionType.FLOAT,
             ExpressionType.FLOAT);
 
-    private int precedence;
-    private ExpressionType expressionType;
-    private String name;
-    private IParameters parameters;
+    private final int precedence;
+    private final ExpressionType expressionType;
+    private final String name;
+    private final IParameters parameters;
     public static FunctionType[] VALUES = values();
     private static final Map<Integer, Float> mapSmooth = new HashMap<>();
 
-    private FunctionType(ExpressionType expressionType, String name, ExpressionType... parameterTypes) {
+    FunctionType(ExpressionType expressionType, String name, ExpressionType... parameterTypes) {
         this(0, expressionType, name, parameterTypes);
     }
 
-    private FunctionType(int precedence, ExpressionType expressionType, String name, ExpressionType... parameterTypes) {
+    FunctionType(int precedence, ExpressionType expressionType, String name, ExpressionType... parameterTypes) {
         this(precedence, expressionType, name, new Parameters(parameterTypes));
     }
 
-    private FunctionType(ExpressionType expressionType, String name, IParameters parameters) {
+    FunctionType(ExpressionType expressionType, String name, IParameters parameters) {
         this(0, expressionType, name, parameters);
     }
 
-    private FunctionType(int precedence, ExpressionType expressionType, String name, IParameters parameters) {
+    FunctionType(int precedence, ExpressionType expressionType, String name, IParameters parameters) {
         this.precedence = precedence;
         this.expressionType = expressionType;
         this.name = name;
@@ -142,13 +142,13 @@ public enum FunctionType {
                 return MathUtils.acos(evalFloat(args, 0));
 
             case TAN:
-                return (float) Math.tan((double) evalFloat(args, 0));
+                return (float) Math.tan(evalFloat(args, 0));
 
             case ATAN:
-                return (float) Math.atan((double) evalFloat(args, 0));
+                return (float) Math.atan(evalFloat(args, 0));
 
             case ATAN2:
-                return (float) MathHelper.atan2((double) evalFloat(args, 0), (double) evalFloat(args, 1));
+                return (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
 
             case TORAD:
                 return MathUtils.toRad(evalFloat(args, 0));
@@ -163,13 +163,13 @@ public enum FunctionType {
                 return this.getMax(args);
 
             case CLAMP:
-                return (Float) MathHelper.clamp_float(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
+                return MathHelper.clamp_float(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
 
             case ABS:
                 return MathHelper.abs(evalFloat(args, 0));
 
             case EXP:
-                return (float) Math.exp((double) evalFloat(args, 0));
+                return (float) Math.exp(evalFloat(args, 0));
 
             case FLOOR:
                 return (float) MathHelper.floor_float(evalFloat(args, 0));
@@ -181,10 +181,10 @@ public enum FunctionType {
                 return (float) MathHelper.func_181162_h(evalFloat(args, 0));
 
             case LOG:
-                return (float) Math.log((double) evalFloat(args, 0));
+                return (float) Math.log(evalFloat(args, 0));
 
             case POW:
-                return (float) Math.pow((double) evalFloat(args, 0), (double) evalFloat(args, 1));
+                return (float) Math.pow(evalFloat(args, 0), evalFloat(args, 1));
 
             case RANDOM:
                 return (float) Math.random();

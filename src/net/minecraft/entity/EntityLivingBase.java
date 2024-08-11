@@ -30,8 +30,8 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import org.union4dev.base.events.EventManager;
-import org.union4dev.base.events.movement.JumpEvent;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.movement.JumpEvent;
 
 import java.util.*;
 
