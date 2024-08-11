@@ -19,7 +19,7 @@ import com.fpsboost.gui.click.ClickGuiScreen;
 @LiteInvoke.Instance
 public final class Access {
 
-    public static final String CLIENT_VERSION = "1.02";
+    public static final String CLIENT_VERSION = "1.03";
     public static String CLIENT_NAME = "FPSBoost Client";
 
     /**
