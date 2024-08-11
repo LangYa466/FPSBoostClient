@@ -29,7 +29,7 @@ import java.awt.*;
 public class KeyStore  implements Access.InstanceAccess {
     private final NumberValue offsetValue = new NumberValue("间隔", 3, 2.5, 10, .5);
     private final NumberValue sizeValue = new NumberValue("大小", 25, 15, 35, 1);
-    private static final NumberValue opacity = new NumberValue("透明度", 0.6, 0.5, 1, .05);
+    private static final NumberValue opacity = new NumberValue("透明度", 0.25, 0.0, 1, .05);
     private static final NumberValue radius = new NumberValue("圆角", 3, 1, 17.5, .5);
 
     private final Dragging dragging = Access.getInstance().getDragManager().createDrag(this.getClass(), "Keystrokes", 70, 70);
@@ -54,7 +54,7 @@ public class KeyStore  implements Access.InstanceAccess {
             keyBindJump = new Button(mc.gameSettings.keyBindJump);
         }
 
-        float x = dragging.getX(), y = dragging.getY(), width = dragging.getWidth(), height = dragging.getHeight(), size = sizeValue.getValue().floatValue();
+        float x = dragging.getX(), y = dragging.getY(), width = dragging.getWidth(), size = sizeValue.getValue().floatValue();
 
         Button.font = FontManager.M22;
 
@@ -88,7 +88,7 @@ public class KeyStore  implements Access.InstanceAccess {
             float offsetX = 0;
             int offsetY = 0;
 
-            font.drawCenteredString(Keyboard.getKeyName(binding.getKeyCode()), x + width / 2 + offsetX, y + height / 2 - font.getHeight() / 2f + offsetY, Color.WHITE.getRGB());
+            font.drawCenteredString(Keyboard.getKeyName(binding.getKeyCode()), x + width / 2 + offsetX, y + height / 2 - font.getHeight() / 2f + offsetY + 2F, Color.WHITE.getRGB());
 
             if (!clickAnimation.finished(Direction.BACKWARDS)) {
                 float animation = clickAnimation.getOutput().floatValue();

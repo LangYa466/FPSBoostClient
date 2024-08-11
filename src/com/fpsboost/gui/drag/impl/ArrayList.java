@@ -35,16 +35,16 @@ public class ArrayList implements Access.InstanceAccess {
         for (Class<?> m : access.getModuleManager().getModules()) {
             if (!Access.getInstance().getModuleManager().isVisible(m)) continue;
             if (access.getModuleManager().isEnabled(m) && access.getModuleManager().isVisible(m)) {
-                int widthM = FontManager.M18.getStringWidth(access.getModuleManager().format(m));
+                int widthM = FontManager.M22.getStringWidth(access.getModuleManager().format(m));
                 if (width < widthM) {
                     width = widthM;
                     pos.setWidth(width);
                 }
                 enabledModules.add(m);
-                pos.setHeight(FontManager.M18.getHeight() * enabledModules.size());
+                pos.setHeight(FontManager.M22.getHeight() * enabledModules.size());
             }
         }
-        enabledModules.sort((o1, o2) -> FontManager.M18.getStringWidth(access.getModuleManager().format(o2)) - FontManager.M18.getStringWidth(access.getModuleManager().format(o1)));
+        enabledModules.sort((o1, o2) -> FontManager.M22.getStringWidth(access.getModuleManager().format(o2)) - FontManager.M22.getStringWidth(access.getModuleManager().format(o1)));
         for (Class<?> module : enabledModules) {
             Color c = Color.white;
             switch (colorMode.getValue()) {
@@ -54,8 +54,8 @@ public class ArrayList implements Access.InstanceAccess {
                 case "彩虹":
                     c = ColorUtil.rainbow();
             }
-            FontManager.M18.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, c.getRGB());
-            y1 += FontManager.M18.getHeight() + spacing.getValue().intValue();
+            FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, c.getRGB());
+            y1 += FontManager.M22.getHeight() + spacing.getValue().intValue();
         }
     }
 

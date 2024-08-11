@@ -193,11 +193,13 @@ public class GuiChat extends GuiScreen {
 
         resetButtonHover.setDirection(hovering ? Direction.FORWARDS : Direction.BACKWARDS);
 
-        float alpha = (float) (.5f + (.5 * resetButtonHover.getOutput().floatValue()));
-        RoundedUtil.drawRoundOutline(width / 2f - 50, 20, 100, 20, 10, 2,
-                new Color(40, 40, 40, (int) (255 * alpha)), new Color(0,0,0,80));
+        if (hovering) {
+            RoundedUtil.drawRound(width / 2f - 50, 20, 100, 20, 10, new Color(0,0,0,120));
+        } else {
+            RoundedUtil.drawRound(width / 2f - 50, 20, 100, 20, 10, new Color(0,0,0,80));
+        }
 
-        FontManager.M18.drawCenteredString("还原全部位置", width / 2f, 20 + FontManager.M18.getMiddleOfBox(20), -1);
+        FontManager.M18.drawCenteredString("还原全部位置", width / 2f, 23 + FontManager.M18.getMiddleOfBox(20), -1);
 
 
         super.drawScreen(mouseX, mouseY, partialTicks);

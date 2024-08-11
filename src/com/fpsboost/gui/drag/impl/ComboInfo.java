@@ -22,11 +22,11 @@ import java.awt.*;
 public class ComboInfo implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
-    private final NumberValue opacity = new NumberValue("背景不透明度", 0.6, 0.5, 1, .05);
+    private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
     private final Dragging pos = Access.getInstance().getDragManager().createDrag( this.getClass(),"comboinfo", 50, 50);
 
-    private final UnicodeFontRenderer fontRenderer = FontManager.M18;
+    private final UnicodeFontRenderer fontRenderer = FontManager.M22;
 
     public static Entity target;
     public static int combo = 0;
@@ -56,9 +56,9 @@ public class ComboInfo implements Access.InstanceAccess {
         float y = pos.getYPos();
         String text = String.format("Combo: %s", combo);
         Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
-        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 1.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
+        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
         pos.setWH(fontRenderer.getStringWidth(text),fontRenderer.getHeight());
-        fontRenderer.drawStringWithShadow(text, x, y + 1.5,-1);
+        fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
     }
 
 

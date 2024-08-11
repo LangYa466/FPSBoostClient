@@ -29,7 +29,7 @@ public class HUD implements Access.InstanceAccess {
     @LiteInvoke.Autowired
     private ModuleManager moduleManager;
     private final BooleanValue backgroundValue = new BooleanValue("背景",false);
-    private final NumberValue opacity = new NumberValue("背景不透明度", 0.6, 0.5, 1, .05);
+    private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
     private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(),"logo", 4, 4);
 
@@ -40,7 +40,7 @@ public class HUD implements Access.InstanceAccess {
      */
     @EventTarget
     public void onRender2D(Render2DEvent event) {
-        UnicodeFontRenderer fontRenderer = FontManager.M18;
+        UnicodeFontRenderer fontRenderer = FontManager.M22;
         String text = "FPSBoost";
 
         float x = pos.getXPos();

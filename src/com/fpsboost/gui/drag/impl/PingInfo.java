@@ -20,9 +20,9 @@ import java.awt.*;
 public class PingInfo implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
-    private final NumberValue opacity = new NumberValue("背景不透明度", 0.6, 0.5, 1, .05);
+    private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
-    UnicodeFontRenderer fontRenderer = FontManager.M18;
+    UnicodeFontRenderer fontRenderer = FontManager.M22;
     private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(), "pinginfo", 33, 33);
 
 
@@ -39,8 +39,8 @@ public class PingInfo implements Access.InstanceAccess {
         }
         Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
 
-        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 1.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
+        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
         pos.setWH(fontRenderer.getStringWidth(text),fontRenderer.getHeight());
-        fontRenderer.drawStringWithShadow(text, x, y + 1.5,-1);
+        fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
     }
 }
