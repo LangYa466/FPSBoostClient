@@ -23,7 +23,7 @@ import java.io.IOException;
 @LiteInvoke.Instance
 public final class Access {
 
-    public static final String CLIENT_VERSION = "1.04";
+    public static final String CLIENT_VERSION = "1.05";
     public static String CLIENT_NAME = "FPSBoost Client";
 
     /**
@@ -81,6 +81,7 @@ public final class Access {
      */
     public Access() {
 
+        /*
         try {
             if (!WebUtils.get("https://gitee.com/langya1337/fpsboost/raw/master/version.txt").contains(CLIENT_VERSION)) {
                 displayTray("您的版本不是最新版","出现BUG请勿反馈");
@@ -88,6 +89,8 @@ public final class Access {
         } catch (IOException e) {
             System.out.println("版本校验失败");
         }
+
+         */
 
         INSTANCE = this;
 
