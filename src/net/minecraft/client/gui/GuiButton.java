@@ -1,9 +1,6 @@
 package net.minecraft.client.gui;
 
 import com.fpsboost.gui.font.FontManager;
-import com.fpsboost.util.animations.Animation;
-import com.fpsboost.util.animations.Direction;
-import com.fpsboost.util.animations.impl.DecelerateAnimation;
 import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import net.minecraft.client.Minecraft;
@@ -62,24 +59,15 @@ public class GuiButton extends Gui
         return i;
     }
 
-    public Animation hoverAnimation = new DecelerateAnimation(250, 1, Direction.BACKWARDS);
-
     public void drawButton(Minecraft mc, int mouseX, int mouseY)
     {
         if (this.visible)
         {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-            if(hovered) RoundedUtil.drawRound(this.xPosition, this.yPosition, this.width, this.height, 10, new Color(0, 0, 0, 160));
-            else RoundedUtil.drawRound(this.xPosition, this.yPosition, this.width, this.height, 10, new Color(0, 0, 0, 80));
+            if(hovered) RoundedUtil.drawRound(this.xPosition, this.yPosition, this.width, this.height, 2, new Color(255, 255, 255, 120));
+            else RoundedUtil.drawRound(this.xPosition, this.yPosition, this.width, this.height, 2, new Color(255, 255, 255, 60));
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            hoverAnimation.setDirection(Direction.FORWARDS);
-            if (!hoverAnimation.isDone() || hoverAnimation.finished(Direction.FORWARDS)) {
-                RoundedUtil.drawRoundOutline(this.xPosition, this.yPosition, width, height, 10, 1,
-                        ColorUtil.applyOpacity(Color.WHITE, 0), ColorUtil.applyOpacity(Color.WHITE, hoverAnimation.getOutput().floatValue()));
-            } else {
-                hoverAnimation.reset();
-            }
 
             this.mouseDragged(mc, mouseX, mouseY);
 

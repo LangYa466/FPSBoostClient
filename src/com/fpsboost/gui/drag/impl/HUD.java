@@ -40,7 +40,7 @@ public class HUD implements Access.InstanceAccess {
      */
     @EventTarget
     public void onRender2D(Render2DEvent event) {
-        UnicodeFontRenderer fontRenderer = FontManager.M22;
+        UnicodeFontRenderer fontRenderer = FontManager.M50;
         String text = "FPSBoost";
 
         float x = pos.getXPos();
