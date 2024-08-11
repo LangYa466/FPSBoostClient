@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import com.fpsboost.Access;
 import com.fpsboost.module.render.OldAnimation;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -378,17 +379,19 @@ public class ItemRenderer
 
             if (this.itemToRender != null)
             {
-                if (OldAnimation.oldRod.getValue() && itemToRender.getItem() instanceof ItemCarrotOnAStick) {
-                    GlStateManager.translate(0.08F, -0.027F, -0.33F);
-                    GlStateManager.scale(0.93F, 1.0F, 1.0F);
-                }
-                if (OldAnimation.oldRod.getValue() && itemToRender.getItem() instanceof ItemFishingRod) {
-                    GlStateManager.translate(0.08F, -0.027F, -0.33F);
-                    GlStateManager.scale(0.93F, 1.0F, 1.0F);
-                }
-                if (OldAnimation.oldSwing.getValue() && f1 != 0.0F && !mc.thePlayer.isBlocking() && !mc.thePlayer.isEating() && !mc.thePlayer.isUsingItem()) {
-                    GlStateManager.scale(0.85F, 0.85F, 0.85F);
-                    GlStateManager.translate(-0.06F, 0.003F, 0.05F);
+                if (Access.getInstance().getModuleManager().isEnabled(OldAnimation.class)) {
+                    if (OldAnimation.oldRod.getValue() && itemToRender.getItem() instanceof ItemCarrotOnAStick) {
+                        GlStateManager.translate(0.08F, -0.027F, -0.33F);
+                        GlStateManager.scale(0.93F, 1.0F, 1.0F);
+                    }
+                    if (OldAnimation.oldRod.getValue() && itemToRender.getItem() instanceof ItemFishingRod) {
+                        GlStateManager.translate(0.08F, -0.027F, -0.33F);
+                        GlStateManager.scale(0.93F, 1.0F, 1.0F);
+                    }
+                    if (OldAnimation.oldSwing.getValue() && f1 != 0.0F && !mc.thePlayer.isBlocking() && !mc.thePlayer.isEating() && !mc.thePlayer.isUsingItem()) {
+                        GlStateManager.scale(0.85F, 0.85F, 0.85F);
+                        GlStateManager.translate(-0.06F, 0.003F, 0.05F);
+                    }
                 }
                 if (this.itemToRender.getItem() instanceof ItemMap)
                 {
