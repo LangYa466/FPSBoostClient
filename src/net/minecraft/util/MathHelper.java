@@ -2,6 +2,9 @@ package net.minecraft.util;
 
 import java.util.Random;
 import java.util.UUID;
+
+import com.fpsboost.api.betterfps.BetterFpsConfig;
+import com.fpsboost.api.betterfps.math.*;
 import net.optifine.util.MathUtils;
 
 public class MathHelper
@@ -41,6 +44,18 @@ public class MathHelper
      */
     public static float sin(float p_76126_0_)
     {
+        switch (BetterFpsConfig.getConfig().algorithm) {
+            case "java":
+                return JavaMath.sin(p_76126_0_);
+            case "libgdx":
+                return LibGDXMath.sin(p_76126_0_);
+            case "rivens-full":
+                return RivensFullMath.sin(p_76126_0_);
+            case "rivens-half":
+                return RivensHalfMath.sin(p_76126_0_);
+            case "rivens":
+                return RivensMath.sin(p_76126_0_);
+        }
         return fastMath ? SIN_TABLE_FAST[(int)(p_76126_0_ * radToIndex) & 4095] : SIN_TABLE[(int)(p_76126_0_ * 10430.378F) & 65535];
     }
 
@@ -49,6 +64,18 @@ public class MathHelper
      */
     public static float cos(float value)
     {
+        switch (BetterFpsConfig.getConfig().algorithm) {
+            case "java":
+                return JavaMath.cos(value);
+            case "libgdx":
+                return LibGDXMath.cos(value);
+            case "rivens-full":
+                return RivensFullMath.cos(value);
+            case "rivens-half":
+                return RivensHalfMath.cos(value);
+            case "rivens":
+                return RivensMath.cos(value);
+        }
         return fastMath ? SIN_TABLE_FAST[(int)(value * radToIndex + 1024.0F) & 4095] : SIN_TABLE[(int)(value * 10430.378F + 16384.0F) & 65535];
     }
 
@@ -577,5 +604,19 @@ public class MathHelper
             field_181165_f[k] = Math.cos(d1);
             field_181164_e[k] = d1;
         }
+    }
+
+    /**
+     * Returns the greatest integer less than or equal to the double argument
+     */
+    public static int floor(double value)
+    {
+        int i = (int)value;
+        return value < (double)i ? i - 1 : i;
+    }
+
+    public static float sqrt(double value)
+    {
+        return (float)Math.sqrt(value);
     }
 }

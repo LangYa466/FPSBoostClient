@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.misc.TextEvent;
 import com.ibm.icu.text.ArabicShaping;
 import com.ibm.icu.text.ArabicShapingException;
 import com.ibm.icu.text.Bidi;
@@ -392,6 +394,11 @@ public class FontRenderer implements IResourceManagerReloadListener
      */
     public int drawString(String text, float x, float y, int color, boolean dropShadow)
     {
+        TextEvent textEvent = new TextEvent(text);
+        EventManager.call(textEvent);
+        if (textEvent.isCancelled()) return 0;
+        text  = textEvent.text;
+
         this.enableAlpha();
 
         if (this.blend)
@@ -682,6 +689,11 @@ public class FontRenderer implements IResourceManagerReloadListener
      */
     public int getStringWidth(String text)
     {
+        TextEvent textEvent = new TextEvent(text);
+        EventManager.call(textEvent);
+        if (textEvent.isCancelled()) return 0;
+        text = textEvent.text;
+
         if (text == null)
         {
             return 0;

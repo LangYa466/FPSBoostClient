@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import com.fpsboost.api.betterfps.BetterFpsClient;
 import com.fpsboost.util.CPSCounter;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
@@ -518,6 +519,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         new Access();
 
         this.renderGlobal.makeEntityOutlineShader();
+        BetterFpsClient.start(this);
     }
 
     private void registerMetadataSerializers()

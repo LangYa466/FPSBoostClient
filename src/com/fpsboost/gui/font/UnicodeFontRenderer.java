@@ -4,6 +4,8 @@ import java.awt.font.*;
 import java.util.*;
 import java.awt.geom.*;
 
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.misc.TextEvent;
 import com.fpsboost.util.RenderUtil;
 import net.minecraft.client.renderer.*;
 import org.lwjgl.opengl.*;
@@ -175,6 +177,10 @@ public class UnicodeFontRenderer {
     
     public final int drawString(String str, float x, float y, int color, final boolean darken) {
         str = str.replace("\u25ac", "=");
+        TextEvent textEvent = new TextEvent(str);
+        EventManager.call(textEvent);
+        if (textEvent.isCancelled()) return 0;
+        str  = textEvent.text;
         y -= 2.0f;
         x *= 2.0f;
         y *= 2.0f;
@@ -222,10 +228,14 @@ public class UnicodeFontRenderer {
         return height / 2.0f - getHeight() / 2.0f;
     }
     
-    public int getStringWidth(final String text) {
+    public int getStringWidth(String text) {
         if (text == null) {
             return 0;
         }
+        TextEvent textEvent = new TextEvent(text);
+        EventManager.call(textEvent);
+        if (textEvent.isCancelled()) return 0;
+        text  = textEvent.text;
         int width = 0;
         final char[] currentData = text.toCharArray();
         for (int size = text.length(), i = 0; i < size; ++i) {

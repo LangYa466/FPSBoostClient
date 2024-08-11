@@ -3,11 +3,15 @@ package com.fpsboost;
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.util.LiteInvoke;
+import com.fpsboost.util.WebUtils;
 import net.minecraft.client.Minecraft;
 import com.fpsboost.annotations.system.Command;
 import com.fpsboost.command.CommandManager;
 
 import com.fpsboost.gui.click.ClickGuiScreen;
+
+import java.awt.*;
+import java.io.IOException;
 
 /**
  * Client Entry
@@ -19,7 +23,7 @@ import com.fpsboost.gui.click.ClickGuiScreen;
 @LiteInvoke.Instance
 public final class Access {
 
-    public static final String CLIENT_VERSION = "1.03";
+    public static final String CLIENT_VERSION = "1.04";
     public static String CLIENT_NAME = "FPSBoost Client";
 
     /**
@@ -53,10 +57,38 @@ public final class Access {
     */
     private final LiteInvoke invoke;
 
+    public static void displayTray(String title, String text, TrayIcon.MessageType type) {
+        SystemTray tray = SystemTray.getSystemTray();
+        Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
+        trayIcon.setImageAutoSize(true);
+        trayIcon.setToolTip("System tray icon demo");
+        try {
+            tray.add(trayIcon);
+            trayIcon.displayMessage(title, text, type);
+        } catch (AWTException e) {
+            System.err.println("TrayIcon could not be added.");
+        }
+    }
+
+
+    public static void displayTray(String title, String text) {
+        displayTray(title,text, TrayIcon.MessageType.INFO);
+    }
+
     /**
      * Entry point
      */
     public Access() {
+
+        try {
+            if (!WebUtils.get("https://gitee.com/langya1337/fpsboost/raw/master/version.txt").contains(CLIENT_VERSION)) {
+                displayTray("您的版本不是最新版","出现BUG请勿反馈");
+            }
+        } catch (IOException e) {
+            System.out.println("版本校验失败");
+        }
+
         INSTANCE = this;
 
         // Initialize managers
