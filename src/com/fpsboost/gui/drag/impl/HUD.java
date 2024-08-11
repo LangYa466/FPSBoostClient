@@ -12,6 +12,12 @@ import com.fpsboost.module.boost.Sprint;
 import com.fpsboost.util.LiteInvoke;
 import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.module.Category;
+import com.fpsboost.util.render.ColorUtil;
+import com.fpsboost.util.render.RoundedUtil;
+import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.NumberValue;
+
+import java.awt.*;
 
 @Module(value = "客户端Logo",category = Category.GUI)
 @Startup // enable when client startup
@@ -22,7 +28,9 @@ public class HUD implements Access.InstanceAccess {
 
     @LiteInvoke.Autowired
     private ModuleManager moduleManager;
-
+    private final BooleanValue backgroundValue = new BooleanValue("背景",false);
+    private final NumberValue opacity = new NumberValue("背景不透明度", 0.6, 0.5, 1, .05);
+    private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
     private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(),"logo", 4, 4);
 
     /**
@@ -33,10 +41,16 @@ public class HUD implements Access.InstanceAccess {
     @EventTarget
     public void onRender2D(Render2DEvent event) {
         UnicodeFontRenderer fontRenderer = FontManager.M18;
-        String name = "FPSBoost";
-        pos.setWidth(fontRenderer.getStringWidth(name));
-        pos.setHeight(fontRenderer.getHeight());
-        FontManager.M18.drawStringWithShadow(name, pos.getX(), pos.getY(), -1);
+        String text = "FPSBoost";
+
+        float x = pos.getXPos();
+        float y = pos.getYPos();
+
+        Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
+
+        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 1.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
+        pos.setWH(fontRenderer.getStringWidth(text),fontRenderer.getHeight());
+        fontRenderer.drawStringWithShadow(text, x, y + 1.5,-1);
     }
 
 }
