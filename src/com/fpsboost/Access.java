@@ -4,7 +4,6 @@ import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.util.LiteInvoke;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.Display;
 import com.fpsboost.annotations.system.Command;
 import com.fpsboost.command.CommandManager;
 
@@ -76,6 +75,8 @@ public final class Access {
         moduleManager.init();
         commandManager.init();
         clickGui.init();
+       // configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
+
     }
 
 

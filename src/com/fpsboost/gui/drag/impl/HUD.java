@@ -1,4 +1,4 @@
-package com.fpsboost.module.fakeHack;
+package com.fpsboost.gui.drag.impl;
 
 import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
@@ -13,7 +13,7 @@ import com.fpsboost.util.LiteInvoke;
 import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.module.Category;
 
-@Module(value = "客户端Logo",category = Category.ClientSetting)
+@Module(value = "客户端Logo",category = Category.GUI)
 @Startup // enable when client startup
 public class HUD implements Access.InstanceAccess {
 

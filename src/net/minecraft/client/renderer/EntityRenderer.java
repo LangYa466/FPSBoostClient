@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer;
 
+import com.fpsboost.Access;
+import com.fpsboost.module.render.OldAnimation;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
@@ -1033,6 +1035,18 @@ public class EntityRenderer implements IResourceManagerReloadListener
             {
                 this.setupViewBobbing(p_renderHand_1_);
             }
+        }
+        if(mc.thePlayer != null && Access.getInstance().getModuleManager().isEnabled(OldAnimation.class) &&
+                OldAnimation.oldBlock.getValue()
+                && mc.objectMouseOver != null
+                && mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
+                && mc.thePlayer != null
+                && mc.gameSettings.keyBindAttack.isKeyDown() && mc.gameSettings.keyBindUseItem.isKeyDown()
+                && mc.thePlayer.getItemInUseCount() > 0 && (!mc.thePlayer.isSwingInProgress
+                || mc.thePlayer.swingProgressInt >= mc.thePlayer.getArmSwingAnimationEnd()
+                / 2 || mc.thePlayer.swingProgressInt < 0)) {
+            mc.thePlayer.swingProgressInt = -1;
+            mc.thePlayer.isSwingInProgress = true;
         }
     }
 

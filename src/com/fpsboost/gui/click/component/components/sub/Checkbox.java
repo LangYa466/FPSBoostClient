@@ -1,5 +1,6 @@
 package com.fpsboost.gui.click.component.components.sub;
 
+import com.fpsboost.gui.click.ClickGuiScreen;
 import com.fpsboost.gui.font.FontManager;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
@@ -34,7 +35,7 @@ public class Checkbox extends Component {
         GL11.glPopMatrix();
         Gui.drawRect(parent.parent.getX() + 3 + 4, parent.parent.getY() + offset + 3, parent.parent.getX() + 9 + 4, parent.parent.getY() + offset + 9, 0xFF999999);
         if (this.op.getValue())
-            Gui.drawRect(parent.parent.getX() + 4 + 4, parent.parent.getY() + offset + 4, parent.parent.getX() + 8 + 4, parent.parent.getY() + offset + 8, 0xFF666666);
+            Gui.drawRect(parent.parent.getX() + 4 + 4, parent.parent.getY() + offset + 4, parent.parent.getX() + 8 + 4, parent.parent.getY() + offset + 8, ClickGuiScreen.color);
     }
 
     @Override

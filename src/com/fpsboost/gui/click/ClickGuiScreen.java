@@ -8,15 +8,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class ClickGuiScreen extends GuiScreen {
 
     public static ArrayList<com.fpsboost.gui.click.component.Frame> frames;
     public static int color = new Color(62, 175, 255).getRGB();
-
-    public ClickGuiScreen() {
-
-    }
 
     public void init(){
         frames = new ArrayList<>();

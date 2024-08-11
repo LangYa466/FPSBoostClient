@@ -14,7 +14,7 @@ import com.fpsboost.value.impl.NumberValue;
 
 import java.awt.*;
 
-@Module(value = "外挂功能显示",category = Category.FakeHack)
+@Module(value = "仿外挂列表",category = Category.GUI)
 public class ArrayList implements Access.InstanceAccess {
 
     private static final ComboValue colorMode = new ComboValue("颜色", "彩虹", "自定义", "彩虹");
@@ -33,7 +33,7 @@ public class ArrayList implements Access.InstanceAccess {
         float y = pos.getYPos();
         java.util.ArrayList<Class<?>> enabledModules = new java.util.ArrayList<>();
         for (Class<?> m : access.getModuleManager().getModules()) {
-            if (Access.getInstance().getModuleManager().isVisible(m)) continue;
+            if (!Access.getInstance().getModuleManager().isVisible(m)) continue;
             if (access.getModuleManager().isEnabled(m) && access.getModuleManager().isVisible(m)) {
                 int widthM = FontManager.M18.getStringWidth(access.getModuleManager().format(m));
                 if (width < widthM) {
