@@ -6,30 +6,24 @@ import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.misc.AttackEvent;
 import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.events.update.TickEvent;
-import com.fpsboost.gui.drag.Dragging;
-import com.fpsboost.gui.font.FontManager;
-import com.fpsboost.gui.font.UnicodeFontRenderer;
 import com.fpsboost.module.Category;
-import com.fpsboost.util.render.ColorUtil;
-import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.entity.Entity;
 
-import java.awt.*;
-
 @Module(value = "连击显示",category = Category.GUI)
-public class ComboInfo implements Access.InstanceAccess {
+public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
-    private final Dragging pos = Access.getInstance().getDragManager().createDrag( this.getClass(),"comboinfo", 50, 50);
-
-    private final UnicodeFontRenderer fontRenderer = FontManager.M22;
 
     public static Entity target;
     public static int combo = 0;
+
+    public ComboInfo() {
+        super("ComboInfo");
+    }
 
     @EventTarget
     public void onTick(TickEvent e) {
@@ -49,16 +43,10 @@ public class ComboInfo implements Access.InstanceAccess {
         target = e.getTarget();
     }
 
-
     @EventTarget
     public void onRender2D(Render2DEvent event) {
-        float x = pos.getXPos();
-        float y = pos.getYPos();
         String text = String.format("Combo: %s", combo);
-        Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
-        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
-        pos.setWH(fontRenderer.getStringWidth(text)  + 10.5F,fontRenderer.getHeight());
-        fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
+        draw(text,backgroundValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
 
 

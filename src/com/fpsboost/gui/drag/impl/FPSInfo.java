@@ -1,40 +1,28 @@
 package com.fpsboost.gui.drag.impl;
 
-import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.render.Render2DEvent;
-import com.fpsboost.gui.drag.Dragging;
-import com.fpsboost.gui.font.FontManager;
-import com.fpsboost.gui.font.UnicodeFontRenderer;
 import com.fpsboost.module.Category;
-import com.fpsboost.util.CPSCounter;
-import com.fpsboost.util.render.ColorUtil;
-import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.Minecraft;
 
-import java.awt.*;
-
 @Module(value = "FPS显示",category = Category.GUI)
-public class FPSInfo {
+public class FPSInfo extends TextDisplay {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
-    UnicodeFontRenderer fontRenderer = FontManager.M22;
-    private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(), "fpsinfo", 85, 85);
+
+    public FPSInfo() {
+        super("FPSInfo");
+    }
 
 
     @EventTarget
     public void draw(Render2DEvent event) {
-        float x = pos.getXPos();
-        float y = pos.getYPos();
         String text = String.format("%sFPS", Minecraft.getDebugFPS());
-        Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
-        if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
-        pos.setWH(fontRenderer.getStringWidth(text)  + 10.5F,fontRenderer.getHeight());
-        fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
+        draw(text,backgroundValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
 }
