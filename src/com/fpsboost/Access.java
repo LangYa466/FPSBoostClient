@@ -3,7 +3,6 @@ package com.fpsboost;
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.util.LiteInvoke;
-import com.fpsboost.util.WebUtils;
 import net.minecraft.client.Minecraft;
 import com.fpsboost.annotations.system.Command;
 import com.fpsboost.command.CommandManager;
@@ -11,7 +10,6 @@ import com.fpsboost.command.CommandManager;
 import com.fpsboost.gui.click.ClickGuiScreen;
 
 import java.awt.*;
-import java.io.IOException;
 
 /**
  * Client Entry
@@ -23,7 +21,7 @@ import java.io.IOException;
 @LiteInvoke.Instance
 public final class Access {
 
-    public static final String CLIENT_VERSION = "1.05";
+    public static final String CLIENT_VERSION = "1.1";
     public static String CLIENT_NAME = "FPSBoost Client";
 
     /**

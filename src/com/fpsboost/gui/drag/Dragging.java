@@ -129,7 +129,7 @@ public class Dragging {
         return yPos;
     }
 
-    public void setWH(int width, int height) {
+    public void setWH(float width, float height) {
         this.width = width;
         this.height = height;
     }

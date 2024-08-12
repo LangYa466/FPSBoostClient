@@ -476,7 +476,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     }
 
     public void drawChangelog() {
-        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面"};
+        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面","[~]修复UI拖动问题"};
         int i = 0;
         for (String s : Changelog) {
             i+=1;

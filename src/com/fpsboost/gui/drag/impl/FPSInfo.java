@@ -34,7 +34,7 @@ public class FPSInfo {
         String text = String.format("%sFPS", Minecraft.getDebugFPS());
         Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
         if (backgroundValue.getValue()) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),backgroundRadiusValue.getValue().intValue(),color);
-        pos.setWH(fontRenderer.getStringWidth(text),fontRenderer.getHeight());
+        pos.setWH(fontRenderer.getStringWidth(text)  + 10.5F,fontRenderer.getHeight());
         fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
     }
 }
