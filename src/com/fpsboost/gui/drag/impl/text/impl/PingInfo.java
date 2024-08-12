@@ -1,20 +1,13 @@
-package com.fpsboost.gui.drag.impl;
+package com.fpsboost.gui.drag.impl.text.impl;
 
 import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.render.Render2DEvent;
-import com.fpsboost.gui.drag.Dragging;
-import com.fpsboost.gui.font.FontManager;
-import com.fpsboost.gui.font.UnicodeFontRenderer;
+import com.fpsboost.gui.drag.impl.text.TextDisplay;
 import com.fpsboost.module.Category;
-import com.fpsboost.util.render.ColorUtil;
-import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.NumberValue;
-import net.minecraft.client.Minecraft;
-
-import java.awt.*;
 
 @Module(value = "Ping显示",category = Category.GUI)
 public class PingInfo extends TextDisplay implements Access.InstanceAccess {

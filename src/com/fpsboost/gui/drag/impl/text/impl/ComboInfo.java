@@ -1,4 +1,4 @@
-package com.fpsboost.gui.drag.impl;
+package com.fpsboost.gui.drag.impl.text.impl;
 
 import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
@@ -6,6 +6,7 @@ import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.misc.AttackEvent;
 import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.events.update.TickEvent;
+import com.fpsboost.gui.drag.impl.text.TextDisplay;
 import com.fpsboost.module.Category;
 import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.NumberValue;
