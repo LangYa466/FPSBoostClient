@@ -4,6 +4,7 @@ import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.module.RankManager;
 import com.fpsboost.util.LiteInvoke;
+import com.fpsboost.util.WebUtils;
 import net.minecraft.client.Minecraft;
 import com.fpsboost.annotations.system.Command;
 import com.fpsboost.command.CommandManager;
@@ -11,6 +12,7 @@ import com.fpsboost.command.CommandManager;
 import com.fpsboost.gui.click.ClickGuiScreen;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Client Entry
@@ -81,16 +83,11 @@ public final class Access {
      */
     public Access() {
 
-        /*
-        try {
-            if (!WebUtils.get("https://gitee.com/langya1337/fpsboost/raw/master/version.txt").contains(CLIENT_VERSION)) {
-                displayTray("您的版本不是最新版","出现BUG请勿反馈");
-            }
-        } catch (IOException e) {
-            System.out.println("版本校验失败");
+
+        if (!Objects.equals(WebUtils.get("http://122.51.47.169/version.txt"), CLIENT_VERSION)) {
+            displayTray("您的版本不是最新版","出现BUG请勿反馈");
         }
 
-         */
 
         INSTANCE = this;
 
