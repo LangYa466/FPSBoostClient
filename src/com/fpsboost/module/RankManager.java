@@ -10,6 +10,7 @@ import net.minecraft.util.EnumChatFormatting;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -30,7 +31,7 @@ public class RankManager {
     private void init() {
         BufferedReader br = null;
         try {
-            br = IoUtil.StringToBufferedReader(WebUtils.get("https://fpsboost.langya.ink/rank.txt"));
+            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get("https://fpsboost.langya.ink/rank.txt")));
             String line;
             for (line = br.readLine(); line != null; line = br.readLine()) {
                 String[] tokens = line.split("-");
