@@ -2,6 +2,7 @@ package com.fpsboost;
 
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
+import com.fpsboost.module.RankManager;
 import com.fpsboost.util.LiteInvoke;
 import net.minecraft.client.Minecraft;
 import com.fpsboost.annotations.system.Command;
@@ -21,7 +22,7 @@ import java.awt.*;
 @LiteInvoke.Instance
 public final class Access {
 
-    public static final String CLIENT_VERSION = "1.1";
+    public static final String CLIENT_VERSION = "1.12";
     public static String CLIENT_NAME = "FPSBoost Client";
 
     /**
@@ -48,6 +49,7 @@ public final class Access {
      * ClickGui Instance
      */
     private final ClickGuiScreen clickGui;
+    private final RankManager rankManager;
 
     /*
     * https://github.com/cubk1/LiteInvoke
@@ -108,6 +110,7 @@ public final class Access {
         moduleManager.init();
         commandManager.init();
         clickGui.init();
+        rankManager = new RankManager();
        // configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
 
     }
