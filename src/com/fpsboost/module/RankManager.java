@@ -111,7 +111,7 @@ public class RankManager {
     private void init() {
         BufferedReader br = null;
         try {
-            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get("https://fpsboost.langya.ink/rank.txt")));
+            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get("http://122.51.47.169/rank.txt")));
             String line;
             for (line = br.readLine(); line != null; line = br.readLine()) {
                 String[] tokens = line.split("-");
