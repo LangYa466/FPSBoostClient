@@ -1,5 +1,7 @@
 package net.minecraft.scoreboard;
 
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.misc.NameEvent;
 import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.Set;
@@ -102,7 +104,11 @@ public class ScorePlayerTeam extends Team
      */
     public static String formatPlayerName(Team p_96667_0_, String p_96667_1_)
     {
-        return p_96667_0_ == null ? p_96667_1_ : p_96667_0_.formatString(p_96667_1_);
+        String name = p_96667_0_ == null ? p_96667_1_ : p_96667_0_.formatString(p_96667_1_);
+        NameEvent nameEvent = new NameEvent(name);
+        EventManager.call(nameEvent);
+        name = nameEvent.getName();
+        return name;
     }
 
     public boolean getAllowFriendlyFire()
