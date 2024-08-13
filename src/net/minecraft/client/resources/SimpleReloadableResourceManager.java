@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiLanguage;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -115,6 +118,11 @@ public class SimpleReloadableResourceManager implements IReloadableResourceManag
     {
         for (IResourceManagerReloadListener iresourcemanagerreloadlistener : this.reloadListeners)
         {
+            if (Minecraft.getMinecraft().currentScreen instanceof GuiLanguage){
+                if (!(iresourcemanagerreloadlistener instanceof LanguageManager)) {
+                    continue ;
+                }
+            }
             iresourcemanagerreloadlistener.onResourceManagerReload(this);
         }
     }
