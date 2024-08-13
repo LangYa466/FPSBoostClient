@@ -2,6 +2,7 @@ package net.minecraft.client.renderer;
 
 import com.fpsboost.Access;
 import com.fpsboost.module.render.OldAnimation;
+import com.fpsboost.util.TimerUtil;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
@@ -581,6 +582,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
             this.fovModifierHand = 0.1F;
         }
     }
+
+    private final TimerUtil timerUtil = new TimerUtil();
 
     /**
      * Changes the field of view of the player depending on if they are underwater or not

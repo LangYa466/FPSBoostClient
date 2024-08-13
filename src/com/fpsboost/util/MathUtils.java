@@ -106,4 +106,14 @@ public class MathUtils {
         return Math.max(0, bigDecimal.stripTrailingZeros().scale());
     }
 
+    public static float animation(float start, float end, float speed) {
+        if(start <= end) end += speed;
+        return end;
+    }
+
+    public static float decreasedSpeed(float initialSpeed, float factor1, float factor2, float adjustment) {
+        return initialSpeed * factor1 * factor2 * adjustment;
+    }
+
+
 }

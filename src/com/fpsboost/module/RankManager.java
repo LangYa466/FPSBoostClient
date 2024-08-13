@@ -1,6 +1,7 @@
 package com.fpsboost.module;
 
 import com.fpsboost.annotations.event.EventTarget;
+import com.fpsboost.events.EventManager;
 import com.fpsboost.events.misc.TextEvent;
 import com.fpsboost.util.IoUtil;
 import com.fpsboost.util.RankUtil;
@@ -48,6 +49,7 @@ public class RankManager {
                 e.printStackTrace();
             }
         }
+        EventManager.register(this);
     }
 
     @EventTarget
