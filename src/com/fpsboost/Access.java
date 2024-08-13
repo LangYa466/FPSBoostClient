@@ -12,7 +12,6 @@ import com.fpsboost.command.CommandManager;
 import com.fpsboost.gui.click.ClickGuiScreen;
 
 import java.awt.*;
-import java.util.Objects;
 
 /**
  * Client Entry
@@ -84,7 +83,7 @@ public final class Access {
     public Access() {
 
 
-        if (!Objects.equals(WebUtils.get("http://122.51.47.169/version.txt"), CLIENT_VERSION)) {
+        if (!WebUtils.get("http://122.51.47.169/version.txt").contains(CLIENT_VERSION)) {
             displayTray("您的版本不是最新版","出现BUG请勿反馈");
         }
 
@@ -101,7 +100,7 @@ public final class Access {
         try {
             invoke. registerFields(this);
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
 
         moduleManager.init();
