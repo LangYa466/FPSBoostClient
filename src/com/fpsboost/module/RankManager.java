@@ -143,13 +143,20 @@ public class RankManager {
     private void set(TextEvent e,String playerName,String rank) {
         boolean set = false;
         if (e.text.contains(playerName) && !set) {
-            if (rank.equals("Admin")) {
-                adminList.add(playerName);
-                e.text = String.format("%s ", getRank(rank,PRIMARY_COLOR)) + e.text;
-            }  else {
-                e.text = String.format("%s ", getRank(rank,EnumChatFormatting.BLUE.toString())) + e.text;
+            int playerNameIndex = e.text.indexOf(playerName);
+
+            if (playerNameIndex != -1) {
+                String rankPrefix;
+                if (rank.equals("Admin")) {
+                    rankPrefix = getRank(rank, PRIMARY_COLOR);
+                } else {
+                    rankPrefix = getRank(rank, EnumChatFormatting.BLUE.toString());
+                }
+
+                // 构建新的字符串
+                e.text = e.text.substring(0, playerNameIndex) + rankPrefix + e.text.substring(playerNameIndex);
+                set = true;
             }
-            set = true;
         }
     }
 

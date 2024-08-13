@@ -1,7 +1,5 @@
 package net.minecraft.entity.player;
 
-import com.fpsboost.events.EventManager;
-import com.fpsboost.events.misc.NameEvent;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
