@@ -1,3 +1,4 @@
+/*
 package com.fpsboost.module;
 
 import com.fpsboost.Access;
@@ -15,10 +16,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * @author LangYa
- * @since 2024/6/5 下午9:25
- */
 
 public class RankManager implements Access.InstanceAccess {
     public static final String PRIMARY_COLOR = EnumChatFormatting.RED.toString();
@@ -77,7 +74,8 @@ public class RankManager implements Access.InstanceAccess {
     }
 
 }
-/*
+
+ */
 package com.fpsboost.module;
 
 import com.fpsboost.annotations.event.EventTarget;
@@ -93,6 +91,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+/**
+ * @author LangYa
+ * @since 2024/6/5 下午9:25
+ */
 
 
 public class RankManager {
@@ -152,4 +155,4 @@ public class RankManager {
 
 }
 
- */
+
