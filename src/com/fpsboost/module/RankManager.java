@@ -4,13 +4,9 @@ import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.events.EventManager;
 import com.fpsboost.events.misc.NameEvent;
-import com.fpsboost.events.misc.TextEvent;
-import com.fpsboost.events.update.UpdateEvent;
 import com.fpsboost.util.IoUtil;
 import com.fpsboost.util.RankUtil;
 import com.fpsboost.util.WebUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.io.BufferedReader;
@@ -37,7 +33,7 @@ public class RankManager implements Access.InstanceAccess {
     private void init() {
         BufferedReader br = null;
         try {
-            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get("https://fpsboost.langya.ink/rank.txt")));
+            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get("http://122.51.47.169/rank.txt")));
             String line;
             for (line = br.readLine(); line != null; line = br.readLine()) {
                 String[] tokens = line.split("-");
