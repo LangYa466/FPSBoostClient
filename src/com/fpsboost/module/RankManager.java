@@ -140,23 +140,47 @@ public class RankManager {
         return SECONDARY_COLOR + "[" + color + EnumChatFormatting.BOLD + str + SECONDARY_COLOR + "] ";
     }
 
+    public String replaceAllOccurrences(String text, String target, String replacement) {
+        // sb none text 例如kk craft就会这样
+        if (target == null || target.isEmpty() || replacement == null) {
+            return text;
+        }
+
+        StringBuilder sb = new StringBuilder(text);
+        int index = sb.indexOf(target);
+
+        while (index != -1) {
+            sb.replace(index, index + target.length(), replacement);
+            index += replacement.length();  // Move past the replacement to avoid infinite loop
+            index = sb.indexOf(target, index);
+        }
+
+        return sb.toString();
+    }
+
     private void set(TextEvent e,String playerName,String rank) {
         boolean set = false;
         if (e.text.contains(playerName) && !set) {
+            String rankPrefix;
+            if (rank.equals("Admin")) {
+                rankPrefix = getRank(rank, PRIMARY_COLOR);
+            } else {
+                rankPrefix = getRank(rank, EnumChatFormatting.BLUE.toString());
+            }
+            // e.text.replaceAll(playerName,rankPrefix + playerName);
+            e.text = replaceAllOccurrences(e.text, playerName, rankPrefix + playerName);
+
+            /*
             int playerNameIndex = e.text.indexOf(playerName);
 
             if (playerNameIndex != -1) {
-                String rankPrefix;
-                if (rank.equals("Admin")) {
-                    rankPrefix = getRank(rank, PRIMARY_COLOR);
-                } else {
-                    rankPrefix = getRank(rank, EnumChatFormatting.BLUE.toString());
-                }
 
                 // 构建新的字符串
                 e.text = e.text.substring(0, playerNameIndex) + rankPrefix + e.text.substring(playerNameIndex);
-                set = true;
             }
+             */
+                set = true;
+
         }
     }
 
