@@ -163,6 +163,7 @@ public class RankManager {
         if (e.text.contains(playerName) && !set) {
             String rankPrefix;
             if (rank.equals("Admin")) {
+                adminList.add(playerName);
                 rankPrefix = getRank(rank, PRIMARY_COLOR);
             } else {
                 rankPrefix = getRank(rank, EnumChatFormatting.BLUE.toString());
