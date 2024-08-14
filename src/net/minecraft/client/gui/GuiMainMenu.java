@@ -506,7 +506,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         }
 
         if (HoveringUtil.isHovering(0, this.height - 16, 16,16,mouseX,mouseY) && mouseButton == 0) {
-            Runtime.getRuntime().exec("cmd /c start " + Access.CLIENT_WEBSITE);
+            Runtime.getRuntime().exec("cmd /c start " + "https://fpsboost.langya.ink/");
         }
 
         if (this.func_183501_a())
