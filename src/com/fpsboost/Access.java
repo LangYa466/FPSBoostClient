@@ -23,8 +23,9 @@ import java.awt.*;
 @LiteInvoke.Instance
 public final class Access {
 
+    public static final String CLIENT_NAME = "FPSBoost Client";
     public static final String CLIENT_VERSION = "1.23";
-    public static String CLIENT_NAME = "FPSBoost Client";
+    public static final String CLIENT_WEBSITE = "https://fpsboost.langya.ink/";
 
     /**
      * Client Instance, access managers with this
@@ -83,7 +84,7 @@ public final class Access {
     public Access() {
 
 
-        if (!WebUtils.get("http://122.51.47.169/version.txt").contains(CLIENT_VERSION)) {
+        if (!WebUtils.get(CLIENT_WEBSITE + "version.txt").contains(CLIENT_VERSION)) {
             displayTray("您的版本不是最新版","出现BUG请勿反馈");
         }
 

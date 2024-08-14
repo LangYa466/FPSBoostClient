@@ -1,6 +1,9 @@
 package net.minecraft.client.gui;
 
+import com.fpsboost.Access;
 import com.fpsboost.gui.font.FontManager;
+import com.fpsboost.util.HoveringUtil;
+import com.fpsboost.util.RenderUtil;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
@@ -446,9 +449,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
+        RenderUtil.drawImage(new ResourceLocation("client/icons/website.png"), 0, this.height - 16, 16,16);
 
         String s2 = "Copyright Mojang AB. Do not distribute!";
-        FontManager.M14.drawString(s2, this.width - this.fontRendererObj.getStringWidth(s2) - 2, this.height - 10, -1);
+        FontManager.M14.drawString(s2, this.width - FontManager.M14.getStringWidth(s2) - 2, this.height - 10, -1);
 
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0)
         {
@@ -499,6 +503,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
                 guiconfirmopenlink.disableSecurityWarning();
                 this.mc.displayGuiScreen(guiconfirmopenlink);
             }
+        }
+
+        if (HoveringUtil.isHovering(0, this.height - 16, 16,16,mouseX,mouseY) && mouseButton == 0) {
+            Runtime.getRuntime().exec("cmd /c start " + Access.CLIENT_WEBSITE);
         }
 
         if (this.func_183501_a())

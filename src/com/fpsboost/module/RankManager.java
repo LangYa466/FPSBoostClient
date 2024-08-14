@@ -78,6 +78,7 @@ public class RankManager implements Access.InstanceAccess {
  */
 package com.fpsboost.module;
 
+import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.events.EventManager;
 import com.fpsboost.events.misc.TextEvent;
@@ -111,7 +112,7 @@ public class RankManager {
     private void init() {
         BufferedReader br = null;
         try {
-            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get("http://122.51.47.169/rank.txt")));
+            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get(Access.CLIENT_WEBSITE + "rank.txt")));
             String line;
             for (line = br.readLine(); line != null; line = br.readLine()) {
                 String[] tokens = line.split("-");
