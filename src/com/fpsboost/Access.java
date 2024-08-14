@@ -24,7 +24,7 @@ import java.awt.*;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.23";
+    public static final String CLIENT_VERSION = "1.24";
     public static final String CLIENT_WEBSITE = "https://fpsboost.langya.ink/";
 
     /**
