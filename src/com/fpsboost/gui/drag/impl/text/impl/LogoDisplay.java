@@ -25,7 +25,7 @@ public class LogoDisplay extends TextDisplay implements Access.InstanceAccess {
     private final BooleanValue backgroundValue = new BooleanValue("背景",false);
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
-    private static final UnicodeFontRenderer fontRenderer = FontManager.M50;
+    private static final UnicodeFontRenderer fontRenderer = FontManager.S50;
 
     public LogoDisplay() {
         super("LogoDisplay", fontRenderer);

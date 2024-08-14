@@ -10,17 +10,14 @@ import com.fpsboost.util.render.RoundedUtil;
 import java.awt.*;
 
 public class TextDisplay implements Access.InstanceAccess {
-    private UnicodeFontRenderer fontRenderer = FontManager.M22;
+    private UnicodeFontRenderer fontRenderer = FontManager.S22;
 
-    private String name;
-    private Dragging drag;
+    private final Dragging drag;
     public TextDisplay(String name) {
-        this.name = name;
         this.drag = Access.getInstance().getDragManager().createDrag(this.getClass(), name, 33, 33);
     }
 
     public TextDisplay(String name,UnicodeFontRenderer fontRenderer) {
-        this.name = name;
         this.fontRenderer = fontRenderer;
         this.drag = Access.getInstance().getDragManager().createDrag(this.getClass(), name, 33, 33);
     }

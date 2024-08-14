@@ -22,8 +22,6 @@ import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 
 @Module(value = "药水显示",category = Category.GUI)
 public class PotionDisplay implements Access.InstanceAccess {
@@ -33,6 +31,7 @@ public class PotionDisplay implements Access.InstanceAccess {
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
 
     private final UnicodeFontRenderer fontRenderer = FontManager.M22;
+    private final UnicodeFontRenderer fontRenderer2 = FontManager.S22;
     private final Dragging drag = Access.getInstance().getDragManager().createDrag(this.getClass(), "PotionDisplay", 52, 52);
     private final ResourceLocation res = new ResourceLocation("textures/gui/container/inventory.png");
 
@@ -91,8 +90,7 @@ public class PotionDisplay implements Access.InstanceAccess {
                 }
                 // 不管了一会再说
 
-                String allString = s1 + s;
-                allStringWidth = fontRenderer.getStringWidth(allString);
+                allStringWidth = fontRenderer.getStringWidth(s1) + fontRenderer2.getStringWidth(s);
                 if (allStringWidth > width) {
                     width = allStringWidth;
                     drag.setWidth(width);
@@ -104,7 +102,7 @@ public class PotionDisplay implements Access.InstanceAccess {
                 // draw potion name with i18n
                 fontRenderer.drawStringWithShadow(s1, 25,3, -1);
                 // draw potion duration
-                fontRenderer.drawStringWithShadow(s, 25, 15, -1);
+                fontRenderer2.drawStringWithShadow(s, 25, 15, -1);
 
                 RenderUtil.resetColor();
                 if (potion.hasStatusIcon()) {

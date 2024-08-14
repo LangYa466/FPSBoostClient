@@ -56,8 +56,6 @@ public class KeyStore  implements Access.InstanceAccess {
 
         float x = dragging.getX(), y = dragging.getY(), width = dragging.getWidth(), size = sizeValue.getValue().floatValue();
 
-        Button.font = FontManager.M22;
-
         float increment = size + offset;
         keyBindForward.render(x + width / 2f - size / 2f, y, size);
         keyBindLeft.render(x, y + increment, size);
@@ -68,7 +66,7 @@ public class KeyStore  implements Access.InstanceAccess {
 
 
     public static class Button {
-        private static UnicodeFontRenderer font;
+        private static final UnicodeFontRenderer font = FontManager.S22;
         private final KeyBinding binding;
         private final Animation clickAnimation = new SmoothStepAnimation(125, 1);
 
@@ -88,7 +86,7 @@ public class KeyStore  implements Access.InstanceAccess {
             float offsetX = 0;
             int offsetY = 0;
 
-            font.drawCenteredString(Keyboard.getKeyName(binding.getKeyCode()), x + width / 2 + offsetX, y + height / 2 - font.getHeight() / 2f + offsetY + 2F, Color.WHITE.getRGB());
+            font.drawCenteredString(Keyboard.getKeyName(binding.getKeyCode()), x + width / 2 + offsetX - 0.1F, y + height / 2 - font.getHeight() / 2f + offsetY + 2.3F, Color.WHITE.getRGB());
 
             if (!clickAnimation.finished(Direction.BACKWARDS)) {
                 float animation = clickAnimation.getOutput().floatValue();
