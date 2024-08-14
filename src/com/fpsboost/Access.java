@@ -23,7 +23,7 @@ import java.awt.*;
 @LiteInvoke.Instance
 public final class Access {
 
-    public static final String CLIENT_VERSION = "1.22";
+    public static final String CLIENT_VERSION = "1.23";
     public static String CLIENT_NAME = "FPSBoost Client";
 
     /**
