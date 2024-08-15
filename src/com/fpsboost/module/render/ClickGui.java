@@ -8,7 +8,7 @@ import org.lwjgl.input.Keyboard;
 import com.fpsboost.gui.click.ClickGuiScreen;
 import com.fpsboost.module.Category;
 
-@Module(value = "Click Gui",category = Category.GUI)
+@Module(value = "ClickGui",category = Category.GUI)
 @Binding(Keyboard.KEY_RSHIFT)
 public class ClickGui implements Access.InstanceAccess {
     @Enable

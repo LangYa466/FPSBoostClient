@@ -1,5 +1,6 @@
 package net.minecraft.client.entity;
 
+import com.fpsboost.Access;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -271,6 +272,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void sendChatMessage(String message)
     {
+        if (message.startsWith(".")) {
+            if (Access.getInstance().getCommandManager().processCommand(message)) {
+                return;
+            }
+        }
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
     }
 
