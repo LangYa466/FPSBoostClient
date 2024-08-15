@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -518,7 +519,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             // 获取系统剪贴板
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             // 封装data内容
-            Transferable ts = new StringSelection(HWIDUtil.getHWID());
+            Transferable ts = null;
+            try {
+                ts = new StringSelection(HWIDUtil.getHWID());
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
             // 把文本内容设置到系统剪贴板
             clipboard.setContents(ts, null);
         }

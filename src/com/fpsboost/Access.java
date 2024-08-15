@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Client Entry
@@ -29,7 +30,7 @@ import java.io.File;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.33";
+    public static final String CLIENT_VERSION = "1.34";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 
@@ -94,8 +95,12 @@ public final class Access {
             displayTray("您的版本不是最新版","出现BUG请勿反馈");
         }
 
-        if (WebUtils.get(CLIENT_WEBSITE + "wing.txt").contains(HWIDUtil.getHWID())) {
-            DragonWings.location = new ResourceLocation("client/neonwings.png");
+        try {
+            if (WebUtils.get(CLIENT_WEBSITE + "wing.txt").contains(HWIDUtil.getHWID())) {
+                DragonWings.location = new ResourceLocation("client/neonwings.png");
+            }
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("获取饰品失败");
         }
 
 

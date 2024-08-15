@@ -2215,8 +2215,15 @@ public abstract class EntityPlayer extends EntityLivingBase
     /**
      * Get the name of this object. For players this returns their username
      */
+    private String name = null;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName()
     {
+        if (name != null) return name;
         return this.gameProfile.getName();
     }
 
