@@ -30,7 +30,7 @@ public class FontManager {
     }
     private static UnicodeFontRenderer getMFont(float fontSize) {
         try {
-            Font setSizeFont = MFont.deriveFont(fontSize);
+            Font setSizeFont = MFont.deriveFont(Font.PLAIN,fontSize);
             return new UnicodeFontRenderer(setSizeFont);
         } catch (Exception e) {
             return null;
@@ -38,7 +38,7 @@ public class FontManager {
     }
     private static UnicodeFontRenderer getSFont(float fontSize) {
         try {
-            Font setSizeFont = SFont.deriveFont(fontSize);
+            Font setSizeFont = SFont.deriveFont(Font.PLAIN,fontSize);
             return new UnicodeFontRenderer(setSizeFont);
         } catch (Exception e) {
             return null;
