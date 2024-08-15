@@ -138,7 +138,7 @@ public class UnicodeFontRenderer {
     }
 
     public final int drawStringNoFormat(String str, float x, float y, int color, final boolean darken) {
-        // 内存泄露隐患g
+        // 内存泄露隐患
         // str = str.replace("\u25ac", "=");
         char targetChar = '\u25ac';
         char replacementChar = '=';
