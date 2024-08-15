@@ -56,9 +56,9 @@ public class ArrayList implements Access.InstanceAccess {
                     c = ColorUtil.rainbow();
             }
             if (textMode.isMode("中文")) {
-                FontManager.M22.drawStringWithShadow(module.getSimpleName(), x , y + y1, c.getRGB());
-            } else {
                 FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, c.getRGB());
+            } else {
+                FontManager.M22.drawStringWithShadow(module.getSimpleName(), x , y + y1, c.getRGB());
             }
             y1 += FontManager.M22.getHeight() + spacing.getValue().intValue();
         }

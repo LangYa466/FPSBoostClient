@@ -2,12 +2,16 @@ package net.minecraft.client.gui;
 
 import com.fpsboost.Access;
 import com.fpsboost.gui.font.FontManager;
+import com.fpsboost.util.HWIDUtil;
 import com.fpsboost.util.HoveringUtil;
 import com.fpsboost.util.RenderUtil;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -450,6 +454,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         RenderUtil.drawImage(new ResourceLocation("client/icons/website.png"), 0, this.height - 16, 16,16);
+        RenderUtil.drawImage(new ResourceLocation("client/icons/verify.png"), 20, this.height - 16, 16,16);
 
         String s2 = "Copyright Mojang AB. Do not distribute!";
         FontManager.M14.drawString(s2, this.width - FontManager.M14.getStringWidth(s2) - 2, this.height - 10, -1);
@@ -508,6 +513,16 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         if (HoveringUtil.isHovering(0, this.height - 16, 16,16,mouseX,mouseY) && mouseButton == 0) {
             Runtime.getRuntime().exec("cmd /c start " + "https://fpsboost.langya.ink/");
         }
+
+        if (HoveringUtil.isHovering(20, this.height - 16, 16,16,mouseX,mouseY) && mouseButton == 0) {
+            // 获取系统剪贴板
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            // 封装data内容
+            Transferable ts = new StringSelection(HWIDUtil.getHWID());
+            // 把文本内容设置到系统剪贴板
+            clipboard.setContents(ts, null);
+        }
+
 
         if (this.func_183501_a())
         {

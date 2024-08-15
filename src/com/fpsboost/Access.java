@@ -4,6 +4,8 @@ import com.fpsboost.events.EventManager;
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.module.RankManager;
+import com.fpsboost.module.boost.DragonWings;
+import com.fpsboost.util.HWIDUtil;
 import com.fpsboost.util.LiteInvoke;
 import com.fpsboost.util.WebUtils;
 import net.minecraft.client.Minecraft;
@@ -11,6 +13,7 @@ import com.fpsboost.annotations.system.Command;
 import com.fpsboost.command.CommandManager;
 
 import com.fpsboost.gui.click.ClickGuiScreen;
+import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 import java.io.File;
@@ -26,7 +29,7 @@ import java.io.File;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.32";
+    public static final String CLIENT_VERSION = "1.33";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 
@@ -89,6 +92,10 @@ public final class Access {
 
         if (!WebUtils.get(CLIENT_WEBSITE + "version.txt").contains(CLIENT_VERSION)) {
             displayTray("您的版本不是最新版","出现BUG请勿反馈");
+        }
+
+        if (WebUtils.get(CLIENT_WEBSITE + "wing.txt").contains(HWIDUtil.getHWID())) {
+            DragonWings.location = new ResourceLocation("client/neonwings.png");
         }
 
 
