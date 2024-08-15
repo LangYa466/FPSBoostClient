@@ -1,6 +1,9 @@
 package com.fpsboost.module;
 
 import com.fpsboost.annotations.system.Init;
+import com.fpsboost.events.misc.WorldLoadEvent;
+import com.fpsboost.gui.drag.Dragging;
+import com.google.gson.*;
 import net.minecraft.util.EnumChatFormatting;
 import com.fpsboost.Access;
 import com.fpsboost.Initializer;
@@ -16,9 +19,16 @@ import com.fpsboost.value.AbstractValue;
 import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -356,4 +366,93 @@ public final class ModuleManager implements Initializer {
     public void setVisible(Class<?> module, boolean state) {
         this.modules.get(module).setVisible(state);
     }
+    private static final File MODULE_DATA = new File(Access.DIRECTORY, "module.json");
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    public JsonObject save() {
+        JsonObject object = new JsonObject();
+        for (ModuleHandle module : modules.values()){
+            JsonObject moduleObj = new JsonObject();
+            moduleObj.addProperty("Enable",module.isEnabled());
+            moduleObj.addProperty("KeyCode",module.getKey());
+            JsonObject valueObj = new JsonObject();
+            moduleObj.add("Values",valueObj);
+            for (AbstractValue<?> value : module.getValues()){
+                if (value instanceof NumberValue) {
+                    valueObj.addProperty(value.getName(), ((NumberValue) value).getValue());
+                } else if (value instanceof BooleanValue) {
+                    valueObj.addProperty(value.getName(), ((BooleanValue) value).getValue());
+                } else if (value instanceof ComboValue) {
+                    valueObj.addProperty(value.getName(), ((ComboValue) value).getValue());
+                }
+            }
+            object.add(module.getName(),moduleObj);
+        }
+        return object;
+    }
+
+    public void load(JsonObject object) {
+        for (ModuleHandle module : modules.values()) {
+            if (object.has(module.getName())) {
+                JsonObject moduleObject = object.get(module.getName()).getAsJsonObject();
+                if (moduleObject.has("Enable")) {
+                    module.setEnable(moduleObject.get("Enable").getAsBoolean());
+                }
+                if (moduleObject.has("KeyCode")) {
+                    module.setKey(moduleObject.get("KeyCode").getAsInt());
+                }
+                if (moduleObject.has("Values")) {
+                    JsonObject valuesObject = moduleObject.get("Values").getAsJsonObject();
+                    for (AbstractValue<?> value : module.getValues()) {
+                        if (valuesObject.has(value.getName())) {
+                            JsonElement theValue = valuesObject.get(value.getName());
+                            if (value instanceof NumberValue) {
+                                ((NumberValue) value).setValue(theValue.getAsNumber().doubleValue());
+                            } else if (value instanceof BooleanValue) {
+                                ((BooleanValue) value).setValue(theValue.getAsBoolean());
+                            } else if (value instanceof ComboValue) {
+                                ((ComboValue) value).setValue(theValue.getAsString());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void loadConfig(String name) {
+        if (MODULE_DATA.exists()) {
+            System.out.println("Loading config: " + name);
+            try {
+                load(new JsonParser().parse(new FileReader(MODULE_DATA)).getAsJsonObject());
+            } catch (FileNotFoundException e) {
+                System.out.println("Failed to load config: " + name);
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Config " + name + " doesn't exist, creating a new one...");
+            saveConfig("module");
+        }
+    }
+    public void saveConfig(String name) {
+        try {
+            System.out.println("Saving config: " + name);
+            MODULE_DATA.createNewFile();
+            FileUtils.writeByteArrayToFile(MODULE_DATA, gson.toJson(save()).getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            System.out.println("Failed to save config: " + name);
+        }
+    }
+
+    private boolean loaded;
+    @EventTarget
+    public void onWorldLoad(WorldLoadEvent event) {
+        if (!loaded) {
+            loadConfig("module");
+            loaded = true;
+        }
+    }
+
+
 }

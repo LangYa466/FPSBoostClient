@@ -1,5 +1,6 @@
 package com.fpsboost;
 
+import com.fpsboost.events.EventManager;
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.module.RankManager;
@@ -12,6 +13,7 @@ import com.fpsboost.command.CommandManager;
 import com.fpsboost.gui.click.ClickGuiScreen;
 
 import java.awt.*;
+import java.io.File;
 
 /**
  * Client Entry
@@ -24,8 +26,9 @@ import java.awt.*;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.31";
+    public static final String CLIENT_VERSION = "1.32";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
+    public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 
     /**
      * Client Instance, access managers with this
@@ -109,7 +112,13 @@ public final class Access {
         clickGui.init();
         rankManager = new RankManager();
        // configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
+        EventManager.register(dragManager);
+        EventManager.register(moduleManager);
+    }
 
+    public void onStop() {
+        dragManager.saveDragData();
+        moduleManager.saveConfig("module");
     }
 
 

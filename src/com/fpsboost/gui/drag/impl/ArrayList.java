@@ -17,6 +17,7 @@ import java.awt.*;
 @Module(value = "仿外挂列表",category = Category.GUI)
 public class ArrayList implements Access.InstanceAccess {
 
+    private static final ComboValue textMode = new ComboValue("语言", "中文", "中文", "英文");
     private static final ComboValue colorMode = new ComboValue("颜色", "彩虹", "自定义", "彩虹");
     private static final NumberValue customColorRed = new NumberValue("自定义红色", 0, 0, 255, 5);
     private static final NumberValue customColorGreen = new NumberValue("自定义绿色", 0, 0, 255, 5);
@@ -54,7 +55,11 @@ public class ArrayList implements Access.InstanceAccess {
                 case "彩虹":
                     c = ColorUtil.rainbow();
             }
-            FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, c.getRGB());
+            if (textMode.isMode("中文")) {
+                FontManager.M22.drawStringWithShadow(module.getSimpleName(), x , y + y1, c.getRGB());
+            } else {
+                FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, c.getRGB());
+            }
             y1 += FontManager.M22.getHeight() + spacing.getValue().intValue();
         }
     }
