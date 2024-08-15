@@ -81,9 +81,7 @@ package com.fpsboost.module;
 import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.events.EventManager;
-import com.fpsboost.events.misc.NameEvent;
 import com.fpsboost.events.misc.TextEvent;
-import com.fpsboost.events.update.UpdateEvent;
 import com.fpsboost.util.IoUtil;
 import com.fpsboost.util.RankUtil;
 import com.fpsboost.util.WebUtils;
@@ -95,7 +93,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -117,13 +114,13 @@ public class RankManager implements Access.InstanceAccess{
     private void init() {
         BufferedReader br = null;
         try {
-            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get(Access.CLIENT_WEBSITE + "uuid.txt")));
+            br = IoUtil.StringToBufferedReader(Objects.requireNonNull(WebUtils.get(Access.CLIENT_WEBSITE + "rank.txt")));
             String line;
             for (line = br.readLine(); line != null; line = br.readLine()) {
-                String[] tokens = line.split(":");
-                String uuid = tokens[0];
+                String[] tokens = line.split("-");
+                String userName = tokens[0];
                 String type = tokens[1];
-                RankUtil.tokens.put(uuid,type);
+                RankUtil.tokens.put(userName,type);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -186,7 +183,7 @@ public class RankManager implements Access.InstanceAccess{
                 e.text = e.text.substring(0, playerNameIndex) + rankPrefix + e.text.substring(playerNameIndex);
             }
              */
-                set = true;
+            set = true;
 
         }
     }

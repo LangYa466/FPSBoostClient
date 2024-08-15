@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.fpsboost.Access;
+import com.fpsboost.module.render.CustomHeldItem;
 import com.fpsboost.module.render.OldAnimation;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -300,21 +301,27 @@ public class ItemRenderer
         GlStateManager.rotate(f3 * 30.0F, 0.0F, 0.0F, 1.0F);
     }
 
+
     /**
      * Performs transformations prior to the rendering of a held item in first person.
      */
-    private void transformFirstPersonItem(float equipProgress, float swingProgress)
-    {
-        GlStateManager.translate(0.56F, -0.52F, -0.71999997F);
+    private void transformFirstPersonItem(float equipProgress, float swingProgress) {
+        boolean animations = Access.getInstance().getModuleManager().isEnabled(CustomHeldItem.class);
+        double x = animations ? .56 + (CustomHeldItem.x.getValue() * .01) : .56;
+        double y = animations ? .52 - (CustomHeldItem.y.getValue() * .01) : .52;
+        double size = animations ? .40 + (CustomHeldItem.size.getValue() * .01) : .40;
+
+        GlStateManager.translate(x, -y, -0.71999997F);
         GlStateManager.translate(0.0F, equipProgress * -0.6F, 0.0F);
         GlStateManager.rotate(45.0F, 0.0F, 1.0F, 0.0F);
-        float f = MathHelper.sin(swingProgress * swingProgress * (float)Math.PI);
-        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float)Math.PI);
+        float f = MathHelper.sin(swingProgress * swingProgress * (float) Math.PI);
+        float f1 = MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float) Math.PI);
         GlStateManager.rotate(f * -20.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f1 * -20.0F, 0.0F, 0.0F, 1.0F);
         GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
-        GlStateManager.scale(0.4F, 0.4F, 0.4F);
+        GlStateManager.scale(size, size, size);
     }
+
 
     /**
      * Translate and rotate the render to look like holding a bow
