@@ -243,7 +243,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
      * True if the client has finished downloading terrain and may spawn. Set upon receipt of S08PacketPlayerPosLook,
      * reset upon respawning
      */
-    private boolean doneLoadingTerrain;
+    public boolean doneLoadingTerrain;
     private final Map<UUID, NetworkPlayerInfo> playerInfoMap = Maps.<UUID, NetworkPlayerInfo>newHashMap();
     public int currentServerMaxPlayers = 20;
     private boolean field_147308_k = false;

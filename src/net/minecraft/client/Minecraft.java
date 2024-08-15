@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import com.fpsboost.api.betterfps.BetterFpsClient;
+import com.fpsboost.events.misc.WorldLoadEvent;
 import com.fpsboost.util.CPSCounter;
 import com.fpsboost.util.IconUtils;
 import com.google.common.collect.*;
@@ -2272,6 +2273,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
             this.playerController.setPlayerCapabilities(this.thePlayer);
             this.renderViewEntity = this.thePlayer;
+
+            WorldLoadEvent worldLoadEvent = new WorldLoadEvent(worldClientIn);
+            EventManager.call(worldLoadEvent);
         }
         else
         {
