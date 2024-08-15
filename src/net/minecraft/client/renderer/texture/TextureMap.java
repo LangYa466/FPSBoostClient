@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.misc.SwitchTextureEvent;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import java.awt.Dimension;
@@ -484,6 +486,9 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 Config.dbg("Exporting texture map: " + this.basePath);
                 TextureUtils.saveGlTexture("debug/" + this.basePath.replaceAll("/", "_"), this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
             }
+
+            SwitchTextureEvent switchTextureEvent = new SwitchTextureEvent();
+            EventManager.call(switchTextureEvent);
 
             return;
         }
