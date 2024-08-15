@@ -140,7 +140,7 @@ public class RankManager implements Access.InstanceAccess{
     }
 
     private String getRank(String str, String color) {
-        return SECONDARY_COLOR + "[" + color + EnumChatFormatting.BOLD + str + SECONDARY_COLOR + "] ";
+        return SECONDARY_COLOR + "[" + color + EnumChatFormatting.BOLD + str + SECONDARY_COLOR + "] " + EnumChatFormatting.UNDERLINE;
     }
 
     public String replaceAllOccurrences(String text, String target, String replacement) {

@@ -272,7 +272,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void sendChatMessage(String message)
     {
-        if (message.startsWith(".")) {
+        if (message.startsWith("-")) {
             if (Access.getInstance().getCommandManager().processCommand(message)) {
                 return;
             }

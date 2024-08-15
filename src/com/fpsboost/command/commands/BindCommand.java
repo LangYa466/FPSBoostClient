@@ -4,16 +4,9 @@ import com.fpsboost.Access;
 import com.fpsboost.annotations.system.Command;
 import com.fpsboost.util.ChatUtil;
 import org.lwjgl.input.Keyboard;
-import com.fpsboost.module.boost.Sprint;
 
 @Command(value = "bind",usage = "bind <module> <key>")
 public class BindCommand implements Access.InstanceAccess {
-
-	@Command.Handler
-	public void secondHandler(String[] args, Sprint sprint) {
-		ChatUtil.info("Received " + args.length + " parameter(s)!");
-		ChatUtil.info("Sprint class is " + sprint.getClass().getName());
-	}
 
 	@Command.Handler
 	public void run(String[] args) {
@@ -25,7 +18,7 @@ public class BindCommand implements Access.InstanceAccess {
 			} else {
 				ChatUtil.info(args[1] + " not found.");
 			}
-		}else {
+		} else {
 			ChatUtil.info(usage(this));
 		}
 	}

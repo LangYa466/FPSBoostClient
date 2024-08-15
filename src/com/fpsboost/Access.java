@@ -30,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.43";
+    public static final String CLIENT_VERSION = "1.44";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 

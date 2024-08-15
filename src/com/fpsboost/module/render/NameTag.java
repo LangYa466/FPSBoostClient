@@ -8,6 +8,7 @@ import com.fpsboost.events.render.RenderNameTagEvent;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.gui.font.UnicodeFontRenderer;
 import com.fpsboost.module.Category;
+import com.fpsboost.util.RankUtil;
 import com.fpsboost.util.RenderUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
@@ -44,6 +45,7 @@ public class NameTag implements Access.InstanceAccess {
                 continue;
 
             String text = entity.getDisplayName().getUnformattedText();
+
             renderNameTag((EntityPlayer) entity, text);
         }
         // Reset color

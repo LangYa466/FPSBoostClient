@@ -240,10 +240,14 @@ public class UnicodeFontRenderer {
         return height / 2.0f - getHeight() / 2.0f;
     }
 
-    public int getStringWidth(final String text) {
+    public int getStringWidth(String text) {
         if (text == null) {
             return 0;
         }
+        TextEvent textEvent = new TextEvent(text);
+        EventManager.call(textEvent);
+        if (textEvent.isCancelled()) return 0;
+        text  = textEvent.text;
         int width = 0;
         final char[] currentData = text.toCharArray();
         for (int size = text.length(), i = 0; i < size; ++i) {

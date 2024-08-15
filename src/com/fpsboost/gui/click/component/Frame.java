@@ -36,7 +36,7 @@ public class Frame {
         this.isDragging = false;
         int tY = this.barHeight;
         for (Class<?> mod : Access.getInstance().getModuleManager().getModulesByCategory(category)) {
-            if (Access.getInstance().getModuleManager().format(mod).contains("Click Gui")) continue;
+            if (Access.getInstance().getModuleManager().format(mod).contains("ClickGui")) continue;
             Button modButton = new Button(mod, this, tY);
             this.components.add(modButton);
             tY += 12;
