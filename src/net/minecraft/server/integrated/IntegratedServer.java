@@ -242,7 +242,7 @@ public class IntegratedServer extends MinecraftServer
     }
 
     /**
-     * Main function called by run() every loop.
+     * ClassLoaderUtil function called by run() every loop.
      */
     public void tick()
     {

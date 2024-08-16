@@ -103,7 +103,6 @@ public final class Access {
             System.out.println("获取饰品失败");
         }
 
-
         INSTANCE = this;
 
         // Initialize managers

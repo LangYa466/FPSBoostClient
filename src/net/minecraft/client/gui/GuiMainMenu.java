@@ -183,7 +183,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     }
 
     /**
-     * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have bought the game.
+     * Adds Singleplayer and Multiplayer buttons on ClassLoaderUtil Menu for players who have bought the game.
      */
     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
     {

@@ -2,7 +2,7 @@ package com.fpsboost.module;
 
 import com.fpsboost.annotations.system.Init;
 import com.fpsboost.events.misc.WorldLoadEvent;
-import com.fpsboost.gui.drag.Dragging;
+import com.fpsboost.util.ClassLoaderUtil;
 import com.google.gson.*;
 import net.minecraft.util.EnumChatFormatting;
 import com.fpsboost.Access;
@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -63,6 +62,11 @@ public final class ModuleManager implements Initializer {
         });
     }
 
+    public void registerURLModule(String className,String classPackage) {
+        Class<?> clazz = ClassLoaderUtil.load(className,classPackage);
+        Module module = clazz.getAnnotation(Module.class);
+        register(clazz,module.value(),module.category());
+    }
     @EventTarget
     public void onKey(KeyInputEvent event) {
         for (Class<?> module : modules.keySet())

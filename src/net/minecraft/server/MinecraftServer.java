@@ -673,7 +673,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     }
 
     /**
-     * Main function called by run() every loop.
+     * ClassLoaderUtil function called by run() every loop.
      */
     public void tick()
     {

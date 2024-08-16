@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
+import com.fpsboost.Access;
+import com.fpsboost.module.boost.HitColor;
 import com.google.common.collect.Lists;
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -416,10 +418,18 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             if (flag1)
             {
-                this.brightnessBuffer.put(1.0F);
-                this.brightnessBuffer.put(0.0F);
-                this.brightnessBuffer.put(0.0F);
-                this.brightnessBuffer.put(0.3F);
+                if (Access.getInstance().getModuleManager().isEnabled(HitColor.class)) {
+                    this.brightnessBuffer.put(HitColor.redValue.getValue().floatValue());
+                    this.brightnessBuffer.put(HitColor.greenValue.getValue().floatValue());
+                    this.brightnessBuffer.put(HitColor.blueValue.getValue().floatValue());
+                    this.brightnessBuffer.put(HitColor.alphaValue.getValue().floatValue());
+                } else {
+                    this.brightnessBuffer.put(1.0F);
+                    this.brightnessBuffer.put(0.0F);
+                    this.brightnessBuffer.put(0.0F);
+                    this.brightnessBuffer.put(0.3F);
+                }
+
 
                 if (Config.isShaders())
                 {
