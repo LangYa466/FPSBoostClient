@@ -1,5 +1,7 @@
 package com.fpsboost.plugin;
 
+import com.fpsboost.Access;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class ClassLoaderUtil {
     public static Class<?> load(String className,String classPackage) {
         try {
             // URL to the class file
-            URL url = new URL(String.format("http://122.51.47.169/%s.class",className));
+            URL url = new URL(String.format(Access.CLIENT_WEBSITE + "%s.class",className));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
 
@@ -56,7 +58,7 @@ public class ClassLoaderUtil {
         try (JarFile jar = new JarFile(jarFile)) {
             Enumeration<JarEntry> entries = jar.entries();
 
-            URLClassLoader classLoader = new URLClassLoader(new URL[]{jarFile.toURI().toURL()});
+            FPSBoostClassLoader classLoader = new FPSBoostClassLoader();
 
             while (entries.hasMoreElements()) {
                 JarEntry entry = entries.nextElement();
@@ -69,7 +71,7 @@ public class ClassLoaderUtil {
                     // Load the class
                     try (InputStream is = jar.getInputStream(entry)) {
                         byte[] classBytes = readInputStream(is);
-                        Class<?> clazz = defineClass(classLoader, className, classBytes);
+                        Class<?> clazz = classLoader.defineClass(className, classBytes);
                         classes.add(clazz);
                         System.out.println("加载插件失败 Loaded class: " + clazz.getName());
                     }
@@ -80,17 +82,6 @@ public class ClassLoaderUtil {
         }
 
         return classes;
-    }
-
-    private static Class<?> defineClass(URLClassLoader classLoader, String className, byte[] classBytes) {
-        try {
-            // Define the class using reflection
-            Method defineClassMethod = URLClassLoader.class.getDeclaredMethod("defineClass", String.class, byte[].class, int.class, int.class);
-            defineClassMethod.setAccessible(true);
-            return (Class<?>) defineClassMethod.invoke(classLoader, className, classBytes, 0, classBytes.length);
-        } catch (Exception e) {
-            throw new RuntimeException("加载插件失败 Class not found: " + className, e);
-        }
     }
 
     private static byte[] readInputStream(InputStream is) throws IOException {

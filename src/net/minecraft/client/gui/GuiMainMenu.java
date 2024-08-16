@@ -486,7 +486,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     }
 
     public void drawChangelog() {
-        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面","[~]修复UI拖动问题","[~]语言秒切换","[+]中文输入","[~]修复字体渲染内存泄露问题","[~]修复Rank问题","[+]世界时间修改","[+]材质包显示","[+]物品物理掉落","[+]隐藏聊天框背景","[+]指令系统"};
+        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面","[~]修复UI拖动问题","[~]语言秒切换","[+]中文输入","[~]修复字体渲染内存泄露问题","[~]修复Rank问题","[+]世界时间修改","[+]材质包显示","[+]物品物理掉落","[+]隐藏聊天框背景","[+]指令系统","[+]插件系统"};
         int i = 0;
         for (String s : Changelog) {
             i+=1;
@@ -512,7 +512,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         }
 
         if (HoveringUtil.isHovering(0, this.height - 16, 16,16,mouseX,mouseY) && mouseButton == 0) {
-            Runtime.getRuntime().exec("cmd /c start " + "https://fpsboost.langya.ink/");
+            Runtime.getRuntime().exec("cmd /c start " + "https://fpsboost.cn/");
         }
 
         if (HoveringUtil.isHovering(20, this.height - 16, 16,16,mouseX,mouseY) && mouseButton == 0) {
