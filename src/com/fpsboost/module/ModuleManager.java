@@ -81,7 +81,7 @@ public final class ModuleManager implements Initializer {
      * @param name     Name
      * @param category Module Category, see {@link Category}
      */
-    private void register(Class<?> clazz, String name, Category category) {
+    public void register(Class<?> clazz, String name, Category category) {
         try {
             Object instance = Access.getInstance().getInvoke().createInstance(clazz);
 

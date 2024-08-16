@@ -1,6 +1,7 @@
 package com.fpsboost.plugin;
 
 import com.fpsboost.Access;
+import com.fpsboost.annotations.system.Module;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,7 +25,13 @@ public class PluginManager implements Access.InstanceAccess {
             System.out.println("未寻找到插件");
         } else {
             for (File jarFile : jarFiles) {
-                ClassLoaderUtil.load(jarFile);
+                for (Class<?> clazz : ClassLoaderUtil.load(jarFile)) {
+                    if(clazz.isAnnotationPresent(Module.class)){
+                        Module module = clazz.getAnnotation(Module.class);
+                        Access.getInstance().getModuleManager().register(clazz,module.value(),module.category());
+                        System.out.println("注册插件 >> " + clazz.getName());
+                    }
+                }
             }
         }
     }
