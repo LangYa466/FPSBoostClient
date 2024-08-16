@@ -5,6 +5,7 @@ import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.module.RankManager;
 import com.fpsboost.module.boost.DragonWings;
+import com.fpsboost.plugin.PluginManager;
 import com.fpsboost.util.HWIDUtil;
 import com.fpsboost.util.LiteInvoke;
 import com.fpsboost.util.WebUtils;
@@ -30,7 +31,7 @@ import java.security.NoSuchAlgorithmException;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.44";
+    public static final String CLIENT_VERSION = "1.5";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 
@@ -50,9 +51,14 @@ public final class Access {
     private final CommandManager commandManager;
 
     /**
-     * DragManager Instance, access commands here
+     * DragManager Instance
      */
     private final DragManager dragManager;
+
+    /**
+     * PluginManager Instance
+     */
+    private final PluginManager pluginManager;
 
     /**
      * ClickGui Instance
@@ -111,6 +117,7 @@ public final class Access {
         commandManager = new CommandManager();
         dragManager = new DragManager();
         clickGui = new ClickGuiScreen();
+        pluginManager = new PluginManager();
 
         try {
             invoke. registerFields(this);
@@ -118,6 +125,7 @@ public final class Access {
            // e.printStackTrace();
         }
 
+        pluginManager.init();
         moduleManager.init();
         commandManager.init();
         clickGui.init();

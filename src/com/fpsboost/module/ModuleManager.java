@@ -2,7 +2,7 @@ package com.fpsboost.module;
 
 import com.fpsboost.annotations.system.Init;
 import com.fpsboost.events.misc.WorldLoadEvent;
-import com.fpsboost.util.ClassLoaderUtil;
+import com.fpsboost.plugin.ClassLoaderUtil;
 import com.google.gson.*;
 import net.minecraft.util.EnumChatFormatting;
 import com.fpsboost.Access;
