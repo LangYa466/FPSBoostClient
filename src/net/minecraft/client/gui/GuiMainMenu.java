@@ -486,7 +486,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     }
 
     public void drawChangelog() {
-        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面","[~]修复UI拖动问题","[~]语言秒切换","[+]中文输入","[~]修复字体渲染内存泄露问题","[~]修复Rank问题","[+]世界时间修改","[+]材质包显示","[+]物品物理掉落","[+]隐藏聊天框背景","[+]指令系统","[+]插件系统"};
+        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面","[~]修复UI拖动问题","[~]语言秒切换","[+]中文输入","[~]修复字体渲染内存泄露问题","[~]修复Rank问题","[+]世界时间修改","[+]材质包显示","[+]物品物理掉落","[+]隐藏聊天框背景","[+]指令系统","[+]插件系统","[+]新的点击页面"};
         int i = 0;
         for (String s : Changelog) {
             i+=1;
