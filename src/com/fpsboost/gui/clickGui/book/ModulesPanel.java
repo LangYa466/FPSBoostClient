@@ -91,7 +91,7 @@ public class ModulesPanel extends Panel {
         }
         double scrollVal = MathUtils.roundToHalf(scroll.getScroll());
 
-        FontManager.M18.drawCenteredString("Click your scroll wheel while hovering a module to change a keybind", x + 305 / 2f, (float) (y - 15 + scrollVal),
+        FontManager.M18.drawCenteredString("按这里就可以拖动", x + 305 / 2f, (float) (y - 15 + scrollVal),
                 new Color(128, 134, 141, 150).getRGB());
 
 
