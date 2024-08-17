@@ -46,7 +46,11 @@ public class NameTag implements Access.InstanceAccess {
 
             String text = entity.getDisplayName().getUnformattedText();
 
-            renderNameTag((EntityPlayer) entity, text);
+            if (entity == mc.thePlayer) {
+                if (mc.gameSettings.thirdPersonView > 0) renderNameTag((EntityPlayer) entity, text);
+            } else {
+                renderNameTag((EntityPlayer) entity, text);
+            }
         }
         // Reset color
         GlStateManager.resetColor();

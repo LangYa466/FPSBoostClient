@@ -1356,6 +1356,10 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
                 if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null)
                 {
+                    if (this.mc.currentScreen != null) {
+                        this.mc.currentScreen.onDrag(k1, l1);
+                    }
+
                     GlStateManager.alphaFunc(516, 0.1F);
                     this.mc.ingameGUI.renderGameOverlay(partialTicks);
 

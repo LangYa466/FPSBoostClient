@@ -84,6 +84,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
     private int touchValue;
     private URI clickedLinkURI;
 
+    public void onDrag(int mouseX, int mouseY) {
+    }
+
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */

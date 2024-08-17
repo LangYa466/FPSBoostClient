@@ -8,8 +8,11 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import static net.minecraft.client.renderer.OpenGlHelper.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_FLAT;
+import static org.lwjgl.opengl.GL11.GL_SMOOTH;
 
 public class Gui
 {
@@ -32,6 +35,29 @@ public class Gui
         worldrenderer.pos(x + width, y + height, 0.0D).color(color).endVertex();
         worldrenderer.pos(x + width, y, 0.0D).color(color).endVertex();
         tessellator.draw();
+
+        GLUtil.end2DRendering();
+    }
+
+    public static void drawGradientRect2(double x, double y, double width, double height, int startColor, int endColor) {
+        drawGradientRect(x, y, x + width, y + height, startColor, endColor);
+    }
+
+    public static void drawGradientRect(double left, double top, double right, double bottom, int startColor, int endColor) {
+        RenderUtil.setAlphaLimit(0);
+        RenderUtil.resetColor();
+        GLUtil.setup2DRendering(true);
+
+        GlStateManager.shadeModel(GL_SMOOTH);
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.pos(right, top, zLevel).color(startColor).endVertex();
+        worldrenderer.pos(left, top, zLevel).color(startColor).endVertex();
+        worldrenderer.pos(left, bottom, zLevel).color(endColor).endVertex();
+        worldrenderer.pos(right, bottom, zLevel).color(endColor).endVertex();
+        tessellator.draw();
+        GlStateManager.shadeModel(GL_FLAT);
 
         GLUtil.end2DRendering();
     }
@@ -232,6 +258,24 @@ public class Gui
         worldrenderer.pos(x + width, y, 0.0D).tex((u + (float)width) * f, v * f1).endVertex();
         worldrenderer.pos(x, y, 0.0D).tex(u * f, v * f1).endVertex();
         tessellator.draw();
+    }
+
+    /**
+     * Draws a textured rectangle at z = 0. Args: x, y, u, v, width, height, textureWidth, textureHeight
+     */
+    public static void drawModalRectWithCustomSizedTexture(float x, float y, float u, float v, float width, float height, float textureWidth, float textureHeight) {
+
+        float f = 1.0F / textureWidth;
+        float f1 = 1.0F / textureHeight;
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos(x, y + height, 0.0D).tex(u * f, (v + height) * f1).endVertex();
+        worldrenderer.pos(x + width, y + height, 0.0D).tex((u + width) * f, (v + height) * f1).endVertex();
+        worldrenderer.pos(x + width, y, 0.0D).tex((u + width) * f, v * f1).endVertex();
+        worldrenderer.pos(x, y, 0.0D).tex(u * f, v * f1).endVertex();
+        tessellator.draw();
+
     }
 
     /**

@@ -4,6 +4,7 @@ import com.fpsboost.value.AbstractValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ComboValue extends AbstractValue<String> {
 
@@ -49,6 +50,11 @@ public class ComboValue extends AbstractValue<String> {
     }
 
     public String[] getStrings() {
-        return strings;
+        List<String> strings1 = new ArrayList<>();
+        for (String string : strings) {
+            if (string == getValue()) continue;
+            strings1.add(string);
+        }
+        return strings1.toArray(new String[0]);
     }
 }

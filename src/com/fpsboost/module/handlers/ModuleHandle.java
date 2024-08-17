@@ -29,6 +29,8 @@ public final class ModuleHandle {
 
     private int key;
 
+    private String description;
+
     public ModuleHandle(String name, Category category, Object object) {
         this.state = false;
         this.name = name;
@@ -73,6 +75,17 @@ public final class ModuleHandle {
     }
 
 
+    public void toggle() {
+        boolean state = !this.state;
+        this.state = state;
+        if (state) {
+            EventManager.register(object);
+            invokeMethodsAnnotationPresent(Enable.class);
+        } else {
+            EventManager.unregister(object);
+            invokeMethodsAnnotationPresent(Disable.class);
+        }
+    }
 
     public void setEnable(boolean state) {
         if (state == this.state) return;
@@ -108,5 +121,9 @@ public final class ModuleHandle {
 
     public boolean isEnabled() {
         return state;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

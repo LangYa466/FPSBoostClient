@@ -181,6 +181,15 @@ public final class ModuleManager implements Initializer {
         return mods;
     }
 
+    public List<ModuleHandle> getCModulesByCategory(Category category) {
+        ArrayList<ModuleHandle> mods = new ArrayList<>();
+        for(ModuleHandle module : modules.values()) {
+            if(module.getCategory() == category)
+                mods.add(module);
+        }
+        return mods;
+    }
+
     /**
      * Get module category
      *

@@ -12,7 +12,9 @@ public class FontManager {
     public static UnicodeFontRenderer M14 = getMFont(14);
     public static UnicodeFontRenderer M16 = getMFont(16);
     public static UnicodeFontRenderer M18 = getMFont(18);
+    public static UnicodeFontRenderer M20 = getMFont(20);
     public static UnicodeFontRenderer M22 = getMFont(22);
+    public static UnicodeFontRenderer M24 = getMFont(24);
     public static UnicodeFontRenderer M50 = getMFont(50);
 
     public static UnicodeFontRenderer S14 = getSFont(14);

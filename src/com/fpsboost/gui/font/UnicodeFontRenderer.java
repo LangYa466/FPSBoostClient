@@ -12,6 +12,7 @@ import org.lwjgl.opengl.*;
 import java.awt.image.*;
 import java.awt.*;
 import java.nio.*;
+import java.util.List;
 
 public class UnicodeFontRenderer {
     private static final int[] colorCode;
@@ -451,5 +452,43 @@ public class UnicodeFontRenderer {
             }
             colorCode[i] = ((r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF));
         }
+    }
+
+    private final List<String> lines = new ArrayList<>();
+
+    private void wrapTextToLines(String text, float x, float width) {
+        lines.clear();
+        String[] words = text.trim().split(" ");
+        StringBuilder line = new StringBuilder();
+        for (String word : words) {
+            float totalWidth = getStringWidth(line + " " + word);
+
+            if (x + totalWidth >= x + width) {
+                lines.add(line.toString());
+                line = new StringBuilder(word).append(" ");
+                continue;
+            }
+
+            line.append(word).append(" ");
+        }
+        lines.add(line.toString());
+    }
+
+    //Lines list and height
+    public List<String> getWrappedLines(String text, float x, float width, float heightIncrement) {
+        wrapTextToLines(text, x, width);
+        return lines;
+    }
+
+    public float drawWrappedText(String text, float x, float y, int color, float width, float heightIncrement) {
+        wrapTextToLines(text, x, width);
+
+        float newY = y;
+        for (String s : lines) {
+            RenderUtil.resetColor();
+            drawString(s, x, newY, color);
+            newY += getHeight() + heightIncrement;
+        }
+        return newY - y;
     }
 }

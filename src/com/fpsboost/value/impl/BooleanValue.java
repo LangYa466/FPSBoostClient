@@ -9,4 +9,7 @@ public class BooleanValue extends AbstractValue<Boolean> {
         this.setValue(enabled);
     }
 
+    public void toggle() {
+        this.setValue(!getValue());
+    }
 }

@@ -112,4 +112,83 @@ public class RenderUtil implements Access.InstanceAccess {
         if (!mc.thePlayer.canEntityBeSeen(ent)) return false;
         return frustum.isBoundingBoxInFrustum(ent.getEntityBoundingBox()) || ent.ignoreFrustumCheck;
     }
+
+    // This method colors the next avalible texture with a specified alpha value ranging from 0-1
+    public static void color(int color, float alpha) {
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
+        GlStateManager.color(r, g, b, alpha);
+    }
+
+    // Colors the next texture without a specified alpha value
+    public static void color(int color) {
+        color(color, (float) (color >> 24 & 255) / 255.0F);
+    }
+
+    public static void drawUnfilledCircle(double x, double y, float radius, float lineWidth, int color) {
+        GLUtil.setup2DRendering();
+        color(color);
+        glLineWidth(lineWidth);
+        glEnable(GL_LINE_SMOOTH);
+        glBegin(GL_POINT_BIT);
+
+        int i = 0;
+        while (i <= 360) {
+            glVertex2d(x + Math.sin((double) i * 3.141526 / 180.0) * (double) radius, y + Math.cos((double) i * 3.141526 / 180.0) * (double) radius);
+            ++i;
+        }
+
+        glEnd();
+        glDisable(GL_LINE_SMOOTH);
+        GLUtil.end2DRendering();
+    }
+
+    public static void scissor(double x, double y, double width, double height, Runnable data) {
+        glEnable(GL_SCISSOR_TEST);
+        scissor(x, y, width, height);
+        data.run();
+        glDisable(GL_SCISSOR_TEST);
+    }
+
+    public static void scissor(double x, double y, double width, double height) {
+        ScaledResolution sr = new ScaledResolution(mc);
+        final double scale = sr.getScaleFactor();
+        double finalHeight = height * scale;
+        double finalY = (sr.getScaledHeight() - y) * scale;
+        double finalX = x * scale;
+        double finalWidth = width * scale;
+        glScissor((int) finalX, (int) (finalY - finalHeight), (int) finalWidth, (int) finalHeight);
+    }
+
+    // animation for sliders and stuff
+    public static double animate(double endPoint, double current, double speed) {
+        boolean shouldContinueAnimation = endPoint > current;
+        if (speed < 0.0D) {
+            speed = 0.0D;
+        } else if (speed > 1.0D) {
+            speed = 1.0D;
+        }
+
+        double dif = Math.max(endPoint, current) - Math.min(endPoint, current);
+        double factor = dif * speed;
+        return current + (shouldContinueAnimation ? factor : -factor);
+    }
+
+
+    // TODO: Replace this with a shader as GL_POINTS is not consistent with gui scales
+    public static void drawGoodCircle(double x, double y, float radius, int color) {
+        color(color);
+        GLUtil.setup2DRendering();
+
+        glEnable(GL_POINT_SMOOTH);
+        glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+        glPointSize(radius * (2 * mc.gameSettings.guiScale));
+
+        glBegin(GL_POINTS);
+        glVertex2d(x, y);
+        glEnd();
+
+        GLUtil.end2DRendering();
+    }
 }
