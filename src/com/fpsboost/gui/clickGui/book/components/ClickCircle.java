@@ -1,4 +1,4 @@
-package com.fpsboost.gui.ui.components;
+package com.fpsboost.gui.clickGui.book.components;
 
 import com.fpsboost.util.RenderUtil;
 import com.fpsboost.util.animations.Animation;

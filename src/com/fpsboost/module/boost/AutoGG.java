@@ -7,7 +7,7 @@ import com.fpsboost.events.misc.WorldLoadEvent;
 import com.fpsboost.events.movement.MotionUpdateEvent;
 import com.fpsboost.module.Category;
 
-@Module(value = "自动发GG",category = Category.Boost)
+@Module(name = "AutoGG",description = "游戏结束自动发GG",category = Category.Boost)
 public class AutoGG implements Access.InstanceAccess {
     private boolean active;
 

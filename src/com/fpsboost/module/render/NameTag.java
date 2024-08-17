@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-@Module(value = "自定义名称栏", category = Category.GUI)
+@Module(name = "NameTag",description = "合法的NameTag 就是美化了原版的显示", category = Category.GUI)
 public class NameTag implements Access.InstanceAccess {
 
     private final BooleanValue healthValue = new BooleanValue("血量", true);

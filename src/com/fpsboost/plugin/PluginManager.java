@@ -2,6 +2,7 @@ package com.fpsboost.plugin;
 
 import com.fpsboost.Access;
 import com.fpsboost.annotations.system.Module;
+import net.optifine.reflect.ReflectorClass;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,9 +14,13 @@ import java.util.List;
  */
 public class PluginManager implements Access.InstanceAccess {
 
-    private final File dir = new File(Access.DIRECTORY,"plugins");
+    private final File dir = new File(Access.DIRECTORY,"Plugins");
 
     public void init() {
+        File oldPluginDir = new File(Access.DIRECTORY,"plugins");
+        if (oldPluginDir.exists()) {
+            dir.delete();
+        }
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -28,7 +33,7 @@ public class PluginManager implements Access.InstanceAccess {
                 for (Class<?> clazz : ClassLoaderUtil.load(jarFile)) {
                     if(clazz.isAnnotationPresent(Module.class)){
                         Module module = clazz.getAnnotation(Module.class);
-                        Access.getInstance().getModuleManager().register(clazz,module.value(),module.category());
+                        Access.getInstance().getModuleManager().register(clazz,module.name(),module.category(),module.description());
                         System.out.println("注册插件 >> " + clazz.getName());
                     }
                 }

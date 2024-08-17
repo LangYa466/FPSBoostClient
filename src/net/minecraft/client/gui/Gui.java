@@ -62,6 +62,30 @@ public class Gui
         GLUtil.end2DRendering();
     }
 
+    public static void drawGradientRectSideways2(double x, double y, double width, double height, int startColor, int endColor) {
+        drawGradientRectSideways(x, y, x + width, y + height, startColor, endColor);
+    }
+
+    public static void drawGradientRectSideways(double left, double top, double right, double bottom, int startColor, int endColor) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+        RenderUtil.setAlphaLimit(0);
+        RenderUtil.resetColor();
+        GLUtil.setup2DRendering(true);
+        GlStateManager.shadeModel(GL_SMOOTH);
+
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.pos(right, top, zLevel).color(endColor).endVertex();
+        worldrenderer.pos(left, top, zLevel).color(startColor).endVertex();
+        worldrenderer.pos(left, bottom, zLevel).color(startColor).endVertex();
+        worldrenderer.pos(right, bottom, zLevel).color(endColor).endVertex();
+        tessellator.draw();
+
+        GlStateManager.shadeModel(GL_FLAT);
+        GLUtil.end2DRendering();
+    }
+
 
     /**
      * Draw a 1 pixel wide horizontal line. Args: x1, x2, y, color

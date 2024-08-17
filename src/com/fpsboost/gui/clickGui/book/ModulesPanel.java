@@ -1,7 +1,7 @@
-package com.fpsboost.gui.ui;
+package com.fpsboost.gui.clickGui.book;
 
 import com.fpsboost.Access;
-import com.fpsboost.gui.ui.components.ModuleRect;
+import com.fpsboost.gui.clickGui.book.components.ModuleRect;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.Category;
 import com.fpsboost.module.handlers.ModuleHandle;

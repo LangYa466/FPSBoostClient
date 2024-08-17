@@ -6,7 +6,7 @@ import com.fpsboost.annotations.system.Module;
 import com.fpsboost.module.Category;
 import com.fpsboost.util.mousefix.RawInputMod;
 
-@Module(value = "原始鼠标数据",category = Category.Boost)
+@Module(name = "MouseFix",description = "鼠标移动更丝滑",category = Category.Boost)
 public class MouseFix {
     private final RawInputMod rawInputMod = new RawInputMod();
 

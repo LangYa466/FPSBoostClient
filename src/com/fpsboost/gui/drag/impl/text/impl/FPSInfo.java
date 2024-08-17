@@ -6,13 +6,17 @@ import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.gui.drag.impl.text.TextDisplay;
 import com.fpsboost.module.Category;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.Minecraft;
 
-@Module(value = "FPS显示",category = Category.GUI)
+import java.awt.*;
+
+@Module(name = "FPSDisplay",description = "显示你的FPS",category = Category.GUI)
 public class FPSInfo extends TextDisplay {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
+    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
 
@@ -24,6 +28,6 @@ public class FPSInfo extends TextDisplay {
     @EventTarget
     public void draw(Render2DEvent event) {
         String text = String.format("%sFPS", Minecraft.getDebugFPS());
-        draw(text,backgroundValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
+        draw(text,backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
 }

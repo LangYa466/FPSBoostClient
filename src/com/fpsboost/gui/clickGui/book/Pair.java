@@ -1,4 +1,4 @@
-package com.fpsboost.gui.ui;
+package com.fpsboost.gui.clickGui.book;
 
 import java.io.Serializable;
 import java.util.Objects;

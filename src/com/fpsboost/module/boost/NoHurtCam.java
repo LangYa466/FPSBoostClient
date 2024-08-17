@@ -10,7 +10,7 @@ import com.fpsboost.module.Category;
  * @since 2024/5/11 22:04
  */
 
-@Module(value = "无受伤抖动",category = Category.Boost)
+@Module(name = "NoHurtCam",description = "无受伤抖动效果",category = Category.Boost)
 public class NoHurtCam {
 
     @EventTarget

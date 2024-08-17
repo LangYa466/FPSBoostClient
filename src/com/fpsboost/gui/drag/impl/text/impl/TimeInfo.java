@@ -9,13 +9,17 @@ import com.fpsboost.events.update.TickEvent;
 import com.fpsboost.gui.drag.impl.text.TextDisplay;
 import com.fpsboost.module.Category;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.entity.Entity;
 
-@Module(value = "时间显示",category = Category.GUI)
+import java.awt.*;
+
+@Module(name = "TimeDisplay",description = "显示当前的时间(24小时制)",category = Category.GUI)
 public class TimeInfo extends TextDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
+    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
 
@@ -47,7 +51,7 @@ public class TimeInfo extends TextDisplay implements Access.InstanceAccess {
     @EventTarget
     public void onRender2D(Render2DEvent event) {
         String text = String.format("TimeInfo: %s", combo);
-        draw(text,backgroundValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
+        draw(text,backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
 
 

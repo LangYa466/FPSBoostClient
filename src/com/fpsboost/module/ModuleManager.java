@@ -2,7 +2,9 @@ package com.fpsboost.module;
 
 import com.fpsboost.annotations.system.Init;
 import com.fpsboost.events.misc.WorldLoadEvent;
+import com.fpsboost.events.update.TickEvent;
 import com.fpsboost.plugin.ClassLoaderUtil;
+import com.fpsboost.value.impl.ColorValue;
 import com.google.gson.*;
 import net.minecraft.util.EnumChatFormatting;
 import com.fpsboost.Access;
@@ -21,6 +23,7 @@ import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
 import org.apache.commons.io.FileUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -29,6 +32,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.List;
 
 /**
  * Module Manager, Manage and access module.
@@ -57,7 +61,7 @@ public final class ModuleManager implements Initializer {
         initialize(clazz -> {
             if(clazz.isAnnotationPresent(Module.class)){
                 Module module = clazz.getAnnotation(Module.class);
-                register(clazz,module.value(),module.category());
+                register(clazz,module.name(),module.category(),module.description());
             }
         });
     }
@@ -65,7 +69,7 @@ public final class ModuleManager implements Initializer {
     public void registerURLModule(String className,String classPackage) {
         Class<?> clazz = ClassLoaderUtil.load(className,classPackage);
         Module module = clazz.getAnnotation(Module.class);
-        register(clazz,module.value(),module.category());
+        register(clazz,module.name(),module.category(),module.description());
     }
     @EventTarget
     public void onKey(KeyInputEvent event) {
@@ -81,14 +85,14 @@ public final class ModuleManager implements Initializer {
      * @param name     Name
      * @param category Module Category, see {@link Category}
      */
-    public void register(Class<?> clazz, String name, Category category) {
+    public void register(Class<?> clazz, String name, Category category,String description) {
         try {
             Object instance = Access.getInstance().getInvoke().createInstance(clazz);
 
             Access.getInstance().getInvoke().autoWired(instance);
             Access.getInstance().getInvoke().registerBean(instance);
 
-            ModuleHandle module = new ModuleHandle(name, category, instance);
+            ModuleHandle module = new ModuleHandle(name,description, category, instance);
 
             nameMap.put(name.toLowerCase(), clazz);
             objectMap.put(instance, clazz);
@@ -210,17 +214,18 @@ public final class ModuleManager implements Initializer {
         ArrayList<AbstractValue<?>> values = mod.getValues();
 
         for (AbstractValue<?> v : values) {
-            if (v instanceof ComboValue)
+            if (v instanceof ComboValue) {
                 sorted.add(v);
-        }
-        for (AbstractValue<?> v : values) {
-            if (v instanceof NumberValue)
+            }
+            if (v instanceof NumberValue) {
                 sorted.add(v);
-        }
-
-        for (AbstractValue<?> v : values) {
-            if (v instanceof BooleanValue)
+            }
+            if (v instanceof BooleanValue) {
                 sorted.add(v);
+            }
+            if (v instanceof ColorValue) {
+                sorted.add(v);
+            }
         }
 
         mod.setValues(sorted);
@@ -397,6 +402,9 @@ public final class ModuleManager implements Initializer {
                     valueObj.addProperty(value.getName(), ((BooleanValue) value).getValue());
                 } else if (value instanceof ComboValue) {
                     valueObj.addProperty(value.getName(), ((ComboValue) value).getValue());
+                } else if (value instanceof ColorValue) {
+                    valueObj.addProperty(value.getName(), ((ColorValue) value).getValue().getRGB());
+                    valueObj.add(value.getName(), ((ColorValue) value).getRainbow().getJsonObject());
                 }
             }
             object.add(module.getName(),moduleObj);
@@ -425,6 +433,8 @@ public final class ModuleManager implements Initializer {
                                 ((BooleanValue) value).setValue(theValue.getAsBoolean());
                             } else if (value instanceof ComboValue) {
                                 ((ComboValue) value).setValue(theValue.getAsString());
+                            } else if (value instanceof ColorValue) {
+                                ((ColorValue) value).setValue(new Color(theValue.getAsInt()));
                             }
                         }
                     }
@@ -460,7 +470,7 @@ public final class ModuleManager implements Initializer {
 
     private boolean loaded;
     @EventTarget
-    public void onWorldLoad(WorldLoadEvent event) {
+    public void onTick(TickEvent event) {
         if (!loaded) {
             loadConfig("module");
             loaded = true;

@@ -1,4 +1,4 @@
-package com.fpsboost.gui.click.component;
+package com.fpsboost.gui.clickGui.drop.component;
 
 public class Component {
 

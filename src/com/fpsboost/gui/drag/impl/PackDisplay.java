@@ -13,8 +13,10 @@ import com.fpsboost.gui.drag.Dragging;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.gui.font.UnicodeFontRenderer;
 import com.fpsboost.module.Category;
+import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -23,7 +25,7 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.util.ResourceLocation;
 
-@Module(value = "材质包显示",category = Category.GUI)
+@Module(name = "PackDisplay",description = "显示你正在用的材质包",category = Category.GUI)
 public class PackDisplay implements Access.InstanceAccess {
 
 	private IResourcePack pack;
@@ -33,8 +35,9 @@ public class PackDisplay implements Access.InstanceAccess {
 	private final UnicodeFontRenderer fr = FontManager.M22;
 	private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(), "packDisplay", 150, 150);
 	private final BooleanValue bg = new BooleanValue("背景",true);
-	private static final NumberValue customAlpha = new NumberValue("自定义不透明度",80,0,255,5);
-	private static final NumberValue customRadius = new NumberValue("自定义圆角值", 2,0,10,1);
+	private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
+	private static final NumberValue customAlpha = new NumberValue("背景不透明度",80,0,255,5);
+	private static final NumberValue customRadius = new NumberValue("背景圆角值", 2,0,10,1);
 	@Enable
 	public void onEnable() {
 		this.loadTexture();
@@ -49,7 +52,7 @@ public class PackDisplay implements Access.InstanceAccess {
 			pack = this.getCurrentPack();
 		}
 
-		if (bg.getValue()) RoundedUtil.drawRound(pos.getXPos(), pos.getYPos(), (float) (46 + (fr.getStringWidth(this.convertNormalText(pack.getPackName())))), 38,customRadius.getValue().intValue(),new Color(0,0,0,customAlpha.getValue().intValue()));
+		if (bg.getValue()) RoundedUtil.drawRound(pos.getXPos(), pos.getYPos(), (float) (46 + (fr.getStringWidth(this.convertNormalText(pack.getPackName())))), 38,customRadius.getValue().intValue(), ColorUtil.applyOpacity(colorValue.getValue(),customAlpha.getValue().intValue()));
 		mc.getTextureManager().bindTexture(this.currentPack);
 		RoundedUtil.drawRoundTextured(pos.getXPos() + 4.5F, pos.getYPos() + 4.5F, 29, 29, 4, 1.0F);
 		

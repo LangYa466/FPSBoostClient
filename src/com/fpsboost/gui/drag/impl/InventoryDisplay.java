@@ -7,8 +7,10 @@ import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.gui.drag.Dragging;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.Category;
+import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,12 +20,13 @@ import net.minecraft.item.ItemStack;
 
 import java.awt.*;
 
-@Module(value = "背包显示",category = Category.GUI)
+@Module(name = "InventoryDisplay",description = "显示你的背包里面有什么物品",category = Category.GUI)
 public class InventoryDisplay implements Access.InstanceAccess{
     public BooleanValue textRender = new BooleanValue("提示显示", true);
     public ComboValue textMode = new ComboValue("提示显示语言", "中文", "英文", "中文");
-    private static final NumberValue customAlpha = new NumberValue("自定义不透明度",80,0,255,5);
-    private static final NumberValue customRadius = new NumberValue("自定义圆角值", 2,0,10,1);
+    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
+    private static final NumberValue customAlpha = new NumberValue("背景不透明度",80,0,255,5);
+    private static final NumberValue customRadius = new NumberValue("背景圆角值", 2,0,10,1);
     private final Dragging drag = Access.getInstance().getDragManager().createDrag(this.getClass(), "inventoryDisplay", 150, 150);
 
     @EventTarget
@@ -32,7 +35,7 @@ public class InventoryDisplay implements Access.InstanceAccess{
         float startY = drag.getYPos() + 20;
         int curIndex = 0;
         
-        RoundedUtil.drawRound(drag.getXPos(), drag.getYPos(), 185, 79,customRadius.getValue().intValue(),new Color(0,0,0,customAlpha.getValue().intValue()));
+        RoundedUtil.drawRound(drag.getXPos(), drag.getYPos(), 185, 79,customRadius.getValue().intValue(), ColorUtil.applyOpacity(colorValue.getValue(),customAlpha.getValue().intValue()));
         RoundedUtil.drawRound(drag.getXPos(), drag.getYPos() + 16, 185, 1, 0, Color.white);
 
         if (textRender.getValue()) {

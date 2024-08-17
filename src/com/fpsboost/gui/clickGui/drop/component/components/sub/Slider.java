@@ -1,12 +1,11 @@
-package com.fpsboost.gui.click.component.components.sub;
+package com.fpsboost.gui.clickGui.drop.component.components.sub;
 
-import com.fpsboost.Access;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
-import com.fpsboost.gui.click.component.Component;
-import com.fpsboost.gui.click.component.components.Button;
+import com.fpsboost.gui.clickGui.drop.component.Component;
+import com.fpsboost.gui.clickGui.drop.component.components.Button;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

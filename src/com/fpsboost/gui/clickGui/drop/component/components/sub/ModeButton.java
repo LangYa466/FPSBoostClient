@@ -1,28 +1,32 @@
-package com.fpsboost.gui.click.component.components.sub;
+package com.fpsboost.gui.clickGui.drop.component.components.sub;
 
-import com.fpsboost.gui.click.ClickGuiScreen;
+import com.fpsboost.gui.clickGui.drop.component.Component;
 import com.fpsboost.gui.font.FontManager;
+import com.fpsboost.value.impl.ComboValue;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
-import com.fpsboost.gui.click.component.Component;
-import com.fpsboost.gui.click.component.components.Button;
-import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.gui.clickGui.drop.component.components.Button;
 
-public class Checkbox extends Component {
+public class ModeButton extends Component {
 
     private boolean hovered;
-    private final BooleanValue op;
     private final Button parent;
     private int offset;
     private int x;
     private int y;
+    private final ComboValue value;
 
-    public Checkbox(BooleanValue option, Button button, int offset) {
-        this.op = option;
+    public ModeButton(Button button, ComboValue value, int offset) {
         this.parent = button;
+        this.value = value;
         this.x = button.parent.getX() + button.parent.getWidth();
         this.y = button.parent.getY() + button.offset;
         this.offset = offset;
+    }
+
+    @Override
+    public void setOff(int newOff) {
+        offset = newOff;
     }
 
     @Override
@@ -31,16 +35,8 @@ public class Checkbox extends Component {
         Gui.drawRect(parent.parent.getX(), parent.parent.getY() + offset, parent.parent.getX() + 2, parent.parent.getY() + offset + 12, 0xFF111111);
         GL11.glPushMatrix();
 
-        FontManager.M18.drawStringWithShadow(this.op.getName(), (parent.parent.getX() + 10 + 4)  + 5, (parent.parent.getY() + offset + 2)  , -1);
+        FontManager.M18.drawStringWithShadow("Mode: " + value.getValue(), (parent.parent.getX() + 7) , (parent.parent.getY() + offset + 2)  + 1, -1);
         GL11.glPopMatrix();
-        Gui.drawRect(parent.parent.getX() + 3 + 4, parent.parent.getY() + offset + 3, parent.parent.getX() + 9 + 4, parent.parent.getY() + offset + 9, 0xFF999999);
-        if (this.op.getValue())
-            Gui.drawRect(parent.parent.getX() + 4 + 4, parent.parent.getY() + offset + 4, parent.parent.getX() + 8 + 4, parent.parent.getY() + offset + 8, ClickGuiScreen.color);
-    }
-
-    @Override
-    public void setOff(int newOff) {
-        offset = newOff;
     }
 
     @Override
@@ -53,7 +49,7 @@ public class Checkbox extends Component {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int button) {
         if (isMouseOnButton(mouseX, mouseY) && button == 0 && this.parent.open) {
-            this.op.setValue(!this.op.getValue());
+            value.setValue(value.getNextValue());
         }
     }
 

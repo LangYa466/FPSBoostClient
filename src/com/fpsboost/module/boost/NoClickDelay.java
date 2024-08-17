@@ -8,7 +8,7 @@ import com.fpsboost.events.update.UpdateEvent;
 import com.fpsboost.module.Category;
 
 @Startup
-@Module(value = "移除特殊点击延迟", category = Category.Boost)
+@Module(name = "NoClickDelay",description = "移除特殊的点击延迟", category = Category.Boost)
 public class NoClickDelay implements Access.InstanceAccess {
 
     @EventTarget

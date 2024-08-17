@@ -419,9 +419,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             if (flag1)
             {
                 if (Access.getInstance().getModuleManager().isEnabled(HitColor.class)) {
-                    this.brightnessBuffer.put(HitColor.redValue.getValue().floatValue());
-                    this.brightnessBuffer.put(HitColor.greenValue.getValue().floatValue());
-                    this.brightnessBuffer.put(HitColor.blueValue.getValue().floatValue());
+                    this.brightnessBuffer.put(HitColor.colorValue.getValue().getRed() / 255F);
+                    this.brightnessBuffer.put(HitColor.colorValue.getValue().getGreen() / 255F);
+                    this.brightnessBuffer.put(HitColor.colorValue.getValue().getBlue() / 255F);
                     this.brightnessBuffer.put(HitColor.alphaValue.getValue().floatValue());
                 } else {
                     this.brightnessBuffer.put(1.0F);

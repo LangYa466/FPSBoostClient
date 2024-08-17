@@ -1,24 +1,24 @@
-package com.fpsboost.gui.click.component.components.sub;
+package com.fpsboost.gui.clickGui.drop.component.components.sub;
 
 import com.fpsboost.Access;
 import com.fpsboost.gui.font.FontManager;
 import net.minecraft.client.gui.Gui;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import com.fpsboost.gui.click.component.Component;
-import com.fpsboost.gui.click.component.components.Button;
+import com.fpsboost.gui.clickGui.drop.component.Component;
+import com.fpsboost.gui.clickGui.drop.component.components.Button;
 
-public class VisibleButton extends Component {
+public class Keybind extends Component {
 
     private boolean hovered;
+    private boolean binding;
     private final Button parent;
     private int offset;
     private int x;
     private int y;
-    private final Class<?> mod;
 
-    public VisibleButton(Button button, Class<?> mod, int offset) {
+    public Keybind(Button button, int offset) {
         this.parent = button;
-        this.mod = mod;
         this.x = button.parent.getX() + button.parent.getWidth();
         this.y = button.parent.getY() + button.offset;
         this.offset = offset;
@@ -35,7 +35,7 @@ public class VisibleButton extends Component {
         Gui.drawRect(parent.parent.getX(), parent.parent.getY() + offset, parent.parent.getX() + 2, parent.parent.getY() + offset + 12, 0xFF111111);
         GL11.glPushMatrix();
 
-        FontManager.M18.drawStringWithShadow("能否在列表显示: " + Access.getInstance().getModuleManager().isVisible(mod), (parent.parent.getX() + 7) , (parent.parent.getY() + offset + 2)  +1, -1);
+        FontManager.M18.drawStringWithShadow(binding ? "按一下你要绑定的按键..." : ("绑过的按键: " + Keyboard.getKeyName(Access.getInstance().getModuleManager().getKey(this.parent.mod))), (parent.parent.getX() + 7) , (parent.parent.getY() + offset + 2)  + 1, -1);
         GL11.glPopMatrix();
     }
 
@@ -49,7 +49,15 @@ public class VisibleButton extends Component {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int button) {
         if (isMouseOnButton(mouseX, mouseY) && button == 0 && this.parent.open) {
-            Access.getInstance().getModuleManager().setVisible(mod, !Access.getInstance().getModuleManager().isVisible(mod));
+            this.binding = !this.binding;
+        }
+    }
+
+    @Override
+    public void keyTyped(char typedChar, int key) {
+        if (this.binding) {
+            Access.getInstance().getModuleManager().setKey(this.parent.mod, key);
+            this.binding = false;
         }
     }
 

@@ -1,4 +1,4 @@
-package com.fpsboost.gui.ui;
+package com.fpsboost.gui.clickGui.book;
 
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.handlers.ModuleHandle;
@@ -13,9 +13,12 @@ import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.AbstractValue;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -176,7 +179,7 @@ public class SettingsPanel extends Panel {
 
                 GlStateManager.color(1, 1, 1);
                 RenderUtil.drawGoodCircle(x + 113 + (10 * animation.getOutput().floatValue()), settingY1 + 4, 4f, -1);
-                count -= .6f;
+                count -= .7f;
             }
 
             if (setting instanceof ComboValue) {
@@ -246,22 +249,23 @@ public class SettingsPanel extends Panel {
                     }
                 }
 
-                count += ((math / settingHeight) * animation.getOutput().floatValue()) + 1f;
+                count += ((math / settingHeight) * animation.getOutput().floatValue()) + 1.2f;
             }
 
 
-            /*
-            if (setting instanceof ColorSetting) {
-                ColorSetting colorSetting = (ColorSetting) setting;
+
+            if (setting instanceof ColorValue) {
+                float settingY1 = y + 70 + count * 22;
+                ColorValue colorSetting = (ColorValue) setting;
                 float height = (colorSetting.isRainbow() ? 100 : 90);
-                RoundedUtil.drawRound(x + 12, settingY - 1, 117, height, 4, new Color(68, 71, 78));
-                RoundedUtil.drawRound(x + 13, settingY, 115, height - 2, 3, new Color(30, 31, 35));
-                //   RenderUtil.renderRoundedRect(x + 8.5f, settingY - 4.5f, 118, 85, 4, new Color(68, 71, 78).getRGB());
-                //  RenderUtil.renderRoundedRect(x + 10, settingY - 3, 115, 82, 3, new Color(30, 31, 35).getRGB());
-                FontManager.M16.drawCenteredString(colorSetting.name, (x + 13) + 115 / 2f, settingY + 3, -1);
+                RoundedUtil.drawRound(x + 12, settingY1 - 1, 117, height, 4, new Color(68, 71, 78));
+                RoundedUtil.drawRound(x + 13, settingY1, 115, height - 2, 3, new Color(30, 31, 35));
+                //   RenderUtil.renderRoundedRect(x + 8.5f, settingY1 - 4.5f, 118, 85, 4, new Color(68, 71, 78).getRGB());
+                //  RenderUtil.renderRoundedRect(x + 10, settingY1 - 3, 115, 82, 3, new Color(30, 31, 35).getRGB());
+                FontManager.M16.drawCenteredString(colorSetting.getName(), (x + 13) + 115 / 2f, settingY1 + 3, -1);
 
                 if (colorSetting.isRainbow()) {
-                    Color color = colorSetting.getColor();
+                    Color color = colorSetting.getValue();
                     int red = color.getRed(), green = color.getGreen(), blue = color.getBlue();
                     float[] hsb = Color.RGBtoHSB(red, green, blue, null);
                     colorSetting.setHue(hsb[0]);
@@ -275,12 +279,12 @@ public class SettingsPanel extends Panel {
                 /*Draw.colorRGBA(colorSetting.getColor().getRGB());
                 GL11.glEnable(GL11.GL_BLEND);
                 mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/booleanslider1.png"));
-                Gui.drawModalRectWithCustomSizedTexture(x + 98, settingY, 0, 0, 20, 10, 20, 10);*/
-                //RenderUtil.renderRoundedRect(x + 95, settingY, 20, 10, 3, colorSetting.getColor().getRGB());
+                Gui.drawModalRectWithCustomSizedTexture(x + 98, settingY1, 0, 0, 20, 10, 20, 10);*/
+                //RenderUtil.renderRoundedRect(x + 95, settingY1, 20, 10, 3, colorSetting.getColor().getRGB());
 
-            /*
+
                 float gradientX = x + 17;
-                float gradientY = settingY + 15;
+                float gradientY = settingY1 + 15;
                 float gradientWidth = 97;
                 float gradientHeight = 50;
 
@@ -296,9 +300,11 @@ public class SettingsPanel extends Panel {
                     }
                 }
 
+                float max = Math.max(0, (mouseX - gradientX) / (gradientWidth + 10));
+
                 if (draggingNumber != null && draggingNumber.equals(setting)) {
                     if (hueFlag) {
-                        colorSetting.setHue(Math.min(1, Math.max(0, (mouseX - gradientX) / (gradientWidth + 10))));
+                        colorSetting.setHue(Math.min(1, max));
                     } else {
                         colorSetting.setBrightness(Math.min(1, Math.max(0, 1 - ((mouseY - gradientY) / gradientHeight))));
                         colorSetting.setSaturation(Math.min(1, Math.max(0, (mouseX - gradientX) / gradientWidth)));
@@ -321,17 +327,17 @@ public class SettingsPanel extends Panel {
 
                 GL11.glEnable(GL11.GL_BLEND);
                 RenderUtil.color(-1);
-                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/colorpicker2.png"));
+                mc.getTextureManager().bindTexture(new ResourceLocation("client/icons/colorpicker2.png"));
                 Gui.drawModalRectWithCustomSizedTexture(pickerX, pickerY, 0, 0, 4, 4, 4, 4);
 
 
                 GlStateManager.color(1, 1, 1, 1);
-                Gui.drawRect2(gradientX + gradientWidth + 5, gradientY, 5, gradientHeight, colorSetting.getColor().getRGB());
+                Gui.drawRect2(gradientX + gradientWidth + 5, gradientY, 5, gradientHeight, colorSetting.getValue().getRGB());
 
 
                 // Hue bar
                 RenderUtil.color(-1);
-                mc.getTextureManager().bindTexture(new ResourceLocation("Tenacity/hue.png"));
+                mc.getTextureManager().bindTexture(new ResourceLocation("client/icons/hue.png"));
                 Gui.drawModalRectWithCustomSizedTexture(gradientX, gradientY + gradientHeight + 4.5f, 0, 0, gradientWidth + 10, 4, gradientWidth + 10, 4);
                 GlStateManager.color(1, 1, 1, 1);
 
@@ -339,10 +345,10 @@ public class SettingsPanel extends Panel {
                 Gui.drawRect2(gradientX + ((gradientWidth + 10) * hsb[0]), gradientY + gradientHeight + 3.5, 1, 6, -1);
 
 
-                FontManager.M14.drawString("Rainbow: ", gradientX, gradientY + gradientHeight + 14, -1);
+                FontManager.M14.drawString("彩虹色: ", gradientX, gradientY + gradientHeight + 14, -1);
 
-                String text = colorSetting.isRainbow() ? "Enabled" : "Disabled";
-                float textX = gradientX + FontManager.M14.getStringWidth("Rainbow: ") + 4;
+                String text = colorSetting.isRainbow() ? "开启" : "关闭";
+                float textX = gradientX + FontManager.M14.getStringWidth("彩虹色: ") + 4;
                 float textY = gradientY + gradientHeight + 13;
 
                 boolean hoveringRound = HoveringUtil.isHovering(textX, textY, FontManager.M14.getStringWidth(text) + 4, FontManager.M14.getHeight() + 2, mouseX, mouseY);
@@ -376,15 +382,15 @@ public class SettingsPanel extends Panel {
                     }
 
                     if (saturationFlag) {
-                        colorSetting.getRainbow().setSaturation(Math.min(1, Math.max(0, (mouseX - gradientX) / (gradientWidth + 10))));
+                        colorSetting.getRainbow().setSaturation(Math.min(1, max));
                     }
 
                 }
 
 
-                count += 3.5 + (colorSetting.isRainbow() ? .5f : 0);
+                count += 3 + (colorSetting.isRainbow() ? .5f : 0);
             }
-        */
+
             if (setting instanceof NumberValue) {
                 isHoveringSetting = HoveringUtil.isHovering(x + 5, settingY, 130, 20, mouseX, mouseY);
                 NumberValue numberSetting = (NumberValue) setting;
@@ -398,10 +404,14 @@ public class SettingsPanel extends Panel {
 
 
                 if (draggingNumber != null && draggingNumber == setting) {
+                    double min = numberSetting.getMinimum();
+                    double max = numberSetting.getMaximum();
                     float percent = Math.min(1, Math.max(0, (mouseX - (x + 14)) / 108));
-                    double newValue = (percent * (numberSetting.getMaximum() - numberSetting.getMinimum())) + numberSetting.getMinimum();
-                    numberSetting.setValue(newValue);
+                    double newValue = min + percent * (max - min);
+                    double increment = numberSetting.getIncrement();
+                    numberSetting.setValue(Math.round(newValue / increment) * increment);
                 }
+
 
                 String value = Double.toString(MathUtils.round(currentValue, 2));
                 FontManager.M16.drawString(value, x + 120 - FontManager.M16.getStringWidth(value), settingY + 2, -1);

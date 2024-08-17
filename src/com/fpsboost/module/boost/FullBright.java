@@ -6,7 +6,7 @@ import com.fpsboost.annotations.system.Module;
 import net.minecraft.client.Minecraft;
 import com.fpsboost.module.Category;
 
-@Module(value = "夜视",category = Category.Boost)
+@Module(name = "FullBright",description = "修改伽马值 达到夜视效果",category = Category.Boost)
 public class FullBright {
 
     @Enable

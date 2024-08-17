@@ -4,7 +4,9 @@ import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.render.Render3DEvent;
 import com.fpsboost.module.Category;
+import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -15,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-@Module(value = "龙翅膀",category = Category.Boost)
+@Module(name = "DragonWings",description = "在你背后添加末影龙的翅膀",category = Category.Boost)
 public class DragonWings extends ModelBase {
 	private final Minecraft mc;
 	public static ResourceLocation location = new ResourceLocation("client/wings.png");
@@ -23,9 +25,7 @@ public class DragonWings extends ModelBase {
 	private final ModelRenderer wingTip;
 	private final boolean playerUsesFullHeight;
 	public BooleanValue fullHeight = new BooleanValue("自适应高度", false);
-	public BooleanValue colored = new BooleanValue("自定义颜色", false);
-	private final BooleanValue chroma = new BooleanValue("自定义颜色浓度", false);
-	public final NumberValue hue = new NumberValue("颜色浓度", 100.0, 0.0, 100.0, 1.0);
+	private final BooleanValue rainbowValue = new BooleanValue("彩虹色",false);
 	public final NumberValue scaleValue = new NumberValue("大小", 100.0, 0.0, 100.0, 1.0);
 
 	public DragonWings() {
@@ -81,8 +81,10 @@ public class DragonWings extends ModelBase {
 			GL11.glTranslated(0D, 0.125D / scale, 0D);
 		}
 
-		float[] colors = getColors();
-		GL11.glColor3f(colors[0], colors[1], colors[2]);
+		if (rainbowValue.getValue()) {
+			float[] colors = getColors();
+			GL11.glColor3f(colors[0], colors[1], colors[2]);
+		}
 		mc.getTextureManager().bindTexture(location);
 
 		for (int j = 0; j < 2; ++j)
@@ -122,13 +124,8 @@ public class DragonWings extends ModelBase {
 
 	public float[] getColors()
 	{
-		if (!colored.getValue())
-		{
-			return new float[] {1F, 1F, 1F};
-		}
-
-		Color color = Color.getHSBColor(chroma.getValue() ? (System.currentTimeMillis() % 1000) / 1000F : hue.getValue().floatValue() / 100F, 0.8F, 1F);
-		return new float[] {color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F};
+		Color color = ColorUtil.rainbow();
+		return new float[] {color.getRed(), color.getGreen(), color.getBlue(),150F};
 	}
 
 }

@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import com.fpsboost.annotations.system.Command;
 import com.fpsboost.command.CommandManager;
 
-import com.fpsboost.gui.click.ClickGuiScreen;
+import com.fpsboost.gui.clickGui.drop.ClickGuiScreen;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;

@@ -1,9 +1,10 @@
-package com.fpsboost.gui.click.component.components;
+package com.fpsboost.gui.clickGui.drop.component.components;
 
 import com.fpsboost.Access;
-import com.fpsboost.gui.click.component.Component;
-import com.fpsboost.gui.click.component.components.sub.*;
-import com.fpsboost.gui.click.component.components.sub.Checkbox;
+import com.fpsboost.gui.clickGui.drop.ClickGuiScreen;
+import com.fpsboost.gui.clickGui.drop.component.Component;
+import com.fpsboost.gui.clickGui.drop.component.components.sub.*;
+import com.fpsboost.gui.clickGui.drop.component.components.sub.Checkbox;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.value.AbstractValue;
 import com.fpsboost.value.impl.BooleanValue;
@@ -11,22 +12,21 @@ import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
-import com.fpsboost.gui.click.ClickGuiScreen;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Button extends com.fpsboost.gui.click.component.Component {
+public class Button extends com.fpsboost.gui.clickGui.drop.component.Component {
 
     public Class<?> mod;
-    public com.fpsboost.gui.click.component.Frame parent;
+    public com.fpsboost.gui.clickGui.drop.component.Frame parent;
     public int offset;
     private boolean isHovered;
-    private final ArrayList<com.fpsboost.gui.click.component.Component> subcomponents;
+    private final ArrayList<com.fpsboost.gui.clickGui.drop.component.Component> subcomponents;
     public boolean open;
     private final int height;
 
-    public Button(Class<?> mod, com.fpsboost.gui.click.component.Frame parent, int offset) {
+    public Button(Class<?> mod, com.fpsboost.gui.clickGui.drop.component.Frame parent, int offset) {
         this.mod = mod;
         this.parent = parent;
         this.offset = offset;
@@ -47,7 +47,7 @@ public class Button extends com.fpsboost.gui.click.component.Component {
                     opY += 12;
                 }
                 if (value instanceof BooleanValue) {
-                    com.fpsboost.gui.click.component.components.sub.Checkbox check = new Checkbox((BooleanValue) value, this, opY);
+                    com.fpsboost.gui.clickGui.drop.component.components.sub.Checkbox check = new Checkbox((BooleanValue) value, this, opY);
                     this.subcomponents.add(check);
                     opY += 12;
                 }
@@ -61,7 +61,7 @@ public class Button extends com.fpsboost.gui.click.component.Component {
     public void setOff(int newOff) {
         offset = newOff;
         int opY = offset + 12;
-        for (com.fpsboost.gui.click.component.Component comp : this.subcomponents) {
+        for (com.fpsboost.gui.clickGui.drop.component.Component comp : this.subcomponents) {
             comp.setOff(opY);
             opY += 12;
         }
@@ -77,7 +77,7 @@ public class Button extends com.fpsboost.gui.click.component.Component {
         GL11.glPopMatrix();
         if (this.open) {
             if (!this.subcomponents.isEmpty()) {
-                for (com.fpsboost.gui.click.component.Component comp : this.subcomponents) {
+                for (com.fpsboost.gui.clickGui.drop.component.Component comp : this.subcomponents) {
                     comp.renderComponent();
                 }
                 Gui.drawRect(parent.getX() + 2, parent.getY() + this.offset + 12, parent.getX() + 3, parent.getY() + this.offset + ((this.subcomponents.size() + 1) * 12), ClickGuiScreen.color);
@@ -97,7 +97,7 @@ public class Button extends com.fpsboost.gui.click.component.Component {
     public void updateComponent(int mouseX, int mouseY) {
         this.isHovered = isMouseOnButton(mouseX, mouseY);
         if (!this.subcomponents.isEmpty()) {
-            for (com.fpsboost.gui.click.component.Component comp : this.subcomponents) {
+            for (com.fpsboost.gui.clickGui.drop.component.Component comp : this.subcomponents) {
                 comp.updateComponent(mouseX, mouseY);
             }
         }
@@ -112,14 +112,14 @@ public class Button extends com.fpsboost.gui.click.component.Component {
             this.open = !this.open;
             this.parent.refresh();
         }
-        for (com.fpsboost.gui.click.component.Component comp : this.subcomponents) {
+        for (com.fpsboost.gui.clickGui.drop.component.Component comp : this.subcomponents) {
             comp.mouseClicked(mouseX, mouseY, button);
         }
     }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int mouseButton) {
-        for (com.fpsboost.gui.click.component.Component comp : this.subcomponents) {
+        for (com.fpsboost.gui.clickGui.drop.component.Component comp : this.subcomponents) {
             comp.mouseReleased(mouseX, mouseY, mouseButton);
         }
     }

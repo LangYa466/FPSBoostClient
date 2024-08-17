@@ -1,7 +1,7 @@
-package com.fpsboost.gui.ui.components;
+package com.fpsboost.gui.clickGui.book.components;
 
+import com.fpsboost.gui.clickGui.book.Pair;
 import com.fpsboost.gui.font.FontManager;
-import com.fpsboost.gui.ui.Pair;
 import com.fpsboost.module.handlers.ModuleHandle;
 import com.fpsboost.util.HoveringUtil;
 import com.fpsboost.util.RenderUtil;
@@ -20,7 +20,6 @@ import java.awt.*;
 public class ModuleRect extends Component {
     public final ModuleHandle module;
     public Animation settingAnimation;
-    public Animation hoverDescriptionAnimation;
     public ModuleHandle binding;
     public float rectOffset = 0;
     public boolean rightClicked = false;
@@ -34,9 +33,6 @@ public class ModuleRect extends Component {
 
     @Override
     public void initGui() {
-        hoverDescriptionAnimation = new DecelerateAnimation(250, 1);
-        hoverDescriptionAnimation.setDirection(Direction.BACKWARDS);
-
         settingAnimation = new DecelerateAnimation(400, 1);
         settingAnimation.setDirection(Direction.BACKWARDS);
 
@@ -101,18 +97,13 @@ public class ModuleRect extends Component {
         // FontUtil.iconFont35.drawSmoothString(FontUtil.CHECKMARK, textX, textY, ColorUtil.applyOpacity(-1, (float) checkScaleAnimation.getOutput().floatValue()));
         GL11.glPopMatrix();
 
-        boolean hoverModule = HoveringUtil.isHovering(x, y, rectWidth, 35, mouseX, mouseY);
-        hoverDescriptionAnimation.setDirection(hoverModule ? Direction.FORWARDS : Direction.BACKWARDS);
-        hoverDescriptionAnimation.setDuration(hoverModule ? 300 : 400);
-
         GlStateManager.color(1, 1, 1, 1);
-        float xStart = (float) (x + 55 + FontManager.M24.getStringWidth(module.getName()));
+        float xStart =  (x + 55 + FontManager.M24.getStringWidth(module.getName()));
         float yVal = y + 35 / 2f - FontManager.M18.getHeight() / 2f;
-        if (binding != module && (!hoverDescriptionAnimation.isDone() || hoverDescriptionAnimation.finished(Direction.FORWARDS)) && module.getDescription() != null) {
-            float hover = hoverDescriptionAnimation.getOutput().floatValue();
+        if (binding != module && module.getDescription() != "") {
             float descWidth = 305 - ((55 + FontManager.M24.getStringWidth(module.getName())) + 15);
 
-            FontManager.M18.drawWrappedText(module.getDescription(), xStart, yVal, new Color(128, 134, 141, (int) (255 * hover)).getRGB(), descWidth, 3);
+            FontManager.M18.drawWrappedText(module.getDescription(), xStart, yVal, new Color(128, 134, 141, 255).getRGB(), descWidth, 3);
         } else if (binding == module) {
             FontManager.M18.drawString(
                     "Currently bound to " + Keyboard.getKeyName(module.getKey()),

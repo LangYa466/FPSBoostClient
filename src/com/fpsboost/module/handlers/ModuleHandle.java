@@ -31,9 +31,10 @@ public final class ModuleHandle {
 
     private String description;
 
-    public ModuleHandle(String name, Category category, Object object) {
+    public ModuleHandle(String name,String description, Category category, Object object) {
         this.state = false;
         this.name = name;
+        if (description != "") this.description = description;
         this.category = category;
         this.object = object;
         this.values = new ArrayList<>();

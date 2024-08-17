@@ -10,7 +10,7 @@ import com.fpsboost.module.Category;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.network.play.server.S03PacketTimeUpdate;
 
-@Module(value = "世界时间修改",category = Category.Boost)
+@Module(name = "TimeChanger",description = "修改世界时间",category = Category.Boost)
 public class TimeChanger implements Access.InstanceAccess {
     public NumberValue time = new NumberValue("时间", 14000, 0, 24000, 100);
 

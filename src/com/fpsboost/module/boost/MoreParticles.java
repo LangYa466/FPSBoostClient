@@ -10,7 +10,7 @@ import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.EnumParticleTypes;
 
-@Module(value = "更多粒子",category = Category.Boost)
+@Module(name = "MoreParticles",description = "更多粒子",category = Category.Boost)
 public class MoreParticles implements Access.InstanceAccess {
     private final NumberValue crackSize = new NumberValue("粒子数量", 2, 0, 10, 1);
     private final ComboValue particleMode = new ComboValue("粒子模式","暴击粒子","暴击粒子","普通攻击粒子");

@@ -9,13 +9,17 @@ import com.fpsboost.events.update.TickEvent;
 import com.fpsboost.gui.drag.impl.text.TextDisplay;
 import com.fpsboost.module.Category;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.entity.Entity;
 
-@Module(value = "连击显示",category = Category.GUI)
+import java.awt.*;
+
+@Module(name = "ComboDisplay",description = "显示PVP连击数",category = Category.GUI)
 public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
+    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
 
@@ -47,7 +51,7 @@ public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
     @EventTarget
     public void onRender2D(Render2DEvent event) {
         String text = String.format("Combo: %s", combo);
-        draw(text,backgroundValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
+        draw(text,backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
 
 

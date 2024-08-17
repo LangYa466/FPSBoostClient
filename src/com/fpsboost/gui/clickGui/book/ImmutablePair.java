@@ -1,4 +1,4 @@
-package com.fpsboost.gui.ui;
+package com.fpsboost.gui.clickGui.book;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;

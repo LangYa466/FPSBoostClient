@@ -1,11 +1,11 @@
-package com.fpsboost.gui.click.component;
+package com.fpsboost.gui.clickGui.drop.component;
 
 import com.fpsboost.Access;
+import com.fpsboost.gui.clickGui.drop.ClickGuiScreen;
 import com.fpsboost.gui.font.FontManager;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
-import com.fpsboost.gui.click.ClickGuiScreen;
-import com.fpsboost.gui.click.component.components.Button;
+import com.fpsboost.gui.clickGui.drop.component.components.Button;
 import com.fpsboost.module.Category;
 
 import java.util.ArrayList;

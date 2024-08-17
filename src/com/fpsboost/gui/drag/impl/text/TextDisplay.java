@@ -29,4 +29,12 @@ public class TextDisplay implements Access.InstanceAccess {
         drag.setWH(fontRenderer.getStringWidth(text)  + 10.5F,fontRenderer.getHeight());
         fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
     }
+    public void draw(String text,boolean bg,Color color,float opacity,float radius) {
+        float x = drag.getXPos();
+        float y = drag.getYPos();
+        Color alphaColor = ColorUtil.applyOpacity(color,opacity);
+        if (bg) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),radius,alphaColor);
+        drag.setWH(fontRenderer.getStringWidth(text)  + 10.5F,fontRenderer.getHeight());
+        fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
+    }
 }

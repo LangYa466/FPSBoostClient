@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Module {
-    String value();
+    String name();
+    String description() default "";
     Category category();
 }

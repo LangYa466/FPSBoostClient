@@ -1,4 +1,4 @@
-package com.fpsboost.gui.ui;
+package com.fpsboost.gui.clickGui.book;
 
 public enum GuiEvents {
 

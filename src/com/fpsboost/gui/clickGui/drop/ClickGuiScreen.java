@@ -1,6 +1,7 @@
-package com.fpsboost.gui.click;
+package com.fpsboost.gui.clickGui.drop;
 
-import com.fpsboost.gui.click.component.Component;
+import com.fpsboost.gui.clickGui.drop.component.Component;
+import com.fpsboost.gui.clickGui.drop.component.Frame;
 import net.minecraft.client.gui.GuiScreen;
 import com.fpsboost.module.Category;
 
@@ -10,14 +11,14 @@ import java.util.ArrayList;
 
 public class ClickGuiScreen extends GuiScreen {
 
-    public static ArrayList<com.fpsboost.gui.click.component.Frame> frames;
+    public static ArrayList<Frame> frames;
     public static int color = new Color(62, 175, 255).getRGB();
 
     public void init(){
         frames = new ArrayList<>();
         int frameX = 5;
         for (Category category : Category.values()) {
-            com.fpsboost.gui.click.component.Frame frame = new com.fpsboost.gui.click.component.Frame(category);
+            Frame frame = new Frame(category);
             frame.setX(frameX);
             frames.add(frame);
             frameX += frame.getWidth() + 1;
@@ -27,10 +28,10 @@ public class ClickGuiScreen extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         // this.drawDefaultBackground();
-        for (com.fpsboost.gui.click.component.Frame frame : frames) {
+        for (Frame frame : frames) {
             frame.renderFrame();
             frame.updatePosition(mouseX, mouseY);
-            for (com.fpsboost.gui.click.component.Component comp : frame.getComponents()) {
+            for (Component comp : frame.getComponents()) {
                 comp.updateComponent(mouseX, mouseY);
             }
         }
@@ -38,7 +39,7 @@ public class ClickGuiScreen extends GuiScreen {
 
     @Override
     protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) throws IOException {
-        for (com.fpsboost.gui.click.component.Frame frame : frames) {
+        for (Frame frame : frames) {
             if (frame.isWithinHeader(mouseX, mouseY) && mouseButton == 0) {
                 frame.setDrag(true);
                 frame.dragX = mouseX - frame.getX();
@@ -49,7 +50,7 @@ public class ClickGuiScreen extends GuiScreen {
             }
             if (frame.isOpen()) {
                 if (!frame.getComponents().isEmpty()) {
-                    for (com.fpsboost.gui.click.component.Component component : frame.getComponents()) {
+                    for (Component component : frame.getComponents()) {
                         component.mouseClicked(mouseX, mouseY, mouseButton);
                     }
                 }
@@ -59,10 +60,10 @@ public class ClickGuiScreen extends GuiScreen {
 
     @Override
     protected void keyTyped(char typedChar, int keyCode) {
-        for (com.fpsboost.gui.click.component.Frame frame : frames) {
+        for (Frame frame : frames) {
             if (frame.isOpen() && keyCode != 1) {
                 if (!frame.getComponents().isEmpty()) {
-                    for (com.fpsboost.gui.click.component.Component component : frame.getComponents()) {
+                    for (Component component : frame.getComponents()) {
                         component.keyTyped(typedChar, keyCode);
                     }
                 }
@@ -76,10 +77,10 @@ public class ClickGuiScreen extends GuiScreen {
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
-        for (com.fpsboost.gui.click.component.Frame frame : frames) {
+        for (Frame frame : frames) {
             frame.setDrag(false);
         }
-        for (com.fpsboost.gui.click.component.Frame frame : frames) {
+        for (Frame frame : frames) {
             if (frame.isOpen()) {
                 if (!frame.getComponents().isEmpty()) {
                     for (Component component : frame.getComponents()) {

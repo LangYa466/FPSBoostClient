@@ -1,9 +1,9 @@
-package com.fpsboost.gui.ui;
+package com.fpsboost.gui.clickGui.book;
 
-import com.fpsboost.gui.ui.components.CategoryButton;
-import com.fpsboost.gui.ui.components.ClickCircle;
-import com.fpsboost.gui.ui.components.ModuleRect;
-import com.fpsboost.gui.ui.components.Component;
+import com.fpsboost.gui.clickGui.book.components.CategoryButton;
+import com.fpsboost.gui.clickGui.book.components.ClickCircle;
+import com.fpsboost.gui.clickGui.book.components.ModuleRect;
+import com.fpsboost.gui.clickGui.book.components.Component;
 import com.fpsboost.Access;
 import com.fpsboost.gui.drag.Drag;
 import com.fpsboost.gui.font.FontManager;

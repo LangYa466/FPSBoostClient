@@ -12,6 +12,7 @@ import com.fpsboost.util.RenderUtil;
 import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import com.fpsboost.value.impl.BooleanValue;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,10 +24,11 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.ArrayList;
 
-@Module(value = "药水显示",category = Category.GUI)
+@Module(name = "PotionDisplay",description = "药水显示",category = Category.GUI)
 public class PotionDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
+    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
 
@@ -96,7 +98,7 @@ public class PotionDisplay implements Access.InstanceAccess {
                     drag.setWidth(width);
                 }
 
-                Color color = ColorUtil.applyOpacity(Color.BLACK,opacity.getValue().floatValue());
+                Color color = ColorUtil.applyOpacity(colorValue.getValue(),opacity.getValue().floatValue());
                 if (backgroundValue.getValue()) RoundedUtil.drawRound(0,0,allStringWidth + 10F,25F,backgroundRadiusValue.getValue().floatValue(),color);
 
                 // draw potion name with i18n

@@ -14,6 +14,7 @@ import com.fpsboost.util.animations.Direction;
 import com.fpsboost.util.animations.impl.SmoothStepAnimation;
 import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
@@ -25,11 +26,12 @@ import java.awt.*;
  * @since 2024/4/25 20:32
  */
 
-@Module(value = "按键显示",category = Category.GUI)
+@Module(name = "KeyStore",description = "按键显示",category = Category.GUI)
 public class KeyStore  implements Access.InstanceAccess {
     private final NumberValue offsetValue = new NumberValue("间隔", 3, 2.5, 10, .5);
     private final NumberValue sizeValue = new NumberValue("大小", 25, 15, 35, 1);
-    private static final NumberValue opacity = new NumberValue("透明度", 0.25, 0.0, 1, .05);
+    public static ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
+    private static final NumberValue opacity = new NumberValue("不透明度", 0.25, 0.0, 1, .05);
     private static final NumberValue radius = new NumberValue("圆角", 3, 1, 17.5, .5);
 
     private final Dragging dragging = Access.getInstance().getDragManager().createDrag(this.getClass(), "Keystrokes", 70, 70);
@@ -79,7 +81,7 @@ public class KeyStore  implements Access.InstanceAccess {
         }
 
         public void render(float x, float y, float width, float height) {
-            Color color = ColorUtil.applyOpacity(Color.BLACK, opacity.getValue().floatValue());
+            Color color = ColorUtil.applyOpacity(KeyStore.colorValue.getValue(), opacity.getValue().floatValue());
             clickAnimation.setDirection(binding.isKeyDown() ? Direction.FORWARDS : Direction.BACKWARDS);
 
             RoundedUtil.drawRound(x, y, width, height, radius.getValue().floatValue(), color);

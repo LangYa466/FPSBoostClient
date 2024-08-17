@@ -9,19 +9,17 @@ import com.fpsboost.gui.drag.Dragging;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.Category;
 import com.fpsboost.util.render.ColorUtil;
+import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
 
 import java.awt.*;
 
-@Module(value = "仿外挂列表",category = Category.GUI)
+@Module(name = "ModuleList",description = "模仿外挂的ArrayList就是显示全部功能",category = Category.GUI)
 public class ArrayList implements Access.InstanceAccess {
 
     private static final ComboValue textMode = new ComboValue("语言", "中文", "中文", "英文");
-    private static final ComboValue colorMode = new ComboValue("颜色", "彩虹", "自定义", "彩虹");
-    private static final NumberValue customColorRed = new NumberValue("自定义红色", 0, 0, 255, 5);
-    private static final NumberValue customColorGreen = new NumberValue("自定义绿色", 0, 0, 255, 5);
-    private static final NumberValue customColorBlue = new NumberValue("自定义蓝色", 0, 0, 255, 5);
+    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private final NumberValue spacing = new NumberValue("间距", 3, 1, 5, 1);
 
     private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(),"arraylist", 4, 15);
@@ -47,18 +45,10 @@ public class ArrayList implements Access.InstanceAccess {
         }
         enabledModules.sort((o1, o2) -> FontManager.M22.getStringWidth(access.getModuleManager().format(o2)) - FontManager.M22.getStringWidth(access.getModuleManager().format(o1)));
         for (Class<?> module : enabledModules) {
-            Color c = Color.white;
-            switch (colorMode.getValue()) {
-                case "自定义":
-                    c = new Color(customColorRed.getValue().intValue(), customColorGreen.getValue().intValue(), customColorBlue.getValue().intValue());
-                    break;
-                case "彩虹":
-                    c = ColorUtil.rainbow();
-            }
             if (textMode.isMode("中文")) {
-                FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, c.getRGB());
+                FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, colorValue.getValue().getRGB());
             } else {
-                FontManager.M22.drawStringWithShadow(module.getSimpleName(), x , y + y1, c.getRGB());
+                FontManager.M22.drawStringWithShadow(module.getSimpleName(), x , y + y1, colorValue.getValue().getRGB());
             }
             y1 += FontManager.M22.getHeight() + spacing.getValue().intValue();
         }
