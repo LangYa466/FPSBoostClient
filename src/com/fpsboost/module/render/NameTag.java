@@ -27,11 +27,11 @@ import java.awt.*;
 @Module(name = "NameTag",description = "合法的NameTag 就是美化了原版的显示", category = Category.GUI)
 public class NameTag implements Access.InstanceAccess {
 
+    private final NumberValue scaleValue = new NumberValue("大小", 1F, 1F, 4F,0.5F);
     private final BooleanValue healthValue = new BooleanValue("血量", true);
     private final BooleanValue pingValue = new BooleanValue("延迟", true);
     private final BooleanValue distanceValue = new BooleanValue("距离", false);
     private final BooleanValue armorValue = new BooleanValue("装备", true);
-    private final NumberValue scaleValue = new NumberValue("大小", 1F, 1F, 4F,0.5F);
 
     @EventTarget
     public void onRenderNameTag(RenderNameTagEvent event) {

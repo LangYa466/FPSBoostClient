@@ -179,7 +179,7 @@ public class SettingsPanel extends Panel {
 
                 GlStateManager.color(1, 1, 1);
                 RenderUtil.drawGoodCircle(x + 113 + (10 * animation.getOutput().floatValue()), settingY1 + 4, 4f, -1);
-                count -= .7f;
+                count -= .9f;
             }
 
             if (setting instanceof ComboValue) {
@@ -228,6 +228,9 @@ public class SettingsPanel extends Panel {
                 for (String mode : modeSetting.getStrings()) {
                     if (!mode.equalsIgnoreCase(Arrays.toString(modeSetting.getStrings()))) {
                         Animation modeAnimation = modesHoverAnimation.get(modeSetting).get(mode);
+                        if (modeAnimation == null) {
+                            modeAnimation = new DecelerateAnimation(250, 5);
+                        }
                         boolean isHoveringMode = animation.getDirection().equals(Direction.FORWARDS) &&
                                 HoveringUtil.isHovering(x + 115 - stringWidth, settingY1 + (modeCount * 15), modeWidth, 11, mouseX, mouseY);
 
@@ -238,7 +241,7 @@ public class SettingsPanel extends Panel {
                         }
 
                         modeAnimation.setDirection(isHoveringMode ? Direction.FORWARDS : Direction.BACKWARDS);
-                        modeAnimation.setDuration(isHoveringMode ? 200 : 570);
+                        modeAnimation.setDuration(isHoveringMode ? 200 : 370);
 
                         int colorInterpolate = ColorUtil.interpolateColor(new Color(128, 134, 141), colors.getSecond(), (float) modeAnimation.getOutput().floatValue());
 
@@ -249,7 +252,7 @@ public class SettingsPanel extends Panel {
                     }
                 }
 
-                count += ((math / settingHeight) * animation.getOutput().floatValue()) + 1.2f;
+                count += ((math / settingHeight) * animation.getOutput().floatValue()) + 1.5f;
             }
 
 
@@ -434,7 +437,7 @@ public class SettingsPanel extends Panel {
 
                 RoundedUtil.drawRound(x + 13, settingY + 14, Math.max(4, sliderMap.get(numberSetting)), 3, 1.5f, new Color(Color.HSBtoRGB(hsb[0], saturation, hsb[2])));
 
-                count += 1F;
+                count += .8F;
             }
             /*
             if (setting instanceof StringSetting) {

@@ -28,11 +28,11 @@ import java.awt.*;
 
 @Module(name = "KeyStore",description = "按键显示",category = Category.GUI)
 public class KeyStore  implements Access.InstanceAccess {
-    private final NumberValue offsetValue = new NumberValue("间隔", 3, 2.5, 10, .5);
-    private final NumberValue sizeValue = new NumberValue("大小", 25, 15, 35, 1);
     public static ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private static final NumberValue opacity = new NumberValue("不透明度", 0.25, 0.0, 1, .05);
     private static final NumberValue radius = new NumberValue("圆角", 3, 1, 17.5, .5);
+    private final NumberValue offsetValue = new NumberValue("间隔", 3, 2.5, 10, .5);
+    private final NumberValue sizeValue = new NumberValue("大小", 25, 15, 35, 1);
 
     private final Dragging dragging = Access.getInstance().getDragManager().createDrag(this.getClass(), "Keystrokes", 70, 70);
 
