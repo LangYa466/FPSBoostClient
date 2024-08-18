@@ -270,7 +270,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Draws the hover event specified by the given chat component
-     *  
+     *
      * @param component The IChatComponent to render
      * @param x The x position where to render
      * @param y The y position where to render
@@ -384,7 +384,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Executes the click event specified by the given chat component
-     *  
+     *
      * @param component The ChatComponent to check for click
      */
     protected boolean handleComponentClick(IChatComponent component)
@@ -564,7 +564,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Set the gui to the specified width and height
-     *  
+     *
      * @param w The width of the screen
      * @param h The height of the screen
      */
@@ -790,7 +790,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
 
     /**
      * Called when the GUI is resized in order to update the world and the resolution
-     *  
+     *
      * @param w The width of the screen
      * @param h The height of the screen
      */

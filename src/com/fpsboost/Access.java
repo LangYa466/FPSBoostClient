@@ -4,6 +4,7 @@ import com.fpsboost.events.EventManager;
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.module.RankManager;
+import com.fpsboost.module.WingsManager;
 import com.fpsboost.module.boost.DragonWings;
 import com.fpsboost.plugin.PluginManager;
 import com.fpsboost.util.HWIDUtil;
@@ -133,6 +134,7 @@ public final class Access {
        // configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
         EventManager.register(dragManager);
         EventManager.register(moduleManager);
+       // new WingsManager();
     }
 
     public void onStop() {

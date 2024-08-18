@@ -2,6 +2,7 @@ package com.fpsboost.gui.clickGui.drop;
 
 import com.fpsboost.gui.clickGui.drop.component.Component;
 import com.fpsboost.gui.clickGui.drop.component.Frame;
+import com.fpsboost.gui.font.FontManager;
 import net.minecraft.client.gui.GuiScreen;
 import com.fpsboost.module.Category;
 
@@ -13,7 +14,7 @@ public class ClickGuiScreen extends GuiScreen {
 
     public static ArrayList<Frame> frames;
     public static int color = new Color(62, 175, 255).getRGB();
-
+    private final int infoColor = new Color(255,255,255,180).getRGB();
     public void init(){
         frames = new ArrayList<>();
         int frameX = 5;
@@ -35,7 +36,9 @@ public class ClickGuiScreen extends GuiScreen {
                 comp.updateComponent(mouseX, mouseY);
             }
         }
+        FontManager.M22.drawStringWithShadow("您当前使用的是手机模式",width - 20,5,infoColor);
     }
+
 
     @Override
     protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) throws IOException {

@@ -157,7 +157,7 @@ public class ModulesPanel extends Panel {
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
         }
 
-        ClickGui.modernClickGui.adjustWidth((125 * expandAnim2.getOutput().floatValue()));
+        ((ModernClickGui)ClickGui.modernClickGui).adjustWidth((125 * expandAnim2.getOutput().floatValue()));
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.fpsboost.events.render.Render3DEvent;
 import com.fpsboost.module.Category;
 import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.value.impl.BooleanValue;
-import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -61,11 +60,11 @@ public class DragonWings extends ModelBase {
 
 		if ( !player.isInvisible() && mc.gameSettings.thirdPersonView > 0) // Should render wings onto this player?
 		{
-			renderWings(player, event.getRenderPartialTicks());
+			renderWings(player, event.getRenderPartialTicks(),location);
 		}
 	}
 
-	private void renderWings(EntityPlayer player, float partialTicks)
+	private void renderWings(EntityPlayer player, float partialTicks,ResourceLocation location)
 	{
 		double scale = scaleValue.getValue() / 100D;
 		double rotate = interpolate(player.prevRenderYawOffset, player.renderYawOffset, partialTicks);

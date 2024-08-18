@@ -336,7 +336,7 @@ public class UnicodeFontRenderer {
     }
 
     @Override
-    protected final void finalize() throws Throwable {
+    protected final void finalize() {
         for (final int textureId : textures) {
             if (textureId != -1) {
                 GL11.glDeleteTextures(textureId);
@@ -344,9 +344,9 @@ public class UnicodeFontRenderer {
         }
     }
 
-    public final void drawStringWithShadow(final String text, final float i, final float i1, final int rgb) {
-        drawString(text, i + 0.5f, i1 + 0.5f, rgb, true);
-        drawString(text, i, i1, rgb);
+    public final void drawStringWithShadow(final String text, final float x, final float y, final int rgb) {
+        drawString(text, x + 0.5f, y + 0.5f, rgb, true);
+        drawString(text, x, y, rgb);
     }
 
     public final void drawLimitedString(final String text, final float x, final float y, final int color, final float maxWidth) {
