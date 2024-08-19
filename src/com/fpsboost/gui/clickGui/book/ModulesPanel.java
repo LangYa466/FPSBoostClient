@@ -13,6 +13,7 @@ import com.fpsboost.util.animations.Animation;
 import com.fpsboost.util.animations.Direction;
 import com.fpsboost.util.animations.impl.DecelerateAnimation;
 import com.fpsboost.util.render.RoundedUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
 
@@ -141,9 +142,42 @@ public class ModulesPanel extends Panel {
             Gui.drawGradientRect2(newX - .5f, y, 130.5f, 8, new Color(0, 0, 0, 70).getRGB(), new Color(0, 0, 0, 0).getRGB());
             FontManager.M22.drawCenteredString(currentlySelected.module.getName(), newX + 125 / 2f, y - 15, -1);
 
-            GL11.glEnable(GL11.GL_SCISSOR_TEST);
-            RenderUtil.scissor(newX, y + .5f, 135, 255);
+            // 获取当前屏幕分辨率
+            int screenWidth = Minecraft.getMinecraft().displayWidth;
+            int screenHeight = Minecraft.getMinecraft().displayHeight;
 
+            // 确定绘制区域的原始坐标和尺寸
+            float originalX = x + 305;
+            float originalY = y - 20;
+            float originalWidth = 135;
+            float originalHeight = 255;
+
+            // 将原始坐标和尺寸映射到屏幕分辨率
+            // 注意：这里的宽度和高度需要根据屏幕的实际 DPI 设置进行调整
+            // 获取默认屏幕设备
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice gd = ge.getDefaultScreenDevice();
+
+            // 获取屏幕尺寸
+            Dimension screenSize = gd.getDefaultConfiguration().getBounds().getSize();
+
+            // 获取屏幕宽度和高度
+            int screenWidth2 = screenSize.width;
+            int screenHeight2 = screenSize.height;
+
+            float scaleX = (float) screenWidth / screenWidth2;
+            float scaleY = (float) screenHeight / screenHeight2;
+
+            float adjustedX = originalX * scaleX;
+            float adjustedY = originalY * scaleY;
+            float adjustedWidth = originalWidth * scaleX;
+            float adjustedHeight = originalHeight * scaleY;
+
+            // 启用 scissor 测试
+            GL11.glEnable(GL11.GL_SCISSOR_TEST);
+            RenderUtil.scissor(adjustedX, adjustedY, adjustedWidth, adjustedHeight);
+
+            // 绘制界面内容
             SettingsPanel settingsPanel = settingsPanelHashMap.get(currentlySelected.module);
             settingScroll.setMaxScroll(Math.max(0, settingsPanel.maxScroll - 100));
             settingsPanel.x = x + 305;
@@ -153,8 +187,9 @@ public class ModulesPanel extends Panel {
             if (!typing) {
                 typing = settingsPanel.typing;
             }
-
+            // 取消 scissor 测试
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
+
         }
 
         ((ModernClickGui)ClickGui.modernClickGui).adjustWidth((125 * expandAnim2.getOutput().floatValue()));

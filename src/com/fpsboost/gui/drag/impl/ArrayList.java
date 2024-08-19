@@ -2,25 +2,30 @@ package com.fpsboost.gui.drag.impl;
 
 import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
-import com.fpsboost.annotations.system.Init;
 import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.render.Render2DEvent;
 import com.fpsboost.gui.drag.Dragging;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.Category;
 import com.fpsboost.util.render.ColorUtil;
+import com.fpsboost.util.render.RoundedUtil;
+import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.ColorValue;
-import com.fpsboost.value.impl.ComboValue;
 import com.fpsboost.value.impl.NumberValue;
+import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
+
 
 @Module(name = "ModuleList",description = "模仿外挂的ArrayList就是显示全部功能",category = Category.GUI)
 public class ArrayList implements Access.InstanceAccess {
 
-    private static final ComboValue textMode = new ComboValue("语言", "中文", "中文", "英文");
-    private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
+    private final ColorValue textColor = new ColorValue("文本颜色",new Color(0,0,0));
     private final NumberValue spacing = new NumberValue("间距", 3, 1, 5, 1);
+    private final BooleanValue background = new BooleanValue("背景",true);
+    private final NumberValue opacity = new NumberValue("背景透明度", 0.25, 0.0, 1, .05);
+    private final NumberValue radius = new NumberValue("背景圆角", 3, 1, 17.5, .5);
+    private final ColorValue bgColor = new ColorValue("背景颜色",new Color(0,0,0));
 
     private final Dragging pos = Access.getInstance().getDragManager().createDrag(this.getClass(),"arraylist", 4, 15);
 
@@ -44,12 +49,16 @@ public class ArrayList implements Access.InstanceAccess {
             }
         }
         enabledModules.sort((o1, o2) -> FontManager.M22.getStringWidth(access.getModuleManager().format(o2)) - FontManager.M22.getStringWidth(access.getModuleManager().format(o1)));
+
         for (Class<?> module : enabledModules) {
-            if (textMode.isMode("中文")) {
-                FontManager.M22.drawStringWithShadow(access.getModuleManager().format(module), x , y + y1, colorValue.getValue().getRGB());
-            } else {
-                FontManager.M22.drawStringWithShadow(module.getSimpleName(), x , y + y1, colorValue.getValue().getRGB());
+            String displayText = access.getModuleManager().format(module);
+            if (background.getValue()) {
+                float offset = 5;
+                Color color = bgColor.getValue();
+                float width2 = FontManager.M22.getStringWidth(displayText);
+                RoundedUtil.drawRound(x - 2, y + y1, width2 + offset, FontManager.M22.getHeight(),radius.getValue().intValue(), ColorUtil.applyOpacity(color, opacity.getValue().floatValue()));
             }
+            FontManager.M22.drawStringWithShadow(displayText, x , y + y1 + 2F, textColor.getValue().getRGB());
             y1 += FontManager.M22.getHeight() + spacing.getValue().intValue();
         }
     }
