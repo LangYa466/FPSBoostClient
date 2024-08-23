@@ -15,6 +15,8 @@ public final class ModuleHandle {
 
     private final String name;
 
+    private final String cnName;
+
     private final Category category;
 
     private final Object object;
@@ -31,9 +33,10 @@ public final class ModuleHandle {
 
     private String description;
 
-    public ModuleHandle(String name,String description, Category category, Object object) {
+    public ModuleHandle(String name,String cnName,String description, Category category, Object object) {
         this.state = false;
         this.name = name;
+        this.cnName = cnName;
         if (description != "") this.description = description;
         this.category = category;
         this.object = object;

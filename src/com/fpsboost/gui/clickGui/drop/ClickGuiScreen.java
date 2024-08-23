@@ -36,7 +36,7 @@ public class ClickGuiScreen extends GuiScreen {
                 comp.updateComponent(mouseX, mouseY);
             }
         }
-        FontManager.M22.drawStringWithShadow("您当前使用的是手机模式",width - 20,5,infoColor);
+        FontManager.M22.drawStringWithShadow("您当前使用的是兼容模式",width - 20,5,infoColor);
     }
 
 

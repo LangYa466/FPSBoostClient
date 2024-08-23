@@ -61,7 +61,7 @@ public final class ModuleManager implements Initializer {
         initialize(clazz -> {
             if(clazz.isAnnotationPresent(Module.class)){
                 Module module = clazz.getAnnotation(Module.class);
-                register(clazz,module.name(),module.category(),module.description());
+                register(clazz,module.name(),module.cnName(),module.category(),module.description());
             }
         });
     }
@@ -69,7 +69,7 @@ public final class ModuleManager implements Initializer {
     public void registerURLModule(String className,String classPackage) {
         Class<?> clazz = ClassLoaderUtil.load(className,classPackage);
         Module module = clazz.getAnnotation(Module.class);
-        register(clazz,module.name(),module.category(),module.description());
+        register(clazz,module.name(),"",module.category(),module.description());
     }
     @EventTarget
     public void onKey(KeyInputEvent event) {
@@ -85,14 +85,14 @@ public final class ModuleManager implements Initializer {
      * @param name     Name
      * @param category Module Category, see {@link Category}
      */
-    public void register(Class<?> clazz, String name, Category category,String description) {
+    public void register(Class<?> clazz, String name, String cnName, Category category,String description) {
         try {
             Object instance = Access.getInstance().getInvoke().createInstance(clazz);
 
             Access.getInstance().getInvoke().autoWired(instance);
             Access.getInstance().getInvoke().registerBean(instance);
 
-            ModuleHandle module = new ModuleHandle(name,description, category, instance);
+            ModuleHandle module = new ModuleHandle(name,cnName,description, category, instance);
 
             nameMap.put(name.toLowerCase(), clazz);
             objectMap.put(instance, clazz);
@@ -258,6 +258,16 @@ public final class ModuleManager implements Initializer {
      * @return {@link String}
      */
     public String getName(Class<?> module) {
+        return modules.get(module).getName();
+    }
+
+    /**
+     * Get a module chinese name
+     *
+     * @param module Module Class
+     * @return {@link String}
+     */
+    public String getCNName(Class<?> module) {
         return modules.get(module).getName();
     }
 

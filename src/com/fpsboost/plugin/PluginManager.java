@@ -35,7 +35,7 @@ public class PluginManager implements Access.InstanceAccess {
                 for (Class<?> clazz : ClassLoaderUtil.load(jarFile)) {
                     if(clazz.isAnnotationPresent(Module.class)){
                         Module module = clazz.getAnnotation(Module.class);
-                        Access.getInstance().getModuleManager().register(clazz,module.name(),module.category(),module.description());
+                        Access.getInstance().getModuleManager().register(clazz,module.name(),"",module.category(),module.description());
                         System.out.println("注册插件 >> " + clazz.getName());
                     }
                     if(clazz.isAnnotationPresent(Command.class)){
