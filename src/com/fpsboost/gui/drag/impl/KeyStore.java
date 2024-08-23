@@ -26,7 +26,7 @@ import java.awt.*;
  * @since 2024/4/25 20:32
  */
 
-@Module(name = "KeyStore",description = "按键显示",category = Category.GUI)
+@Module(name = "KeyStore",cnName = "按键显示",description = "按键显示",category = Category.GUI)
 public class KeyStore  implements Access.InstanceAccess {
     public static ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
     private static final NumberValue opacity = new NumberValue("不透明度", 0.25, 0.0, 1, .05);

@@ -96,7 +96,7 @@ public class CommandManager implements Initializer {
      * @param instance Command Instance
      * @param name     Name (and alias)
      */
-    private void register(CommandHandle instance, String... name) {
+    public void register(CommandHandle instance, String... name) {
         commands.put(name, instance);
     }
 

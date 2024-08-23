@@ -11,7 +11,7 @@ import com.fpsboost.module.Category;
 import org.lwjgl.input.Keyboard;
 
 @Startup
-@Module(name = "Sprint",description = "自动疾跑 其实妖猫的布吉岛mod抄袭了我的疾跑",category = Category.Boost)
+@Module(name = "Sprint",cnName = "自动疾跑",description = "自动疾跑 其实妖猫的布吉岛mod抄袭了我的疾跑",category = Category.Boost)
 public class Sprint implements Access.InstanceAccess {
 
     private final ModuleManager moduleManager;

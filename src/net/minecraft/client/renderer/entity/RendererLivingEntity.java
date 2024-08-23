@@ -1,6 +1,8 @@
 package net.minecraft.client.renderer.entity;
 
 import com.fpsboost.Access;
+import com.fpsboost.events.EventManager;
+import com.fpsboost.events.update.LivingEntityEvent;
 import com.fpsboost.module.boost.HitColor;
 import com.google.common.collect.Lists;
 import java.nio.FloatBuffer;
@@ -110,6 +112,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
      */
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
+        LivingEntityEvent event = new LivingEntityEvent(entity, this, partialTicks, x, y, z);
+        EventManager.call(event);
+        if (event.isCancelled()) return;
         if (!Reflector.RenderLivingEvent_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Pre_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)}))
         {
             if (animateModelLiving)

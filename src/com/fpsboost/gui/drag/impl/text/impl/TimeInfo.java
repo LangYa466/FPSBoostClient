@@ -15,7 +15,7 @@ import net.minecraft.entity.Entity;
 
 import java.awt.*;
 
-@Module(name = "TimeDisplay",description = "显示当前的时间(24小时制)",category = Category.GUI)
+@Module(name = "TimeDisplay",cnName = "",description = "显示当前的时间(24小时制)",category = Category.GUI)
 public class TimeInfo extends TextDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);

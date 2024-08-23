@@ -17,7 +17,7 @@ import net.minecraft.client.gui.Gui;
 import java.awt.*;
 
 
-@Module(name = "ModuleList",description = "模仿外挂的ArrayList就是显示全部功能",category = Category.GUI)
+@Module(name = "ModuleList",cnName = "功能列表",description = "模仿外挂的ArrayList就是显示全部功能",category = Category.GUI)
 public class ArrayList implements Access.InstanceAccess {
 
     private final ColorValue textColor = new ColorValue("文本颜色",new Color(0,0,0));

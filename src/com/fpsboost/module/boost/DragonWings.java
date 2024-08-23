@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-@Module(name = "DragonWings",description = "在你背后添加末影龙的翅膀",category = Category.Boost)
+@Module(name = "DragonWings",cnName = "龙翅膀",description = "在你背后添加末影龙的翅膀",category = Category.Boost)
 public class DragonWings extends ModelBase {
 	private final Minecraft mc;
 	public static ResourceLocation location = new ResourceLocation("client/wings.png");

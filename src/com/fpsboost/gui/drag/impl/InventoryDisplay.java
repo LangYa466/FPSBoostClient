@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 
 import java.awt.*;
 
-@Module(name = "InventoryDisplay",description = "显示你的背包里面有什么物品",category = Category.GUI)
+@Module(name = "InventoryDisplay",cnName = "背包物品显示",description = "显示你的背包里面有什么物品",category = Category.GUI)
 public class InventoryDisplay implements Access.InstanceAccess{
     public BooleanValue textRender = new BooleanValue("提示显示", true);
     public ComboValue textMode = new ComboValue("提示显示语言", "中文", "英文", "中文");

@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft;
 
 import java.awt.*;
 
-@Module(name = "FPSDisplay",description = "显示你的FPS",category = Category.GUI)
+@Module(name = "FPSDisplay",cnName = "FPS显示",description = "显示你的FPS",category = Category.GUI)
 public class FPSInfo extends TextDisplay {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);

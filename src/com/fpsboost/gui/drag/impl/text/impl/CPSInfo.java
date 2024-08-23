@@ -13,7 +13,7 @@ import com.fpsboost.value.impl.NumberValue;
 import java.awt.*;
 
 
-@Module(name = "CPSDisplay",description = "显示你的CPS",category = Category.GUI)
+@Module(name = "CPSDisplay",cnName = "CPS显示",description = "显示你的CPS",category = Category.GUI)
 public class CPSInfo extends TextDisplay {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);

@@ -2,6 +2,7 @@ package com.fpsboost;
 
 import com.fpsboost.events.EventManager;
 import com.fpsboost.gui.drag.DragManager;
+import com.fpsboost.irc.IRCManager;
 import com.fpsboost.module.ModuleManager;
 import com.fpsboost.module.RankManager;
 import com.fpsboost.module.WingsManager;
@@ -32,7 +33,7 @@ import java.security.NoSuchAlgorithmException;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.52";
+    public static final String CLIENT_VERSION = "1.53";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 
@@ -66,6 +67,7 @@ public final class Access {
      */
     private final ClickGuiScreen clickGui;
     private final RankManager rankManager;
+    private final IRCManager ircManager;
 
     /*
     * https://github.com/cubk1/LiteInvoke
@@ -119,6 +121,7 @@ public final class Access {
         dragManager = new DragManager();
         clickGui = new ClickGuiScreen();
         pluginManager = new PluginManager();
+        ircManager = new IRCManager();
 
         try {
             invoke. registerFields(this);
@@ -188,6 +191,10 @@ public final class Access {
 
     public DragManager getDragManager() {
         return dragManager;
+    }
+
+    public IRCManager getIrcManager() {
+        return ircManager;
     }
 
     /**

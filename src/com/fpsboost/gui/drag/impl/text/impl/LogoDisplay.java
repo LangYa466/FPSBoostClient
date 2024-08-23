@@ -17,7 +17,7 @@ import com.fpsboost.value.impl.NumberValue;
 
 import java.awt.*;
 
-@Module(name = "LogoDisplay",description = "显示客户端的Logo",category = Category.GUI)
+@Module(name = "LogoDisplay",cnName = "Logo显示",description = "显示客户端的Logo",category = Category.GUI)
 public class LogoDisplay extends TextDisplay implements Access.InstanceAccess {
 
     @LiteInvoke.Autowired

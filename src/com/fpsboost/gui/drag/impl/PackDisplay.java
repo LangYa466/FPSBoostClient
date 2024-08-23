@@ -25,7 +25,7 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.util.ResourceLocation;
 
-@Module(name = "PackDisplay",description = "显示你正在用的材质包",category = Category.GUI)
+@Module(name = "PackDisplay",cnName = "材质包显示",description = "显示你正在用的材质包",category = Category.GUI)
 public class PackDisplay implements Access.InstanceAccess {
 
 	private IResourcePack pack;

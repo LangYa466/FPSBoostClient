@@ -24,7 +24,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-@Module(name = "NameTag",description = "合法的NameTag 就是美化了原版的显示", category = Category.GUI)
+@Module(name = "NameTag",cnName = "名称栏",description = "合法的NameTag 就是美化了原版的显示", category = Category.GUI)
 public class NameTag implements Access.InstanceAccess {
 
     private final NumberValue scaleValue = new NumberValue("大小", 1F, 1F, 4F,0.5F);
@@ -74,7 +74,14 @@ public class NameTag implements Access.InstanceAccess {
         String pingText = pingValue.getValue() && entity instanceof EntityPlayer ? (ping > 200 ? "§c" : ping > 100 ? "§e" : "§a") + ping + "ms §7" : "";
         String healthText = healthValue.getValue() ? "§7§c " + Math.round(entity.getHealth()) + " HP" : "";
 
-        String text = distanceText + pingText + nameColor + tag + healthText;
+        String text;
+
+        //        if (Access.getInstance().getIrcManager().getTransport().isUser(tag)) {
+        if (false) {
+            text = "[客户端用户] " + distanceText + pingText + nameColor + tag + healthText;
+        } else {
+            text = distanceText + pingText + nameColor + tag + healthText;
+        }
 
         // Push
         GL11.glPushMatrix();

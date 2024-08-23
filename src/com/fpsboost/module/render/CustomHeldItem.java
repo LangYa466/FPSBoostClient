@@ -4,7 +4,7 @@ import com.fpsboost.annotations.system.Module;
 import com.fpsboost.module.Category;
 import com.fpsboost.value.impl.NumberValue;
 
-@Module(name = "CustomHeldItem",description = "自定义你的手持物品XY和大小",category = Category.GUI)
+@Module(name = "CustomHeldItem",cnName = "自定义手持物品",description = "自定义你的手持物品XY和大小",category = Category.GUI)
 public class CustomHeldItem {
     public static final NumberValue x = new NumberValue("自定义X", 0, -50, 50, 1);
     public static final NumberValue y = new NumberValue("自定义Y", 0, -50, 50, 1);

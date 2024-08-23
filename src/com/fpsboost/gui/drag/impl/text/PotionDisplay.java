@@ -24,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.ArrayList;
 
-@Module(name = "PotionDisplay",description = "药水显示",category = Category.GUI)
+@Module(name = "PotionDisplay",cnName = "药水显示",description = "显示你的药水效果",category = Category.GUI)
 public class PotionDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);

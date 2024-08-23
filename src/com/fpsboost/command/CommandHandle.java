@@ -12,9 +12,9 @@ import java.util.List;
 public abstract class CommandHandle {
 	private final List<Method> handlers = new ArrayList<>();
 
-	abstract void run(String[] args);
+	protected abstract void run(String[] args);
 
-	abstract String usage();
+	protected abstract String usage();
 
 	public List<Method> getHandlers() {
 		return handlers;

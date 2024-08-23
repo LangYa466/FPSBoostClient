@@ -15,7 +15,7 @@ import net.minecraft.entity.Entity;
 
 import java.awt.*;
 
-@Module(name = "ComboDisplay",description = "显示PVP连击数",category = Category.GUI)
+@Module(name = "ComboDisplay",cnName = "Combo显示",description = "显示PVP连击数",category = Category.GUI)
 public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);

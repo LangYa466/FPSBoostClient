@@ -9,5 +9,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="minecraft" level="project" />
+    <orderEntry type="library" name="irc" level="project" />
+    <orderEntry type="library" name="annotations" level="project" />
   </component>
 </module>

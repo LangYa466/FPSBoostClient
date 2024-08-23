@@ -11,12 +11,15 @@ import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.util.List;
+
+import com.yumegod.obfuscation.NoRename;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 
+@NoRename
 public class Main
 {
     public static void main(String[] args)

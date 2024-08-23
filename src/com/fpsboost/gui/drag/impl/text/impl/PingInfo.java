@@ -12,7 +12,7 @@ import com.fpsboost.value.impl.NumberValue;
 
 import java.awt.*;
 
-@Module(name = "PingInfo",description = "显示你的Ping(延迟)",category = Category.GUI)
+@Module(name = "PingInfo",cnName = "延迟显示",description = "显示你的Ping(延迟)",category = Category.GUI)
 public class PingInfo extends TextDisplay implements Access.InstanceAccess {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
