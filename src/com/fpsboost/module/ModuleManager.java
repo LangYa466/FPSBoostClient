@@ -268,7 +268,7 @@ public final class ModuleManager implements Initializer {
      * @return {@link String}
      */
     public String getCNName(Class<?> module) {
-        return modules.get(module).getName();
+        return modules.get(module).getCnName();
     }
 
 

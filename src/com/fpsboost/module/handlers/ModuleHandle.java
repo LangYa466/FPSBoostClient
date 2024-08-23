@@ -123,6 +123,10 @@ public final class ModuleHandle {
         return name;
     }
 
+    public String getCnName() {
+        return cnName;
+    }
+
     public boolean isEnabled() {
         return state;
     }
