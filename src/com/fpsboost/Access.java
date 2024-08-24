@@ -131,6 +131,7 @@ public final class Access {
 
         pluginManager.init();
         moduleManager.init();
+        moduleManager.loadConfig("module.json");
         commandManager.init();
         clickGui.init();
         rankManager = new RankManager();
@@ -142,7 +143,7 @@ public final class Access {
 
     public void onStop() {
         dragManager.saveDragData();
-        moduleManager.saveConfig("module");
+        moduleManager.saveConfig("module.json");
     }
 
 

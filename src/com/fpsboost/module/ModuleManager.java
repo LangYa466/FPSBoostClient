@@ -414,7 +414,7 @@ public final class ModuleManager implements Initializer {
                     valueObj.addProperty(value.getName(), ((ComboValue) value).getValue());
                 } else if (value instanceof ColorValue) {
                     valueObj.addProperty(value.getName(), ((ColorValue) value).getValue().getRGB());
-                    valueObj.add(value.getName(), ((ColorValue) value).getRainbow().getJsonObject());
+                  //  valueObj.add(value.getName(), ((ColorValue) value).getRainbow().getJsonObject());
                 }
             }
             object.add(module.getName(),moduleObj);
@@ -462,10 +462,9 @@ public final class ModuleManager implements Initializer {
                 System.out.println("Failed to load config: " + name);
                 e.printStackTrace();
             }
-
         } else {
             System.out.println("Config " + name + " doesn't exist, creating a new one...");
-            saveConfig("module");
+            saveConfig("module.json");
         }
     }
     public void saveConfig(String name) {
@@ -481,10 +480,10 @@ public final class ModuleManager implements Initializer {
     private boolean loaded;
     @EventTarget
     public void onTick(TickEvent event) {
-        if (!loaded) {
-            loadConfig("module");
+/*        if (!loaded) {
+            loadConfig("module.json");
             loaded = true;
-        }
+        }*/
     }
 
 
