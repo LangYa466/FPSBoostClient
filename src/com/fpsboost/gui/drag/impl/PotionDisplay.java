@@ -1,4 +1,4 @@
-package com.fpsboost.gui.drag.impl.text;
+package com.fpsboost.gui.drag.impl;
 
 import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;

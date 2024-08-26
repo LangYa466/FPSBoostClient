@@ -179,7 +179,7 @@ public class SettingsPanel extends Panel {
 
                 GlStateManager.color(1, 1, 1);
                 RenderUtil.drawGoodCircle(x + 113 + (10 * animation.getOutput().floatValue()), settingY1 + 4, 4f, -1);
-                count -= .9f;
+                count -= 1.2f;
             }
 
             if (setting instanceof ComboValue) {

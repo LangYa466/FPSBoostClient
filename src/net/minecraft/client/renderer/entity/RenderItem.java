@@ -2,6 +2,10 @@ package net.minecraft.client.renderer.entity;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+
+import com.fpsboost.Access;
+import com.fpsboost.gui.font.UnicodeFontRenderer;
+import com.fpsboost.module.boost.CustomEnchantmentColor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
@@ -240,20 +244,24 @@ public class RenderItem implements IResourceManagerReloadListener
                     ShadersRender.renderEnchantedGlintBegin();
                 }
 
+                int color = -8372020;
+                if (Access.getInstance().getModuleManager().isEnabled(CustomEnchantmentColor.class)) {
+                    color = CustomEnchantmentColor.color.getValue().getRGB();
+                }
                 GlStateManager.matrixMode(5890);
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(8.0F, 8.0F, 8.0F);
                 float f = (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
                 GlStateManager.translate(f, 0.0F, 0.0F);
                 GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
-                this.renderModel(model, -8372020);
+                this.renderModel(model, color);
                 GlStateManager.popMatrix();
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(8.0F, 8.0F, 8.0F);
                 float f1 = (float)(Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
                 GlStateManager.translate(-f1, 0.0F, 0.0F);
                 GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
-                this.renderModel(model, -8372020);
+                this.renderModel(model, color);
                 GlStateManager.popMatrix();
                 GlStateManager.matrixMode(5888);
                 GlStateManager.blendFunc(770, 771);
@@ -588,6 +596,74 @@ public class RenderItem implements IResourceManagerReloadListener
      * Renders the stack size and/or damage bar for the given ItemStack.
      */
     public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text)
+    {
+        if (stack != null)
+        {
+            if (stack.stackSize != 1 || text != null)
+            {
+                String s = text == null ? String.valueOf(stack.stackSize) : text;
+
+                if (text == null && stack.stackSize < 1)
+                {
+                    s = EnumChatFormatting.RED + String.valueOf(stack.stackSize);
+                }
+
+                GlStateManager.disableLighting();
+                GlStateManager.disableDepth();
+                GlStateManager.disableBlend();
+                fr.drawStringWithShadow(s, (float)(xPosition + 19 - 2 - fr.getStringWidth(s)), (float)(yPosition + 6 + 3), 16777215);
+                GlStateManager.enableLighting();
+                GlStateManager.enableDepth();
+                GlStateManager.enableBlend();
+            }
+
+            if (ReflectorForge.isItemDamaged(stack))
+            {
+                int j1 = (int)Math.round(13.0D - (double)stack.getItemDamage() * 13.0D / (double)stack.getMaxDamage());
+                int i = (int)Math.round(255.0D - (double)stack.getItemDamage() * 255.0D / (double)stack.getMaxDamage());
+
+                if (Reflector.ForgeItem_getDurabilityForDisplay.exists())
+                {
+                    double d0 = Reflector.callDouble(stack.getItem(), Reflector.ForgeItem_getDurabilityForDisplay, new Object[] {stack});
+                    j1 = (int)Math.round(13.0D - d0 * 13.0D);
+                    i = (int)Math.round(255.0D - d0 * 255.0D);
+                }
+
+                GlStateManager.disableLighting();
+                GlStateManager.disableDepth();
+                GlStateManager.disableTexture2D();
+                GlStateManager.disableAlpha();
+                GlStateManager.disableBlend();
+                Tessellator tessellator = Tessellator.getInstance();
+                WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                this.draw(worldrenderer, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
+                this.draw(worldrenderer, xPosition + 2, yPosition + 13, 12, 1, (255 - i) / 4, 64, 0, 255);
+                int j = 255 - i;
+                int k = i;
+                int l = 0;
+
+                if (Config.isCustomColors())
+                {
+                    int i1 = CustomColors.getDurabilityColor(i);
+
+                    if (i1 >= 0)
+                    {
+                        j = i1 >> 16 & 255;
+                        k = i1 >> 8 & 255;
+                        l = i1 >> 0 & 255;
+                    }
+                }
+
+                this.draw(worldrenderer, xPosition + 2, yPosition + 13, j1, 1, j, k, l, 255);
+                GlStateManager.enableBlend();
+                GlStateManager.enableAlpha();
+                GlStateManager.enableTexture2D();
+                GlStateManager.enableLighting();
+                GlStateManager.enableDepth();
+            }
+        }
+    }
+    public void renderItemOverlayIntoGUI(UnicodeFontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text)
     {
         if (stack != null)
         {

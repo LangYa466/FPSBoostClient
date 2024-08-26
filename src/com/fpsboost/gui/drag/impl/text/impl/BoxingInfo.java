@@ -61,7 +61,7 @@ public class BoxingInfo extends TextDisplay {
 
     @EventTarget
     public void onRender2D(Render2DEvent event) {
-        String text = String.format("Boxing: %s |%s", boxing,thePlayerBoxing);
+        String text = String.format("Boxing: %s | %s", boxing,thePlayerBoxing);
         draw(text,backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
 
