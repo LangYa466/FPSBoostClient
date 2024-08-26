@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import com.fpsboost.Access;
+import com.fpsboost.module.boost.MinimizedBobbing;
 import com.fpsboost.module.render.OldAnimation;
 import com.fpsboost.util.TimerUtil;
 import com.google.common.base.Predicate;
@@ -901,8 +902,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
         this.hurtCameraEffect(partialTicks);
 
-        if (this.mc.gameSettings.viewBobbing)
-        {
+        if (this.mc.gameSettings.viewBobbing && !Access.getInstance().getModuleManager().isEnabled(MinimizedBobbing.class)) {
             this.setupViewBobbing(partialTicks);
         }
 
