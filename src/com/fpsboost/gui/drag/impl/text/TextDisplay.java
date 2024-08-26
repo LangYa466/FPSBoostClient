@@ -22,12 +22,8 @@ public class TextDisplay implements Access.InstanceAccess {
         this.drag = Access.getInstance().getDragManager().createDrag(this.getClass(), name, 33, 33);
     }
     public void draw(String text,boolean bg,float opacity,float radius) {
-        float x = drag.getXPos();
-        float y = drag.getYPos();
-        Color color = ColorUtil.applyOpacity(Color.BLACK,opacity);
-        if (bg) RoundedUtil.drawRound(x,y,fontRenderer.getStringWidth(text) + 10.5F,fontRenderer.getHeight(),radius,color);
-        drag.setWH(fontRenderer.getStringWidth(text)  + 10.5F,fontRenderer.getHeight());
-        fontRenderer.drawStringWithShadow(text, x + 5, y + 3,-1);
+        Color alphaColor = ColorUtil.applyOpacity(Color.BLACK,opacity);
+        draw(text,bg,alphaColor,opacity,radius);
     }
     public void draw(String text,boolean bg,Color color,float opacity,float radius) {
         float x = drag.getXPos();

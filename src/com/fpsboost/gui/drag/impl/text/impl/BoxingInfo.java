@@ -1,6 +1,5 @@
 package com.fpsboost.gui.drag.impl.text.impl;
 
-import com.fpsboost.Access;
 import com.fpsboost.annotations.event.EventTarget;
 import com.fpsboost.annotations.system.Module;
 import com.fpsboost.events.misc.AttackEvent;
@@ -16,8 +15,12 @@ import net.minecraft.entity.Entity;
 
 import java.awt.*;
 
-@Module(name = "ComboDisplay",cnName = "Combo显示",description = "显示PVP连击数",category = Category.GUI)
-public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
+/**
+ * @author LangYa
+ * @since 2024/8/26 21:55
+ */
+@Module(name = "BoxingDisplay",cnName = "Boxing显示",description = "显示格式 Boxing : 对面被打的数量 | 我被打的数量",category = Category.GUI)
+public class BoxingInfo extends TextDisplay {
 
     private final BooleanValue backgroundValue = new BooleanValue("背景",true);
     private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
@@ -25,28 +28,29 @@ public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
     private final NumberValue backgroundRadiusValue = new NumberValue("背景圆角值", 2,0,10,1);
 
     public static Entity target;
-    public static int combo = 0;
+    public static int boxing = 0;
+    public static int thePlayerBoxing = 0;
 
-    public ComboInfo() {
-        super("ComboInfo");
+    public BoxingInfo() {
+        super("BoxingInfo");
     }
 
     @EventTarget
     public void onTick(TickEvent e) {
         if (mc.thePlayer == null) return;
 
-        if (mc.thePlayer.hurtTime == 1 || (target != null && mc.thePlayer.getDistanceToEntity(target) > 5)) {
-            combo = 0;
-        }
-
         if (target != null && target.isEntityAlive() && target.hurtResistantTime == 19) {
-            combo++;
+            boxing++;
+        }
+        if (mc.thePlayer.hurtResistantTime == 19 && mc.thePlayer.isEntityAlive()) {
+            thePlayerBoxing++;
         }
     }
 
     @EventTarget
     public void onWorld(WorldLoadEvent event) {
-        combo = 0;
+        boxing = 0;
+        thePlayerBoxing = 0;
         target = null;
     }
 
@@ -57,9 +61,8 @@ public class ComboInfo extends TextDisplay implements Access.InstanceAccess {
 
     @EventTarget
     public void onRender2D(Render2DEvent event) {
-        String text = String.format("Combo: %s", combo);
+        String text = String.format("Boxing: %s |%s", boxing,thePlayerBoxing);
         draw(text,backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
     }
-
 
 }

@@ -35,6 +35,12 @@ public class RawInputMod {
                             dy = 0;
                         }
                     }
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
             inputThread.setName("inputThread");

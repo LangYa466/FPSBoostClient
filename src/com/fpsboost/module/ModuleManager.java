@@ -477,14 +477,5 @@ public final class ModuleManager implements Initializer {
         }
     }
 
-    private boolean loaded;
-    @EventTarget
-    public void onTick(TickEvent event) {
-/*        if (!loaded) {
-            loadConfig("module.json");
-            loaded = true;
-        }*/
-    }
-
 
 }

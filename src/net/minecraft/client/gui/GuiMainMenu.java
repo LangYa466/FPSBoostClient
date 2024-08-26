@@ -201,7 +201,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         {
             this.buttonList.add(this.settingButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.options", new Object[0])));
         }
-        this.buttonList.add(new GuiButton(4, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 3, I18n.format("切换兼容模式(部分渲染效果不同)", new Object[0])));
+        this.buttonList.add(new GuiButton(4, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 3, "切换兼容模式(部分渲染效果不同)"));
         this.buttonList.add(new GuiButton(5, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 4, I18n.format("menu.quit", new Object[0])));
     }
 
