@@ -1,6 +1,7 @@
 package com.fpsboost;
 
 import com.fpsboost.events.EventManager;
+import com.fpsboost.fpsboost.MemoryFix;
 import com.fpsboost.gui.drag.DragManager;
 import com.fpsboost.irc.IRCManager;
 import com.fpsboost.module.ModuleManager;
@@ -138,6 +139,7 @@ public final class Access {
        // configManager.getConfigs().forEach(config -> configManager.loadConfig(config.name));
         EventManager.register(dragManager);
         EventManager.register(moduleManager);
+        EventManager.register(new MemoryFix());
        // new WingsManager();
     }
 

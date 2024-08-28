@@ -41,7 +41,7 @@ public class NameTag implements Access.InstanceAccess {
     @EventTarget
     public void onRender3D(Render3DEvent event) {
         for (Entity entity : mc.theWorld.loadedEntityList) {
-            if (!RenderUtil.isInView(entity) || !(entity instanceof EntityPlayer))
+            if (!RenderUtil.isInView(entity) || !(entity instanceof EntityPlayer) || entity.isDead || entity.isInvisible())
                 continue;
 
             String text = entity.getDisplayName().getUnformattedText();
@@ -67,7 +67,7 @@ public class NameTag implements Access.InstanceAccess {
         UnicodeFontRenderer fontRenderer = FontManager.M22;
 
         // Modify tag
-        String nameColor = entity.isInvisible() ? "§6" : entity.isSneaking() ? "§4" : "§7";
+        String nameColor = entity.isSneaking() ? "§4" : "§7";
         int ping = entity instanceof EntityPlayer ? getPing((EntityPlayer) entity) : 0;
 
         String distanceText = distanceValue.getValue() ? "§7"+Math.round(mc.thePlayer.getDistanceToEntity(entity))+"m " : "";
@@ -77,11 +77,7 @@ public class NameTag implements Access.InstanceAccess {
         String text;
 
         //        if (Access.getInstance().getIrcManager().getTransport().isUser(tag)) {
-        if (false) {
-            text = "[客户端用户] " + distanceText + pingText + nameColor + tag + healthText;
-        } else {
-            text = distanceText + pingText + nameColor + tag + healthText;
-        }
+        text = distanceText + pingText + nameColor + tag + healthText;
 
         // Push
         GL11.glPushMatrix();
