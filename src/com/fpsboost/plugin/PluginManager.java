@@ -38,62 +38,60 @@ public class PluginManager implements Access.InstanceAccess {
                         Access.getInstance().getModuleManager().register(clazz,module.name(),"",module.category(),module.description());
                         System.out.println("注册插件 >> " + clazz.getName());
                     }
-                    if(clazz.isAnnotationPresent(Command.class)){
-                        if(clazz.isAnnotationPresent(Command.class)){
-                            Command command = clazz.getAnnotation(Command.class);
-                            Object inst = null;
-                            try {
-                                inst = Access.getInstance().getInvoke().createInstance(clazz);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            Object finalInst = inst;
-                            try {
-                                assert finalInst != null;
-                                Access.getInstance().getInvoke().autoWired(finalInst);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            Access.getInstance().getInvoke().registerBean(finalInst);
-                            CommandHandle handle = new CommandHandle() {
+                    if (clazz.isAnnotationPresent(Command.class)) {
+                        Command command = clazz.getAnnotation(Command.class);
+                        Object inst = null;
+                        try {
+                            inst = Access.getInstance().getInvoke().createInstance(clazz);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Object finalInst = inst;
+                        try {
+                            assert finalInst != null;
+                            Access.getInstance().getInvoke().autoWired(finalInst);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Access.getInstance().getInvoke().registerBean(finalInst);
+                        CommandHandle handle = new CommandHandle() {
 
-                                @Override
-                                public void run(String[] args) {
-                                    for (Method handler : getHandlers()) {
-                                        try {
-                                            Access.getInstance().getInvoke().invokeMethod(finalInst,handler,args);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
+                            @Override
+                            public void run(String[] args) {
+                                for (Method handler : getHandlers()) {
+                                    try {
+                                        Access.getInstance().getInvoke().invokeMethod(finalInst, handler, args);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
                                 }
+                            }
 
-                                @Override
-                                public String usage() {
-                                    return command.usage();
-                                }
-                            };
+                            @Override
+                            public String usage() {
+                                return command.usage();
+                            }
+                        };
 
-                            for (Method method : clazz.getDeclaredMethods()) {
-                                if(method.isAnnotationPresent(Command.Handler.class)){
-                                    if(method.getParameters().length > 0){
-                                        if(method.getParameters()[0].getType() == String[].class){
-                                            handle.getHandlers().add(method);
-                                        }else {
-                                            System.out.println("注册指令 >> " + clazz.getName());
-                                        }
-                                    }else {
+                        for (Method method : clazz.getDeclaredMethods()) {
+                            if (method.isAnnotationPresent(Command.Handler.class)) {
+                                if (method.getParameters().length > 0) {
+                                    if (method.getParameters()[0].getType() == String[].class) {
+                                        handle.getHandlers().add(method);
+                                    } else {
                                         System.out.println("注册指令 >> " + clazz.getName());
                                     }
+                                } else {
+                                    System.out.println("注册指令 >> " + clazz.getName());
                                 }
                             }
-
-                            if(handle.getHandlers().size() > 0){
-                                Access.getInstance().getCommandManager().register(handle,command.value());
-                            }
                         }
-                        System.out.println("注册指令 >> " + clazz.getName());
+
+                        if (handle.getHandlers().size() > 0) {
+                            Access.getInstance().getCommandManager().register(handle, command.value());
+                        }
                     }
+                    System.out.println("注册指令 >> " + clazz.getName());
                 }
             }
         }
