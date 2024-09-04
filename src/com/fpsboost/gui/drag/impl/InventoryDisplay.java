@@ -25,7 +25,7 @@ public class InventoryDisplay implements Access.InstanceAccess{
     public BooleanValue textRender = new BooleanValue("提示显示", true);
     public ComboValue textMode = new ComboValue("提示显示语言", "中文", "英文", "中文");
     private final ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
-    private static final NumberValue customAlpha = new NumberValue("背景不透明度",80,0,255,5);
+    private final NumberValue opacity = new NumberValue("背景不透明度", 0.25, 0.0, 1, .05);
     private static final NumberValue customRadius = new NumberValue("背景圆角值", 2,0,10,1);
     private final Dragging drag = Access.getInstance().getDragManager().createDrag(this.getClass(), "inventoryDisplay", 150, 150);
 
@@ -35,7 +35,7 @@ public class InventoryDisplay implements Access.InstanceAccess{
         float startY = drag.getYPos() + 20;
         int curIndex = 0;
         
-        RoundedUtil.drawRound(drag.getXPos(), drag.getYPos(), 185, 79,customRadius.getValue().intValue(), ColorUtil.applyOpacity(colorValue.getValue(),customAlpha.getValue().intValue()));
+        RoundedUtil.drawRound(drag.getXPos(), drag.getYPos(), 185, 79,customRadius.getValue().intValue(), ColorUtil.applyOpacity(colorValue.getValue(),opacity.getValue().intValue()));
         RoundedUtil.drawRound(drag.getXPos(), drag.getYPos() + 16, 185, 1, 0, Color.white);
 
         if (textRender.getValue()) {

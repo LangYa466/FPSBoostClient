@@ -847,7 +847,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     /**
      * Draw with the WorldRenderer
-     *  
+     *
      * @param posX X position for the render
      * @param posY Y position for the render
      * @param texU X position for the texture
@@ -2491,7 +2491,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     /**
      * Return an ItemStack with the NBTTag of the TileEntity ("Owner" if the block is a skull)
-     *  
+     *
      * @param itemIn The item from the block picked
      * @param meta Metadata of the item
      * @param tileEntityIn TileEntity of the block picked
@@ -3093,7 +3093,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     /**
      * Set if the player is connected to a realms server
-     *  
+     *
      * @param isConnected The value that set if the player is connected to a realms server or not
      */
     public void setConnectedToRealms(boolean isConnected)

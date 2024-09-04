@@ -306,7 +306,7 @@ public class ItemRenderer
      * Performs transformations prior to the rendering of a held item in first person.
      */
     private void transformFirstPersonItem(float equipProgress, float swingProgress) {
-        boolean animations = Access.getInstance().getModuleManager().isEnabled(CustomHeldItem.class);
+        boolean animations = CustomHeldItem.isEnable;
         double x = animations ? .56 + (CustomHeldItem.x.getValue() * .01) : .56;
         double y = animations ? .52 - (CustomHeldItem.y.getValue() * .01) : .52;
         double size = animations ? .40 + (CustomHeldItem.size.getValue() * .01) : .40;

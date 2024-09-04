@@ -1,5 +1,8 @@
 package net.minecraft.client.gui;
 
+import com.fpsboost.module.render.CustomScoreboard;
+import com.fpsboost.util.render.RoundedUtil;
+import com.fpsboost.util.render.StencilUtil;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -36,6 +39,7 @@ import net.optifine.CustomColors;
 import com.fpsboost.events.EventManager;
 import com.fpsboost.events.render.Render2DEvent;
 
+import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -587,25 +591,32 @@ public class GuiIngame extends Gui
         int k1 = 3;
         int l1 = scaledRes.getScaledWidth() - i - k1;
         int j = 0;
+        int k = j1 - j * this.getFontRenderer().FONT_HEIGHT;
+        int l = scaledRes.getScaledWidth() - k1 + 2;
+        boolean isCustom = CustomScoreboard.isEnable;
+        if (isCustom && CustomScoreboard.displayRect.getValue()) RoundedUtil.drawRound(l1 - 2, k - collection.size() * 10F, l,  (this.getFontRenderer().FONT_HEIGHT * 1.3F) * collection.size(), CustomScoreboard.customRadius.getValue().intValue(),new Color(0,0,0,80));
 
         for (Score score1 : collection)
         {
+            int k12 = j1 - j * this.getFontRenderer().FONT_HEIGHT;
+            int l12 = scaledRes.getScaledWidth() - k1 + 2;
             ++j;
             ScorePlayerTeam scoreplayerteam1 = scoreboard.getPlayersTeam(score1.getPlayerName());
             String s1 = ScorePlayerTeam.formatPlayerName(scoreplayerteam1, score1.getPlayerName());
             String s2 = EnumChatFormatting.RED + "" + score1.getScorePoints();
-            int k = j1 - j * this.getFontRenderer().FONT_HEIGHT;
-            int l = scaledRes.getScaledWidth() - k1 + 2;
-            drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
-            this.getFontRenderer().drawString(s1, l1, k, 553648127);
-            this.getFontRenderer().drawString(s2, l - this.getFontRenderer().getStringWidth(s2), k, 553648127);
+            if (!isCustom) drawRect(l1 - 2, k, l, k + this.getFontRenderer().FONT_HEIGHT, 1342177280);
+            this.getFontRenderer().drawString(s1, l1, k12, 553648127);
+            if (isCustom && CustomScoreboard.displayReadLine.getValue()) this.getFontRenderer().drawString(s2, l12 - this.getFontRenderer().getStringWidth(s2), k12, 553648127);
 
             if (j == collection.size())
             {
                 String s3 = objective.getDisplayName();
-                drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
-                drawRect(l1 - 2, k - 1, l, k, 1342177280);
-                this.getFontRenderer().drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k - this.getFontRenderer().FONT_HEIGHT, 553648127);
+                if (!isCustom) drawRect(l1 - 2, k - this.getFontRenderer().FONT_HEIGHT - 1, l, k - 1, 1610612736);
+                int k22 = j1 - j * this.getFontRenderer().FONT_HEIGHT;
+
+
+                if (!isCustom) drawRect(l1 - 2, k - 1, l, k, 1342177280);
+                this.getFontRenderer().drawString(s3, l1 + i / 2 - this.getFontRenderer().getStringWidth(s3) / 2, k22 - this.getFontRenderer().FONT_HEIGHT, 553648127);
             }
         }
     }
@@ -953,7 +964,7 @@ public class GuiIngame extends Gui
 
     /**
      * Renders a Vignette arount the entire screen that changes with light level.
-     *  
+     *
      * @param lightLevel The current brightness
      * @param scaledRes The current resolution of the game
      */
