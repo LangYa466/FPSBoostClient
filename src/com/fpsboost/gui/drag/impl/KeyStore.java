@@ -148,6 +148,5 @@ public class KeyStore  implements Access.InstanceAccess {
             }
             font.drawCenteredString(keyName, x + width / 2 + offsetX - 0.1F, y + height / 2 - font.getHeight() / 2f + offsetY + 2.3F, Color.WHITE.getRGB());
         }
-        //lrAnimation
     }
 }

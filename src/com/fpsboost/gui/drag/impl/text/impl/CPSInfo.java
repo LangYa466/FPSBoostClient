@@ -9,8 +9,10 @@ import com.fpsboost.util.CPSCounter;
 import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
+import org.lwjgl.input.Mouse;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 
 @Module(name = "CPSDisplay",cnName = "CPS显示",description = "显示你的CPS",category = Category.GUI)
@@ -25,10 +27,52 @@ public class CPSInfo extends TextDisplay {
         super("CPSInfo");
     }
 
+    private final ArrayList<Long> clicksLMB = new ArrayList<>();
+
+    private final ArrayList<Long> clicksRMB = new ArrayList<>();
+
+    private boolean wasPressedLMB;
+
+    private boolean wasPressedRMB;
 
     @EventTarget
     public void draw(Render2DEvent event) {
-        String text = String.format("CPS : %s | %s", CPSCounter.getCPS(CPSCounter.MouseButton.LEFT), CPSCounter.getCPS(CPSCounter.MouseButton.RIGHT));
-        draw(text,backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
+        draw(getText(),backgroundValue.getValue(),colorValue.getValue(),opacity.getValue().floatValue(),backgroundRadiusValue.getValue().floatValue());
+    }
+    public String getText() {
+
+        boolean pressedLMB = Mouse.isButtonDown(0);
+
+        if(pressedLMB != this.wasPressedLMB) {
+            long lastPressedLMB = System.currentTimeMillis();
+            this.wasPressedLMB = pressedLMB;
+            if(pressedLMB) {
+                this.clicksLMB.add(lastPressedLMB);
+            }
+        }
+
+        boolean pressedRMB = Mouse.isButtonDown(1);
+
+        if(pressedRMB != this.wasPressedRMB) {
+            long lastPressedRMB = System.currentTimeMillis();
+            this.wasPressedRMB = pressedRMB;
+            if(pressedRMB) {
+                this.clicksRMB.add(lastPressedRMB);
+            }
+        }
+
+        return String.format("CPS : %s | %s", this.getLMB(), this.getRMB());
+    }
+
+    public int getLMB() {
+        final long time = System.currentTimeMillis();
+        this.clicksLMB.removeIf(aLong -> aLong + 1000 < time);
+        return this.clicksLMB.size();
+    }
+
+    public int getRMB() {
+        final long time = System.currentTimeMillis();
+        this.clicksRMB.removeIf(aLong -> aLong + 1000 < time);
+        return this.clicksRMB.size();
     }
 }
