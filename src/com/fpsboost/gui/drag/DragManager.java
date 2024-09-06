@@ -27,6 +27,7 @@ public class DragManager {
     }
 
     public void saveDragData() {
+        System.out.println("Saving config: drag.json");
         if (!DRAG_DATA.exists()) {
             DRAG_DATA.getParentFile().mkdirs();
         }

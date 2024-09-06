@@ -2,7 +2,12 @@ package com.fpsboost.util.render;
 
 import com.fpsboost.util.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -18,6 +23,46 @@ public class RoundedUtil {
 
     public static void drawRound(float x, float y, float width, float height, float radius, Color color) {
         drawRound(x, y, width, height, radius, false, color);
+    }
+
+    public static void drawRoundWithGL(float x, float y, float width, float height, float radius, Color color) {
+        RenderUtil.drawRect(x, y + radius, x + radius, y + height - radius, color.getRGB());
+        RenderUtil.drawRect(x + radius, y, x + width - radius, y + height, color.getRGB());
+        RenderUtil.drawRect(x + width - radius, y + radius, x + width, y + height - radius, color.getRGB());
+
+        drawArc(x + radius, y + radius, radius, 0, 90, color);
+        drawArc(x + width - radius, y + radius, radius, 270, 360, color);
+        drawArc(x + width - radius, y + height - radius, radius, 180, 270, color);
+        drawArc(x + radius, y + height - radius, radius, 90, 180, color);
+    }
+
+    public static void drawRoundWithGL(int x, int y, int width, int height, int radius, int color) {
+        drawRoundWithGL(x,y,width,height,radius,new Color(color));
+    }
+
+    public static void drawArc(float x, float y, float radius, int startAngle, int endAngle, Color color) {
+
+        GL11.glPushMatrix();
+        GL11.glEnable(3042);
+        GL11.glDisable(3553);
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
+
+        WorldRenderer worldRenderer = Tessellator.getInstance().getWorldRenderer();
+
+        worldRenderer.begin(6, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(x, y, 0).endVertex();
+
+        for (int i = (int) (startAngle / 360.0 * 100); i <= (int) (endAngle / 360.0 * 100); i++) {
+            double angle = (Math.PI * 2 * i / 100) + Math.toRadians(180);
+            worldRenderer.pos(x + Math.sin(angle) * radius, y + Math.cos(angle) * radius, 0).endVertex();
+        }
+
+        Tessellator.getInstance().draw();
+
+        GL11.glEnable(3553);
+        GL11.glDisable(3042);
+        GL11.glPopMatrix();
     }
 
     public static void drawGradientHorizontal(float x, float y, float width, float height, float radius, Color left, Color right) {

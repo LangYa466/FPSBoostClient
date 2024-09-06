@@ -14,6 +14,7 @@ import com.fpsboost.util.animations.Direction;
 import com.fpsboost.util.animations.impl.SmoothStepAnimation;
 import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
+import com.fpsboost.value.impl.BooleanValue;
 import com.fpsboost.value.impl.ColorValue;
 import com.fpsboost.value.impl.NumberValue;
 import net.minecraft.client.settings.KeyBinding;
@@ -29,11 +30,12 @@ import java.awt.*;
 @Module(name = "KeyStore",cnName = "按键显示",description = "按键显示",category = Category.GUI)
 public class KeyStore  implements Access.InstanceAccess {
     public static ColorValue colorValue = new ColorValue("背景颜色",new Color(0,0,0));
+    private final BooleanValue lrDisplay = new BooleanValue("左右键显示",true);
+    public static final BooleanValue lrAnimation = new BooleanValue("左右键动画",true);
     private static final NumberValue opacity = new NumberValue("不透明度", 0.25, 0.0, 1, .05);
     private static final NumberValue radius = new NumberValue("圆角", 3, 1, 17.5, .5);
     private final NumberValue offsetValue = new NumberValue("间隔", 3, 2.5, 10, .5);
     private final NumberValue sizeValue = new NumberValue("大小", 25, 15, 35, 1);
-
     private final Dragging dragging = Access.getInstance().getDragManager().createDrag(this.getClass(), "Keystrokes", 70, 70);
 
     private Button keyBindForward;
@@ -41,6 +43,8 @@ public class KeyStore  implements Access.InstanceAccess {
     private Button keyBindBack;
     private Button keyBindRight;
     private Button keyBindJump;
+    private Button keyBindAttack;
+    private Button keyBindUseItem;
 
     @EventTarget
     public void onRender(Render2DEvent e) {
@@ -54,6 +58,8 @@ public class KeyStore  implements Access.InstanceAccess {
             keyBindBack = new Button(mc.gameSettings.keyBindBack);
             keyBindRight = new Button(mc.gameSettings.keyBindRight);
             keyBindJump = new Button(mc.gameSettings.keyBindJump);
+            keyBindAttack = new Button(mc.gameSettings.keyBindAttack);
+            keyBindUseItem = new Button(mc.gameSettings.keyBindUseItem);
         }
 
         float x = dragging.getX(), y = dragging.getY(), width = dragging.getWidth(), size = sizeValue.getValue().floatValue();
@@ -63,7 +69,16 @@ public class KeyStore  implements Access.InstanceAccess {
         keyBindLeft.render(x, y + increment, size);
         keyBindBack.render(x + increment, y + increment, size);
         keyBindRight.render(x + (increment * 2), y + increment, size);
-        keyBindJump.render(x, y + increment * 2, width, size);
+        keyBindJump.render("SPACE",x, y + increment * 2, width, size);
+        if (lrDisplay.getValue()) {
+            if (lrAnimation.getValue()) {
+                keyBindAttack.render("LMB", x, y + increment * 3, width / 2.1F, size);
+                keyBindUseItem.render("RMB", x + (increment * 1.5f), y + increment * 3, width / 2.1F, size);
+            } else {
+                keyBindAttack.renderNoAnimation("LMB", x, y + increment * 3, width / 2.1F, size);
+                keyBindUseItem.renderNoAnimation("RMB", x + (increment * 1.5f), y + increment * 3, width / 2.1F, size);
+            }
+        }
     }
 
 
@@ -77,9 +92,10 @@ public class KeyStore  implements Access.InstanceAccess {
         }
 
         public void render(float x, float y, float size) {
-            render(x, y, size, size);
+            render(Keyboard.getKeyName(binding.getKeyCode()),x, y, size, size);
         }
 
+/*
         public void render(float x, float y, float width, float height) {
             Color color = ColorUtil.applyOpacity(KeyStore.colorValue.getValue(), opacity.getValue().floatValue());
             clickAnimation.setDirection(binding.isKeyDown() ? Direction.FORWARDS : Direction.BACKWARDS);
@@ -99,5 +115,39 @@ public class KeyStore  implements Access.InstanceAccess {
                 RenderUtil.scaleEnd();
             }
         }
+
+ */
+        public void render(String keyName,float x, float y, float width, float height) {
+            Color color = ColorUtil.applyOpacity(KeyStore.colorValue.getValue(), opacity.getValue().floatValue());
+            clickAnimation.setDirection(binding.isKeyDown() ? Direction.FORWARDS : Direction.BACKWARDS);
+
+            RoundedUtil.drawRound(x, y, width, height, radius.getValue().floatValue(), color);
+            float offsetX = 0;
+            int offsetY = 0;
+
+            font.drawCenteredString(keyName, x + width / 2 + offsetX - 0.1F, y + height / 2 - font.getHeight() / 2f + offsetY + 2.3F, Color.WHITE.getRGB());
+
+            if (!clickAnimation.finished(Direction.BACKWARDS)) {
+                float animation = clickAnimation.getOutput().floatValue();
+                Color color2 = ColorUtil.applyOpacity(Color.WHITE, (0.5f * animation));
+                RenderUtil.scaleStart(x + width / 2f, y + height / 2f, animation);
+                float diff = (height / 2f) - radius.getValue().floatValue();
+                RoundedUtil.drawRound(x, y, width, height, ((height / 2f) - (diff * animation)), color2);
+                RenderUtil.scaleEnd();
+            }
+        }
+        public void renderNoAnimation(String keyName,float x, float y, float width, float height) {
+            Color color = ColorUtil.applyOpacity(KeyStore.colorValue.getValue(), opacity.getValue().floatValue());
+
+            RoundedUtil.drawRound(x, y, width, height, radius.getValue().floatValue(), color);
+            float offsetX = 0;
+            int offsetY = 0;
+
+            if (binding.isKeyDown()) {
+                RoundedUtil.drawRound(x, y, width, height, radius.getValue().floatValue(), color);
+            }
+            font.drawCenteredString(keyName, x + width / 2 + offsetX - 0.1F, y + height / 2 - font.getHeight() / 2f + offsetY + 2.3F, Color.WHITE.getRGB());
+        }
+        //lrAnimation
     }
 }

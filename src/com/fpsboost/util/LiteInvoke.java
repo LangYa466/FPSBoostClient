@@ -147,7 +147,29 @@ public class LiteInvoke {
         return method.invoke(instance, args);
     }
 
-    public Object invokeMethod(Object instance,Method method,Object firstParam) throws Exception {
+    public void invokeMethod(Object instance,Method method,Object firstParam) throws Exception {
+        Parameter[] parameters = method.getParameters();
+        Object[] args = new Object[parameters.length];
+        args[0] = firstParam;
+        for (int i = 1; i < parameters.length; i++) {
+            Parameter parameter = parameters[i];
+            Class<?> parameterType = parameter.getType();
+            if (beans.containsKey(parameterType)) {
+                args[i] = beans.get(parameterType);
+            } else {
+                throw new IllegalArgumentException("Instance not found for parameter: " + parameter.getName());
+            }
+        }
+        method.setAccessible(true);
+        try {
+            method.invoke(instance, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // test
+    public Object invokeMethodWithDevMode(Object instance,Method method,Object firstParam) throws Exception {
         Parameter[] parameters = method.getParameters();
         Object[] args = new Object[parameters.length];
         args[0] = firstParam;
@@ -163,6 +185,7 @@ public class LiteInvoke {
         method.setAccessible(true);
         return method.invoke(instance, args);
     }
+
 
     @Target(ElementType.FIELD)
     @Retention(RetentionPolicy.RUNTIME)
