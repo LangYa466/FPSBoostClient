@@ -20,7 +20,6 @@ import java.awt.*;
 @Module(name = "ModuleList",cnName = "功能列表",description = "模仿外挂的ArrayList就是显示全部功能",category = Category.GUI)
 public class ArrayList implements Access.InstanceAccess {
 
-    private final ColorValue textColor = new ColorValue("文本颜色",new Color(0,0,0));
     private final NumberValue spacing = new NumberValue("间距", 3, 1, 5, 1);
     private final BooleanValue background = new BooleanValue("背景",true);
     private final NumberValue opacity = new NumberValue("背景透明度", 0.25, 0.0, 1, .05);
@@ -32,6 +31,7 @@ public class ArrayList implements Access.InstanceAccess {
     @EventTarget
     public void onRender2D(Render2DEvent event) {
         int y1 = 4;
+        int count = 0;
         int width = 0;
         float x = pos.getXPos();
         float y = pos.getYPos();
@@ -58,10 +58,14 @@ public class ArrayList implements Access.InstanceAccess {
                 float width2 = FontManager.M22.getStringWidth(displayText);
                 RoundedUtil.drawRound(x - 2, y + y1, width2 + offset, FontManager.M22.getHeight(),radius.getValue().intValue(), ColorUtil.applyOpacity(color, opacity.getValue().floatValue()));
             }
-            FontManager.M22.drawStringWithShadow(displayText, x , y + y1 + 2F, textColor.getValue().getRGB());
+            count++;
+            FontManager.M22.drawStringWithShadow(displayText, x , y + y1 + 2F, rainbow(count).getRGB());
             y1 += FontManager.M22.getHeight() + spacing.getValue().intValue();
         }
     }
 
+    public Color rainbow(int index) {
+        return ColorUtil.rainbow(15, index, 1, 1, 1);
+    }
 
 }

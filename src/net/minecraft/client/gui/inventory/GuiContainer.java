@@ -28,7 +28,7 @@ public abstract class GuiContainer extends GuiScreen
     protected int xSize = 176;
 
     /** The Y size of the inventory window in pixels. */
-    protected int ySize = 166;
+    public int ySize = 166;
 
     /** A list of the players inventory slots */
     public Container inventorySlots;

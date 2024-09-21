@@ -93,6 +93,17 @@ public class ColorUtil implements Access.InstanceAccess {
         return new Color(Color.HSBtoRGB((float) Math.random(), (float) (.5 + Math.random() / 2), (float) (.5 + Math.random() / 2f)));
     }
 
+
+    public static Color healthColor(float health, float maxHealth) {
+        float pct = (health / maxHealth) * 255F;
+        int red = Math.max(Math.min(255 - (int)pct, 255), 0);
+        int green = Math.max(Math.min((int)pct, 255), 0);
+        int blue = 0;
+        int alpha = 255;
+
+        return new Color(alpha, red, green, blue);
+    }
+
     //RGB TO HSL AND HSL TO RGB FOUND HERE: https://gist.github.com/mjackson/5311256
     public static Color hslToRGB(float[] hsl) {
         float red, green, blue;

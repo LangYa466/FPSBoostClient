@@ -2039,5 +2039,17 @@
     "sounds": [
       "rise/click/alan"
     ]
+  },
+  "langya.key.key": {
+    "category": "master",
+    "sounds": [
+      "langya/key/key"
+    ]
+  },
+  "langya.key.space": {
+    "category": "master",
+    "sounds": [
+      "langya/key/space"
+    ]
   }
 }
