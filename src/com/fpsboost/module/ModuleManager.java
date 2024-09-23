@@ -1,8 +1,6 @@
 package com.fpsboost.module;
 
 import com.fpsboost.annotations.system.Init;
-import com.fpsboost.events.misc.WorldLoadEvent;
-import com.fpsboost.events.update.TickEvent;
 import com.fpsboost.plugin.ClassLoaderUtil;
 import com.fpsboost.value.impl.ColorValue;
 import com.google.gson.*;
@@ -73,9 +71,9 @@ public final class ModuleManager implements Initializer {
     }
     @EventTarget
     public void onKey(KeyInputEvent event) {
-        for (Class<?> module : modules.keySet())
-            if (getKey(module) == event.getKey())
-                toggle(module);
+        for (ModuleHandle cModule : getCModules()) {
+            if (cModule.getKey() == event.getKey()) cModule.toggle();
+        }
     }
 
     /**

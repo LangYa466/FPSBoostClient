@@ -588,7 +588,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
     /**
      * Changes the field of view of the player depending on if they are underwater or not
-     *  
+     *
      * @param useFOVSetting If true the FOV set in the settings will be use in the calculation
      */
     private float getFOVModifier(float partialTicks, boolean useFOVSetting)
@@ -2429,7 +2429,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
     /**
      * Sets up the fog to be rendered. If the arg passed in is -1 the fog starts at 0 and goes to 80% of far plane
      * distance and is used for sky rendering.
-     *  
+     *
      * @param startCoords If is -1 the fog start at 0.0
      */
     private void setupFog(int startCoords, float partialTicks)
