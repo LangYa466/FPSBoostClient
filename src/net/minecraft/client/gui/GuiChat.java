@@ -24,6 +24,7 @@ import java.util.List;
 
 public class GuiChat extends GuiScreen {
     private static final Logger logger = LogManager.getLogger();
+    public static boolean isDragging;
     private String historyBuffer = "";
 
     /**
@@ -231,7 +232,7 @@ public class GuiChat extends GuiScreen {
 
 
         Access.getInstance().getDragManager().getDraggable().values().forEach(dragging -> {
-            if (Access.getInstance().getModuleManager().isEnabled(dragging.getModule())) {
+            if (Access.getInstance().getModuleManager().isEnabled(dragging.getModule()) && !GuiChat.isDragging) {
                 dragging.onClick(mouseX, mouseY, mouseButton);
             }
         });
@@ -247,7 +248,7 @@ public class GuiChat extends GuiScreen {
                 dragging.onRelease(state);
             }
         });
-
+        isDragging = false;
     }
 
     /**

@@ -9,6 +9,7 @@ import com.fpsboost.util.render.ColorUtil;
 import com.fpsboost.util.render.RoundedUtil;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import net.minecraft.client.gui.GuiChat;
 
 import java.awt.*;
 
@@ -103,6 +104,7 @@ public class Dragging {
 
     public final void onClick(int mouseX, int mouseY, int button) {
         boolean canDrag = HoveringUtil.isHovering(xPos, yPos, width, height, mouseX, mouseY);
+        GuiChat.isDragging = canDrag;
         if (button == 0 && canDrag) {
             dragging = true;
             startX = (int) (mouseX - xPos);
