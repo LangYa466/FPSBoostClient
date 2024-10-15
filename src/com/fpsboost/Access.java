@@ -1,5 +1,6 @@
 package com.fpsboost;
 
+import com.fpsboost.api.viamcp.ViaMCP;
 import com.fpsboost.events.EventManager;
 import com.fpsboost.fpsboost.MemoryFix;
 import com.fpsboost.gui.drag.DragManager;
@@ -34,7 +35,7 @@ import java.security.NoSuchAlgorithmException;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.63.1";
+    public static final String CLIENT_VERSION = "1.63.2";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
 
@@ -140,6 +141,18 @@ public final class Access {
         EventManager.register(dragManager);
         EventManager.register(moduleManager);
         EventManager.register(new MemoryFix());
+
+        // Init ViaMCP
+        try {
+            ViaMCP.create();
+
+            // In case you want a version slider like in the Minecraft options, you can use this code here, please choose one of those:
+
+            ViaMCP.INSTANCE.initAsyncSlider(); // For top left aligned slider
+            ViaMCP.INSTANCE.initAsyncSlider(5, 2, 110, 20);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
        // new WingsManager();
     }
 

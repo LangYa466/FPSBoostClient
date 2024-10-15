@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+
+import com.fpsboost.Access;
+import com.fpsboost.api.vialoadingbase.ViaLoadingBase;
+import com.fpsboost.module.boost.Protocol;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -2035,6 +2040,9 @@ public abstract class Entity implements ICommandSender
 
     public float getCollisionBorderSize()
     {
+        if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_12_2) && Access.getInstance().getModuleManager().isEnabled(Protocol.class)) {
+            return 0F;
+        }
         return 0.1F;
     }
 

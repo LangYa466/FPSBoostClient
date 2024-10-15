@@ -1,6 +1,9 @@
 package net.minecraft.network.play.server;
 
 import java.io.IOException;
+
+import com.fpsboost.api.vialoadingbase.ViaLoadingBase;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
@@ -15,8 +18,7 @@ public class S32PacketConfirmTransaction implements Packet<INetHandlerPlayClient
     {
     }
 
-    public S32PacketConfirmTransaction(int windowIdIn, short actionNumberIn, boolean p_i45182_3_)
-    {
+    public S32PacketConfirmTransaction(int windowIdIn, short actionNumberIn, boolean p_i45182_3_) {
         this.windowId = windowIdIn;
         this.actionNumber = actionNumberIn;
         this.field_148893_c = p_i45182_3_;
@@ -33,11 +35,14 @@ public class S32PacketConfirmTransaction implements Packet<INetHandlerPlayClient
     /**
      * Reads the raw packet data from the data stream.
      */
-    public void readPacketData(PacketBuffer buf) throws IOException
-    {
-        this.windowId = buf.readUnsignedByte();
-        this.actionNumber = buf.readShort();
-        this.field_148893_c = buf.readBoolean();
+    public void readPacketData(PacketBuffer buf) throws IOException {
+        if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_17)) {
+            this.windowId = buf.readInt();
+        } else {
+            this.windowId = buf.readUnsignedByte();
+            this.actionNumber = buf.readShort();
+            this.field_148893_c = buf.readBoolean();
+        }
     }
 
     /**

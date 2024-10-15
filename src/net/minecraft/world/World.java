@@ -1,5 +1,6 @@
 package net.minecraft.world;
 
+import com.fpsboost.api.viamcp.fixes.FixedSoundEngine;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -403,6 +404,8 @@ public abstract class World implements IBlockAccess
      */
     public boolean destroyBlock(BlockPos pos, boolean dropBlock)
     {
+        return FixedSoundEngine.destroyBlock(this, pos, dropBlock);
+        /*
         IBlockState iblockstate = this.getBlockState(pos);
         Block block = iblockstate.getBlock();
 
@@ -421,6 +424,8 @@ public abstract class World implements IBlockAccess
 
             return this.setBlockState(pos, Blocks.air.getDefaultState(), 3);
         }
+
+         */
     }
 
     /**

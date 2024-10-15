@@ -1,6 +1,7 @@
 package net.minecraft.client;
 
 import com.fpsboost.api.betterfps.BetterFpsClient;
+import com.fpsboost.api.viamcp.fixes.AttackOrder;
 import com.fpsboost.events.misc.ClickEvent;
 import com.fpsboost.events.misc.WorldLoadEvent;
 import com.fpsboost.util.CPSCounter;
@@ -1418,7 +1419,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         if (this.leftClickCounter <= 0)
         {
             EventManager.call(new ClickEvent());
-            this.thePlayer.swingItem();
+            AttackOrder.sendConditionalSwing(this.objectMouseOver);
 
             if (this.objectMouseOver == null)
             {
@@ -1434,7 +1435,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 switch (this.objectMouseOver.typeOfHit)
                 {
                     case ENTITY:
-                        this.playerController.attackEntity(this.thePlayer, this.objectMouseOver.entityHit);
+                        AttackOrder.sendFixedAttack(this.thePlayer, this.objectMouseOver.entityHit);
                         break;
 
                     case BLOCK:

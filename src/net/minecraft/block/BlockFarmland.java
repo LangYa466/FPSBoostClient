@@ -1,6 +1,11 @@
 package net.minecraft.block;
 
 import java.util.Random;
+
+import com.fpsboost.Access;
+import com.fpsboost.api.vialoadingbase.ViaLoadingBase;
+import com.fpsboost.module.boost.Protocol;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -32,7 +37,11 @@ public class BlockFarmland extends Block
 
     public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new AxisAlignedBB((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)(pos.getY() + 1), (double)(pos.getZ() + 1));
+        double mod = 1f;
+        if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_12_2) && Access.getInstance().getModuleManager().isEnabled(Protocol.class)) {
+            mod = 0.9375f;
+        }
+        return new AxisAlignedBB((double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), (double)(pos.getX() + 1), (double)(pos.getY() + mod), (double)(pos.getZ() + 1));
     }
 
     /**

@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import com.fpsboost.api.viamcp.ViaMCP;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import java.io.IOException;
@@ -78,6 +79,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
         }
 
         this.createButtons();
+        this.buttonList.add(ViaMCP.INSTANCE.getAsyncVersionSlider());
     }
 
     /**

@@ -1,5 +1,9 @@
 package net.minecraft.block;
 
+import com.fpsboost.Access;
+import com.fpsboost.api.vialoadingbase.ViaLoadingBase;
+import com.fpsboost.module.boost.Protocol;
+import com.viaversion.viaversion.api.protocol.version.ProtocolVersion;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -44,7 +48,9 @@ public class BlockLadder extends Block
         if (iblockstate.getBlock() == this)
         {
             float f = 0.125F;
-
+            if (ViaLoadingBase.getInstance().getTargetVersion().newerThanOrEqualTo(ProtocolVersion.v1_12_2) && Access.getInstance().getModuleManager().isEnabled(Protocol.class)) {
+                f = 0.1875f;
+            }
             switch ((EnumFacing)iblockstate.getValue(FACING))
             {
                 case NORTH:
