@@ -35,10 +35,10 @@ import java.security.NoSuchAlgorithmException;
 public final class Access {
 
     public static final String CLIENT_NAME = "FPSBoost Client";
-    public static final String CLIENT_VERSION = "1.63.2";
+    public static final String CLIENT_VERSION = "1.63.3";
     public static final String CLIENT_WEBSITE = "http://122.51.47.169/";
     public static final File DIRECTORY = new File(Minecraft.getMinecraft().mcDataDir, "FPSBoostClient");
-
+    public static ClientMode MODE = ClientMode.PC;
     /**
      * Client Instance, access managers with this
      */
@@ -154,6 +154,14 @@ public final class Access {
             e.printStackTrace();
         }
        // new WingsManager();
+    }
+
+    public static void toggle() {
+        if (MODE.equals(ClientMode.PC)) {
+            MODE = ClientMode.PE;
+        } else if (MODE.equals(ClientMode.PE)) {
+            MODE = ClientMode.PC;
+        }
     }
 
     public void onStop() {

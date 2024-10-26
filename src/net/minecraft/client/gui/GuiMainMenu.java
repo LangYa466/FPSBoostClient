@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import com.fpsboost.Access;
+import com.fpsboost.ClientMode;
 import com.fpsboost.gui.clickGui.drop.ClickGuiScreen;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.render.ClickGui;
@@ -201,8 +202,13 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         {
             this.buttonList.add(this.settingButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.options", new Object[0])));
         }
-        this.buttonList.add(new GuiButton(4, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 3, "切换兼容模式(部分渲染效果不同)"));
+        this.buttonList.add(getGuiButton(this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 3));
         this.buttonList.add(new GuiButton(5, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 4, I18n.format("menu.quit", new Object[0])));
+    }
+
+    private GuiButton getGuiButton(int x,int y) {
+        if (Access.MODE.equals(ClientMode.PE)) return new GuiButton(4, x,y, "切换电脑版");
+        return new GuiButton(4, x,y, "切换手机版");
     }
 
 
@@ -225,6 +231,8 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         if (button.id == 4)
         {
             ClickGui.modernClickGui = new ClickGuiScreen();
+            Access.toggle();
+            this.mc.displayGuiScreen(new GuiMainMenu());
         }
 
         if (button.id == 1)
@@ -494,7 +502,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     }
 
     public void drawChangelog() {
-        String[] Changelog = {"更新日志" , "[+]Rank系统","[~]重写全部GUI","[~]修改主页面","[~]修复UI拖动问题","[~]语言秒切换","[+]中文输入","[~]修复字体渲染内存泄露问题","[~]修复Rank问题","[+]世界时间修改","[+]材质包显示","[+]物品物理掉落","[+]隐藏聊天框背景","[+]指令系统","[+]插件系统","[+]新的点击页面", "[+]兼容手机", "[~]修复自定义物品位置掉帧", "[+] 自定义记分板", "[+]修改CPSDisplay算法","[~]修改KeyStore代码","[~]修复同模块在同位置同时移动坐标的问题 现在只能每次移动一个","[+]花雨庭绕绿和PacketFix","[+]跨版本","[+]填充方块"};
+        String[] Changelog = {"更新日志" , "[+]重载客户端模式免重启"};
         int i = 0;
         for (String s : Changelog) {
             i+=1;
