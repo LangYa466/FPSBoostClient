@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import com.fpsboost.Access;
 import com.fpsboost.ClientMode;
+import com.fpsboost.gui.clickGui.book.ModernClickGui;
 import com.fpsboost.gui.clickGui.drop.ClickGuiScreen;
 import com.fpsboost.gui.font.FontManager;
 import com.fpsboost.module.render.ClickGui;
@@ -230,8 +231,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         if (button.id == 4)
         {
-            ClickGui.modernClickGui = new ClickGuiScreen();
             Access.toggle();
+            if (Access.MODE.equals(ClientMode.PC)) {
+                ClickGui.modernClickGui = new ModernClickGui();
+            } else if (Access.MODE.equals(ClientMode.PE)) {
+                ClickGui.modernClickGui = new ClickGuiScreen();
+            }
             this.mc.displayGuiScreen(new GuiMainMenu());
         }
 
@@ -502,7 +507,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     }
 
     public void drawChangelog() {
-        String[] Changelog = {"更新日志" , "[+]重载客户端模式免重启"};
+        String[] Changelog = {"更新日志" , "[+]重载客户端模式免重启", "[+]Pre Post Render2DEvent"};
         int i = 0;
         for (String s : Changelog) {
             i+=1;

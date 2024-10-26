@@ -167,8 +167,8 @@ public class GuiIngame extends Gui
             this.renderTooltip(scaledresolution, partialTicks);
         }
 
-        Render2DEvent event = new Render2DEvent(scaledresolution, partialTicks);
-        EventManager.call(event);
+        Render2DEvent pre = new Render2DEvent(scaledresolution, partialTicks, true);
+        EventManager.call(pre);
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
@@ -362,6 +362,9 @@ public class GuiIngame extends Gui
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
         GlStateManager.enableAlpha();
+
+        Render2DEvent post = new Render2DEvent(scaledresolution, partialTicks, true);
+        EventManager.call(post);
     }
 
     protected void renderTooltip(ScaledResolution sr, float partialTicks)
