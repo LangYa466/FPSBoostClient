@@ -22,7 +22,7 @@ public class CommandManager implements Initializer {
     /**
      * Command Prefix, you can edit it
      */
-    private static final String prefix = "-";
+    private static final String prefix = ".";
     /**
      * Command map
      */

@@ -1,6 +1,7 @@
 package net.minecraft.client.entity;
 
 import com.fpsboost.Access;
+import com.fpsboost.irc.IRC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -272,11 +273,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void sendChatMessage(String message)
     {
-        if (message.startsWith("-")) {
+        if (message.startsWith(".")) {
             if (Access.getInstance().getCommandManager().processCommand(message)) {
                 return;
             }
         }
+        if (IRC.sendIRCMessage(message)) return;
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
     }
 
